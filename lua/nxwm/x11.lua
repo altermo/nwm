@@ -166,7 +166,7 @@ function M.start()
     end
     M.display=display
     M.true_root=root
-    xlib.XSelectInput(M.display,root,bit.bor(xlib.SubstructureRedirectMask,xlib.SubstructureNotifyMask))
+    xlib.XSelectInput(M.display,root,bit.bor(xlib.SubstructureRedirectMask,xlib.SubstructureNotifyMask,xlib.StructureNotifyMask))
     xlib.XSync(M.display,0)
     M.term_root=M._term_get_id()
 end
@@ -196,13 +196,13 @@ function M.step()
         changes[0].width=cev.width
         changes[0].height=cev.height
         xlib.XConfigureWindow(M.display,cev.window,cev.value_mask,changes)
-        ---HACK: some windows actually resize themselves, not just send a request
-        ---Will be removed when a proper configuration system is implemented
-        return {type='_update'}
+        return
     elseif ev.type==xlib.KeyRelease then
         return {type='key',mod=ev.xkey.state,key=ev.xkey.keycode,win=ev.xkey.window}
     elseif ev.type==xlib.DestroyNotify then
         return {type='destroy',win=ev.xdestroywindow.window}
+    elseif ev.type==xlib.ConfigureNotify then
+        return {type='resize',win=ev.xconfigure.window,width=ev.xconfigure.width,height=ev.xconfigure.height}
     elseif ev.type==xlib.ButtonPress then
         xlib.XAllowEvents(M.display,xlib.ReplayPointer,xlib.CurrentTime);
         return {type='focus',win=ev.xbutton.window}

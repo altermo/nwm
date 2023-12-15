@@ -40,8 +40,8 @@ function M.term_supported()
     local info=x11.term_get_info()
     return info.xpixel~=0 and info.ypixel~=0
 end
-function M.term_set_size()
-    x11.win_position(x11.term_root,0,0,x11.screen_get_size())
+function M.term_set_size(width,height)
+    x11.win_position(x11.term_root,0,0,width,height)
 end
 
 function M.win_update_all(event)
@@ -194,10 +194,13 @@ function M.step()
         M.key_handle(ev.win,ev.key,ev.mod)
     elseif ev.type=='destroy' then
         M.win_del_buf(ev.win)
-    elseif ev.type=='_update' then ---HACK: see x11.lua
-        M.win_update_all()
     elseif ev.type=='focus' then
         M.win_goto(ev.win)
+    elseif ev.type=='resize' then
+        if ev.win==x11.true_root then
+            M.term_set_size(ev.width,ev.height)
+        end
+        M.win_update_all()
     elseif ev.type=='other' then
         if M.conf.verbose then
             vim.notify('event not handled '..x11.code_to_name[ev.type_id],vim.log.levels.INFO)
@@ -216,7 +219,7 @@ function M.start()
     vim.api.nvim_create_autocmd({'WinEnter','BufWinEnter','TabEnter'},{callback=function ()
         vim.schedule_wrap(M.win_update_all)('enter')
     end,group=M.augroup})
-    M.term_set_size()
+    M.term_set_size(x11.screen_get_size())
     local function t()
         if not x11.display then return end
         M.step()
