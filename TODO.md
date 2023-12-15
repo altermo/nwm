@@ -1,5 +1,4 @@
 # BUGS to fix
-+ In alacritty, alt and other mod keys don't work
 + In neovim-qt, it just doesn't work
 # REFACTORING
 + Add type hints
@@ -23,5 +22,6 @@
 + Support window borders
 + Use customisation for x-window-buffer name
     + Live change x-window-buffer name depending on x-window name
++ Multi screen support
 # META
 + Look into recreating the plugin in Wayland
