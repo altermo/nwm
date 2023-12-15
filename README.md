@@ -7,9 +7,7 @@ When entering a x-window-buffer, you'll need to start insert-mode to focus the x
 + `glibc`
 + Terminal supporting `TIOCGWINSZ`
     + Recommended terminal is `kitty`
-    + Others may work with downsides or not work at all
-        + in `alacritty` the alt/ctrl modifiers don't register
-        + `neovim-qt` doesn't work at all
+    + Others may not work (like `neovim-qt`)
     + Run `:lua= require'nxwm'.term_supported()` to check
 ## Installation
 Use whichever package manager you like.\
@@ -59,9 +57,10 @@ Using `require("nxwm").setup({})` is **not required**, it is only there if you w
 2. Run `sx {NXWM}` in a **tty** where `{NXWM}` is path to a terminal which runs Neovim and starts NXWM.\
 NOTE: the terminal should have it's start in the top left, have zero padding, have no title bar...\
 Examples of what `{NXWM}` could be:
-    + kitty: `kitty -o placement_strategy=top-left -o window_padding_width=0 -e nvim -c 'lua require("nxwm").start()'`
-    <!--+ alacritty: `alacritty -o window.padding.x=0 window.padding.y=0 -e nvim -c 'lua require("nxwm").start()'`-->
-    <!--+ neovim-qt: `nvim-qt -- -c 'lua require("nxwm").start()'`-->
+    + kitty: `kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").start()'`
+    + alacritty: `alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'`
+    + wezterm: `wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
+    <!--+ neovim-qt: `nvim-qt --nofork -- -c 'lua require("nxwm").start()'`-->
 ### Use
 Open up a terminal (with `:term`) and run your wanted GUI.
 NOTE: x-windows aren't auto focused by default, so start insert (by pressing `i` or similar) and then you'll focus the window.
