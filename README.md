@@ -7,8 +7,8 @@ When entering a x-window-buffer, you'll need to start insert-mode to focus the x
 + `glibc`
 + Terminal supporting `TIOCGWINSZ`
     + Recommended terminal is `kitty`
-    + Others may not work (like `neovim-qt`)
     + Run `:lua= require'nxwm'.term_supported()` to check
+        + NOTE: some terminals may support `TIOCGWINSZ` while still not working (like `neovim-qt`)
 ## Installation
 Use whichever package manager you like.\
 It is recommended to lock/pin the plugin to one version because of API changes.
