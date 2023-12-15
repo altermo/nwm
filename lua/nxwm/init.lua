@@ -220,6 +220,7 @@ function M.start()
         vim.schedule_wrap(M.win_update_all)('enter')
     end,group=M.augroup})
     M.term_set_size(x11.screen_get_size())
+    x11.term_focus()
     local function t()
         if not x11.display then return end
         M.step()
