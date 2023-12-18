@@ -181,11 +181,6 @@ struct timeval
   __time_t tv_sec;
   __suseconds_t tv_usec;
 };
-struct timespec
-{
-  __time_t tv_sec;
-  __syscall_slong_t tv_nsec;
-};
 typedef __suseconds_t suseconds_t;
 typedef long int __fd_mask;
 typedef struct
@@ -6054,4 +6049,12 @@ enum {XK_Sinh_ruu2=16780786};
 enum {XK_Sinh_luu2=16780787};
 enum {XK_Sinh_kunddaliya=16780788};
 ]=]
+--[lazy.nvim](https://github.com/folke/lazy.nvim) may define `timespec`
+pcall(function() ffi.cdef[=[
+struct timespec
+{
+  __time_t tv_sec;
+  __syscall_slong_t tv_nsec;
+};
+]=] end)
 return ffi.load"X11" --[[@as table]]
