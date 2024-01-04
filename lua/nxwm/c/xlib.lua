@@ -6,4720 +6,204 @@ To regenerate this file, run `nvim -l gen_lib.lua`
 
 local ffi=require"ffi"
 ffi.cdef[=[
-enum {XlibSpecificationRelease=6};
-enum {X_HAVE_UTF8_STRING=1};
-enum {True=1};
-enum {False=0};
-enum {QueuedAlready=0};
-enum {QueuedAfterReading=1};
-enum {QueuedAfterFlush=2};
-enum {XIMPreeditArea=1};
-enum {XIMPreeditCallbacks=2};
-enum {XIMPreeditPosition=4};
-enum {XIMPreeditNothing=8};
-enum {XIMPreeditNone=16};
-enum {XIMStatusArea=256};
-enum {XIMStatusCallbacks=512};
-enum {XIMStatusNothing=1024};
-enum {XIMStatusNone=2048};
-enum {XLookupNone=1};
-enum {XLookupChars=2};
-enum {XLookupKeySym=3};
-enum {XLookupBoth=4};
-enum {XIMReverse=1};
-enum {XIMUnderline=2};
-enum {XIMHighlight=4};
-enum {XIMPrimary=32};
-enum {XIMSecondary=64};
-enum {XIMTertiary=128};
-enum {XIMVisibleToForward=256};
-enum {XIMVisibleToBackword=512};
-enum {XIMVisibleToCenter=1024};
-enum {XIMPreeditUnKnown=0};
-enum {XIMPreeditEnable=1};
-enum {XIMPreeditDisable=2};
-enum {XIMInitialState=1};
-enum {XIMPreserveState=2};
-typedef unsigned char __u_char;
-typedef unsigned short int __u_short;
-typedef unsigned int __u_int;
-typedef unsigned long int __u_long;
-typedef signed char __int8_t;
-typedef unsigned char __uint8_t;
-typedef signed short int __int16_t;
-typedef unsigned short int __uint16_t;
-typedef signed int __int32_t;
-typedef unsigned int __uint32_t;
-typedef signed long int __int64_t;
-typedef unsigned long int __uint64_t;
-typedef __int8_t __int_least8_t;
-typedef __uint8_t __uint_least8_t;
-typedef __int16_t __int_least16_t;
-typedef __uint16_t __uint_least16_t;
-typedef __int32_t __int_least32_t;
-typedef __uint32_t __uint_least32_t;
-typedef __int64_t __int_least64_t;
-typedef __uint64_t __uint_least64_t;
-typedef long int __quad_t;
-typedef unsigned long int __u_quad_t;
-typedef long int __intmax_t;
-typedef unsigned long int __uintmax_t;
-typedef unsigned long int __dev_t;
-typedef unsigned int __uid_t;
-typedef unsigned int __gid_t;
-typedef unsigned long int __ino_t;
-typedef unsigned long int __ino64_t;
-typedef unsigned int __mode_t;
-typedef unsigned long int __nlink_t;
-typedef long int __off_t;
-typedef long int __off64_t;
-typedef int __pid_t;
-typedef struct { int __val[2]; } __fsid_t;
-typedef long int __clock_t;
-typedef unsigned long int __rlim_t;
-typedef unsigned long int __rlim64_t;
-typedef unsigned int __id_t;
-typedef long int __time_t;
-typedef unsigned int __useconds_t;
-typedef long int __suseconds_t;
-typedef long int __suseconds64_t;
-typedef int __daddr_t;
-typedef int __key_t;
-typedef int __clockid_t;
-typedef void * __timer_t;
-typedef long int __blksize_t;
-typedef long int __blkcnt_t;
-typedef long int __blkcnt64_t;
-typedef unsigned long int __fsblkcnt_t;
-typedef unsigned long int __fsblkcnt64_t;
-typedef unsigned long int __fsfilcnt_t;
-typedef unsigned long int __fsfilcnt64_t;
-typedef long int __fsword_t;
-typedef long int __ssize_t;
-typedef long int __syscall_slong_t;
-typedef unsigned long int __syscall_ulong_t;
-typedef __off64_t __loff_t;
-typedef char *__caddr_t;
-typedef long int __intptr_t;
-typedef unsigned int __socklen_t;
-typedef int __sig_atomic_t;
-typedef __u_char u_char;
-typedef __u_short u_short;
-typedef __u_int u_int;
-typedef __u_long u_long;
-typedef __quad_t quad_t;
-typedef __u_quad_t u_quad_t;
-typedef __fsid_t fsid_t;
-typedef __loff_t loff_t;
-typedef __ino_t ino_t;
-typedef __dev_t dev_t;
-typedef __gid_t gid_t;
-typedef __mode_t mode_t;
-typedef __nlink_t nlink_t;
-typedef __uid_t uid_t;
-typedef __off_t off_t;
-typedef __pid_t pid_t;
-typedef __id_t id_t;
-typedef __ssize_t ssize_t;
-typedef __daddr_t daddr_t;
-typedef __caddr_t caddr_t;
-typedef __key_t key_t;
-typedef __clock_t clock_t;
-typedef __clockid_t clockid_t;
-typedef __time_t time_t;
-typedef __timer_t timer_t;
-typedef long unsigned int size_t;
-typedef unsigned long int ulong;
-typedef unsigned short int ushort;
-typedef unsigned int uint;
-typedef __int8_t int8_t;
-typedef __int16_t int16_t;
-typedef __int32_t int32_t;
-typedef __int64_t int64_t;
-typedef __uint8_t u_int8_t;
-typedef __uint16_t u_int16_t;
-typedef __uint32_t u_int32_t;
-typedef __uint64_t u_int64_t;
-typedef int register_t __attribute__ ((__mode__ (__word__)));
-static __inline __uint16_t
-__bswap_16 (__uint16_t __bsx)
-{
-  return __builtin_bswap16 (__bsx);
-}
-static __inline __uint32_t
-__bswap_32 (__uint32_t __bsx)
-{
-  return __builtin_bswap32 (__bsx);
-}
-__extension__ static __inline __uint64_t
-__bswap_64 (__uint64_t __bsx)
-{
-  return __builtin_bswap64 (__bsx);
-}
-static __inline __uint16_t
-__uint16_identity (__uint16_t __x)
-{
-  return __x;
-}
-static __inline __uint32_t
-__uint32_identity (__uint32_t __x)
-{
-  return __x;
-}
-static __inline __uint64_t
-__uint64_identity (__uint64_t __x)
-{
-  return __x;
-}
-typedef struct
-{
-  unsigned long int __val[(1024 / (8 * sizeof (unsigned long int)))];
-} __sigset_t;
-typedef __sigset_t sigset_t;
-struct timeval
-{
-  __time_t tv_sec;
-  __suseconds_t tv_usec;
-};
-typedef __suseconds_t suseconds_t;
-typedef long int __fd_mask;
-typedef struct
-  {
-    __fd_mask __fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];
-  } fd_set;
-typedef __fd_mask fd_mask;
-extern int select (int __nfds, fd_set *__restrict __readfds,
-     fd_set *__restrict __writefds,
-     fd_set *__restrict __exceptfds,
-     struct timeval *__restrict __timeout);
-extern int pselect (int __nfds, fd_set *__restrict __readfds,
-      fd_set *__restrict __writefds,
-      fd_set *__restrict __exceptfds,
-      const struct timespec *__restrict __timeout,
-      const __sigset_t *__restrict __sigmask);
-typedef __blksize_t blksize_t;
-typedef __blkcnt_t blkcnt_t;
-typedef __fsblkcnt_t fsblkcnt_t;
-typedef __fsfilcnt_t fsfilcnt_t;
-typedef union
-{
-  __extension__ unsigned long long int __value64;
-  struct
-  {
-    unsigned int __low;
-    unsigned int __high;
-  } __value32;
-} __atomic_wide_counter;
-typedef struct __pthread_internal_list
-{
-  struct __pthread_internal_list *__prev;
-  struct __pthread_internal_list *__next;
-} __pthread_list_t;
-typedef struct __pthread_internal_slist
-{
-  struct __pthread_internal_slist *__next;
-} __pthread_slist_t;
-struct __pthread_mutex_s
-{
-  int __lock;
-  unsigned int __count;
-  int __owner;
-  unsigned int __nusers;
-  int __kind;
-  short __spins;
-  short __elision;
-  __pthread_list_t __list;
-};
-struct __pthread_rwlock_arch_t
-{
-  unsigned int __readers;
-  unsigned int __writers;
-  unsigned int __wrphase_futex;
-  unsigned int __writers_futex;
-  unsigned int __pad3;
-  unsigned int __pad4;
-  int __cur_writer;
-  int __shared;
-  signed char __rwelision;
-  unsigned char __pad1[7];
-  unsigned long int __pad2;
-  unsigned int __flags;
-};
-struct __pthread_cond_s
-{
-  __atomic_wide_counter __wseq;
-  __atomic_wide_counter __g1_start;
-  unsigned int __g_refs[2] ;
-  unsigned int __g_size[2];
-  unsigned int __g1_orig_size;
-  unsigned int __wrefs;
-  unsigned int __g_signals[2];
-};
-typedef unsigned int __tss_t;
-typedef unsigned long int __thrd_t;
-typedef struct
-{
-  int __data ;
-} __once_flag;
-typedef unsigned long int pthread_t;
-typedef union
-{
-  char __size[4];
-  int __align;
-} pthread_mutexattr_t;
-typedef union
-{
-  char __size[4];
-  int __align;
-} pthread_condattr_t;
-typedef unsigned int pthread_key_t;
-typedef int pthread_once_t;
-union pthread_attr_t
-{
-  char __size[56];
-  long int __align;
-};
-typedef union pthread_attr_t pthread_attr_t;
-typedef union
-{
-  struct __pthread_mutex_s __data;
-  char __size[40];
-  long int __align;
-} pthread_mutex_t;
-typedef union
-{
-  struct __pthread_cond_s __data;
-  char __size[48];
-  __extension__ long long int __align;
-} pthread_cond_t;
-typedef union
-{
-  struct __pthread_rwlock_arch_t __data;
-  char __size[56];
-  long int __align;
-} pthread_rwlock_t;
-typedef union
-{
-  char __size[8];
-  long int __align;
-} pthread_rwlockattr_t;
-typedef volatile int pthread_spinlock_t;
-typedef union
-{
-  char __size[32];
-  long int __align;
-} pthread_barrier_t;
-typedef union
-{
-  char __size[4];
-  int __align;
-} pthread_barrierattr_t;
-typedef unsigned long XID;
-typedef unsigned long Mask;
-typedef unsigned long Atom;
-typedef unsigned long VisualID;
-typedef unsigned long Time;
-typedef XID Window;
-typedef XID Drawable;
-typedef XID Font;
-typedef XID Pixmap;
-typedef XID Cursor;
-typedef XID Colormap;
-typedef XID GContext;
-typedef XID KeySym;
-typedef unsigned char KeyCode;
-typedef long int ptrdiff_t;
-typedef int wchar_t;
-typedef struct {
-  long long __max_align_ll __attribute__((__aligned__(__alignof__(long long))));
-  long double __max_align_ld __attribute__((__aligned__(__alignof__(long double))));
-} max_align_t;
-extern int
-_Xmblen(
-    char *str,
-    int len
-    );
-typedef char *XPointer;
-typedef struct _XExtData {
- int number;
- struct _XExtData *next;
- int (*free_private)(
- struct _XExtData *extension
- );
- XPointer private_data;
-} XExtData;
-typedef struct {
- int extension;
- int major_opcode;
- int first_event;
- int first_error;
-} XExtCodes;
-typedef struct {
-    int depth;
-    int bits_per_pixel;
-    int scanline_pad;
-} XPixmapFormatValues;
-typedef struct {
- int function;
- unsigned long plane_mask;
- unsigned long foreground;
- unsigned long background;
- int line_width;
- int line_style;
- int cap_style;
- int join_style;
- int fill_style;
- int fill_rule;
- int arc_mode;
- Pixmap tile;
- Pixmap stipple;
- int ts_x_origin;
- int ts_y_origin;
-        Font font;
- int subwindow_mode;
- int graphics_exposures;
- int clip_x_origin;
- int clip_y_origin;
- Pixmap clip_mask;
- int dash_offset;
- char dashes;
-} XGCValues;
-typedef struct _XGC
-*GC;
-typedef struct {
- XExtData *ext_data;
- VisualID visualid;
- int class;
- unsigned long red_mask, green_mask, blue_mask;
- int bits_per_rgb;
- int map_entries;
-} Visual;
-typedef struct {
- int depth;
- int nvisuals;
- Visual *visuals;
-} Depth;
-struct _XDisplay;
-typedef struct {
- XExtData *ext_data;
- struct _XDisplay *display;
- Window root;
- int width, height;
- int mwidth, mheight;
- int ndepths;
- Depth *depths;
- int root_depth;
- Visual *root_visual;
- GC default_gc;
- Colormap cmap;
- unsigned long white_pixel;
- unsigned long black_pixel;
- int max_maps, min_maps;
- int backing_store;
- int save_unders;
- long root_input_mask;
-} Screen;
-typedef struct {
- XExtData *ext_data;
- int depth;
- int bits_per_pixel;
- int scanline_pad;
-} ScreenFormat;
-typedef struct {
-    Pixmap background_pixmap;
-    unsigned long background_pixel;
-    Pixmap border_pixmap;
-    unsigned long border_pixel;
-    int bit_gravity;
-    int win_gravity;
-    int backing_store;
-    unsigned long backing_planes;
-    unsigned long backing_pixel;
-    int save_under;
-    long event_mask;
-    long do_not_propagate_mask;
-    int override_redirect;
-    Colormap colormap;
-    Cursor cursor;
-} XSetWindowAttributes;
-typedef struct {
-    int x, y;
-    int width, height;
-    int border_width;
-    int depth;
-    Visual *visual;
-    Window root;
-    int class;
-    int bit_gravity;
-    int win_gravity;
-    int backing_store;
-    unsigned long backing_planes;
-    unsigned long backing_pixel;
-    int save_under;
-    Colormap colormap;
-    int map_installed;
-    int map_state;
-    long all_event_masks;
-    long your_event_mask;
-    long do_not_propagate_mask;
-    int override_redirect;
-    Screen *screen;
-} XWindowAttributes;
-typedef struct {
- int family;
- int length;
- char *address;
-} XHostAddress;
-typedef struct {
- int typelength;
- int valuelength;
- char *type;
- char *value;
-} XServerInterpretedAddress;
-typedef struct _XImage {
-    int width, height;
-    int xoffset;
-    int format;
-    char *data;
-    int byte_order;
-    int bitmap_unit;
-    int bitmap_bit_order;
-    int bitmap_pad;
-    int depth;
-    int bytes_per_line;
-    int bits_per_pixel;
-    unsigned long red_mask;
-    unsigned long green_mask;
-    unsigned long blue_mask;
-    XPointer obdata;
-    struct funcs {
- struct _XImage *(*create_image)(
-  struct _XDisplay* ,
-  Visual* ,
-  unsigned int ,
-  int ,
-  int ,
-  char* ,
-  unsigned int ,
-  unsigned int ,
-  int ,
-  int );
- int (*destroy_image) (struct _XImage *);
- unsigned long (*get_pixel) (struct _XImage *, int, int);
- int (*put_pixel) (struct _XImage *, int, int, unsigned long);
- struct _XImage *(*sub_image)(struct _XImage *, int, int, unsigned int, unsigned int);
- int (*add_pixel) (struct _XImage *, long);
- } f;
-} XImage;
-typedef struct {
-    int x, y;
-    int width, height;
-    int border_width;
-    Window sibling;
-    int stack_mode;
-} XWindowChanges;
-typedef struct {
- unsigned long pixel;
- unsigned short red, green, blue;
- char flags;
- char pad;
-} XColor;
-typedef struct {
-    short x1, y1, x2, y2;
-} XSegment;
-typedef struct {
-    short x, y;
-} XPoint;
-typedef struct {
-    short x, y;
-    unsigned short width, height;
-} XRectangle;
-typedef struct {
-    short x, y;
-    unsigned short width, height;
-    short angle1, angle2;
-} XArc;
-typedef struct {
-        int key_click_percent;
-        int bell_percent;
-        int bell_pitch;
-        int bell_duration;
-        int led;
-        int led_mode;
-        int key;
-        int auto_repeat_mode;
-} XKeyboardControl;
-typedef struct {
-        int key_click_percent;
- int bell_percent;
- unsigned int bell_pitch, bell_duration;
- unsigned long led_mask;
- int global_auto_repeat;
- char auto_repeats[32];
-} XKeyboardState;
-typedef struct {
-        Time time;
- short x, y;
-} XTimeCoord;
-typedef struct {
-  int max_keypermod;
-  KeyCode *modifiermap;
-} XModifierKeymap;
-typedef struct _XDisplay Display;
-struct _XPrivate;
-struct _XrmHashBucketRec;
-typedef struct
-{
- XExtData *ext_data;
- struct _XPrivate *private1;
- int fd;
- int private2;
- int proto_major_version;
- int proto_minor_version;
- char *vendor;
-        XID private3;
- XID private4;
- XID private5;
- int private6;
- XID (*resource_alloc)(
-  struct _XDisplay*
- );
- int byte_order;
- int bitmap_unit;
- int bitmap_pad;
- int bitmap_bit_order;
- int nformats;
- ScreenFormat *pixmap_format;
- int private8;
- int release;
- struct _XPrivate *private9, *private10;
- int qlen;
- unsigned long last_request_read;
- unsigned long request;
- XPointer private11;
- XPointer private12;
- XPointer private13;
- XPointer private14;
- unsigned max_request_size;
- struct _XrmHashBucketRec *db;
- int (*private15)(
-  struct _XDisplay*
-  );
- char *display_name;
- int default_screen;
- int nscreens;
- Screen *screens;
- unsigned long motion_buffer;
- unsigned long private16;
- int min_keycode;
- int max_keycode;
- XPointer private17;
- XPointer private18;
- int private19;
- char *xdefaults;
-}
-*_XPrivDisplay;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- Window root;
- Window subwindow;
- Time time;
- int x, y;
- int x_root, y_root;
- unsigned int state;
- unsigned int keycode;
- int same_screen;
-} XKeyEvent;
-typedef XKeyEvent XKeyPressedEvent;
-typedef XKeyEvent XKeyReleasedEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- Window root;
- Window subwindow;
- Time time;
- int x, y;
- int x_root, y_root;
- unsigned int state;
- unsigned int button;
- int same_screen;
-} XButtonEvent;
-typedef XButtonEvent XButtonPressedEvent;
-typedef XButtonEvent XButtonReleasedEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- Window root;
- Window subwindow;
- Time time;
- int x, y;
- int x_root, y_root;
- unsigned int state;
- char is_hint;
- int same_screen;
-} XMotionEvent;
-typedef XMotionEvent XPointerMovedEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- Window root;
- Window subwindow;
- Time time;
- int x, y;
- int x_root, y_root;
- int mode;
- int detail;
- int same_screen;
- int focus;
- unsigned int state;
-} XCrossingEvent;
-typedef XCrossingEvent XEnterWindowEvent;
-typedef XCrossingEvent XLeaveWindowEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- int mode;
- int detail;
-} XFocusChangeEvent;
-typedef XFocusChangeEvent XFocusInEvent;
-typedef XFocusChangeEvent XFocusOutEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- char key_vector[32];
-} XKeymapEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- int x, y;
- int width, height;
- int count;
-} XExposeEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Drawable drawable;
- int x, y;
- int width, height;
- int count;
- int major_code;
- int minor_code;
-} XGraphicsExposeEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Drawable drawable;
- int major_code;
- int minor_code;
-} XNoExposeEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- int state;
-} XVisibilityEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window parent;
- Window window;
- int x, y;
- int width, height;
- int border_width;
- int override_redirect;
-} XCreateWindowEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window event;
- Window window;
-} XDestroyWindowEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window event;
- Window window;
- int from_configure;
-} XUnmapEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window event;
- Window window;
- int override_redirect;
-} XMapEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window parent;
- Window window;
-} XMapRequestEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window event;
- Window window;
- Window parent;
- int x, y;
- int override_redirect;
-} XReparentEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window event;
- Window window;
- int x, y;
- int width, height;
- int border_width;
- Window above;
- int override_redirect;
-} XConfigureEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window event;
- Window window;
- int x, y;
-} XGravityEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- int width, height;
-} XResizeRequestEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window parent;
- Window window;
- int x, y;
- int width, height;
- int border_width;
- Window above;
- int detail;
- unsigned long value_mask;
-} XConfigureRequestEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window event;
- Window window;
- int place;
-} XCirculateEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window parent;
- Window window;
- int place;
-} XCirculateRequestEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- Atom atom;
- Time time;
- int state;
-} XPropertyEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- Atom selection;
- Time time;
-} XSelectionClearEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window owner;
- Window requestor;
- Atom selection;
- Atom target;
- Atom property;
- Time time;
-} XSelectionRequestEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window requestor;
- Atom selection;
- Atom target;
- Atom property;
- Time time;
-} XSelectionEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- Colormap colormap;
- int new;
- int state;
-} XColormapEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- Atom message_type;
- int format;
- union {
-  char b[20];
-  short s[10];
-  long l[5];
-  } data;
-} XClientMessageEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
- int request;
- int first_keycode;
- int count;
-} XMappingEvent;
-typedef struct {
- int type;
- Display *display;
- XID resourceid;
- unsigned long serial;
- unsigned char error_code;
- unsigned char request_code;
- unsigned char minor_code;
-} XErrorEvent;
-typedef struct {
- int type;
- unsigned long serial;
- int send_event;
- Display *display;
- Window window;
-} XAnyEvent;
-typedef struct
-    {
-    int type;
-    unsigned long serial;
-    int send_event;
-    Display *display;
-    int extension;
-    int evtype;
-    } XGenericEvent;
-typedef struct {
-    int type;
-    unsigned long serial;
-    int send_event;
-    Display *display;
-    int extension;
-    int evtype;
-    unsigned int cookie;
-    void *data;
-} XGenericEventCookie;
-typedef union _XEvent {
-        int type;
- XAnyEvent xany;
- XKeyEvent xkey;
- XButtonEvent xbutton;
- XMotionEvent xmotion;
- XCrossingEvent xcrossing;
- XFocusChangeEvent xfocus;
- XExposeEvent xexpose;
- XGraphicsExposeEvent xgraphicsexpose;
- XNoExposeEvent xnoexpose;
- XVisibilityEvent xvisibility;
- XCreateWindowEvent xcreatewindow;
- XDestroyWindowEvent xdestroywindow;
- XUnmapEvent xunmap;
- XMapEvent xmap;
- XMapRequestEvent xmaprequest;
- XReparentEvent xreparent;
- XConfigureEvent xconfigure;
- XGravityEvent xgravity;
- XResizeRequestEvent xresizerequest;
- XConfigureRequestEvent xconfigurerequest;
- XCirculateEvent xcirculate;
- XCirculateRequestEvent xcirculaterequest;
- XPropertyEvent xproperty;
- XSelectionClearEvent xselectionclear;
- XSelectionRequestEvent xselectionrequest;
- XSelectionEvent xselection;
- XColormapEvent xcolormap;
- XClientMessageEvent xclient;
- XMappingEvent xmapping;
- XErrorEvent xerror;
- XKeymapEvent xkeymap;
- XGenericEvent xgeneric;
- XGenericEventCookie xcookie;
- long pad[24];
-} XEvent;
-typedef struct {
-    short lbearing;
-    short rbearing;
-    short width;
-    short ascent;
-    short descent;
-    unsigned short attributes;
-} XCharStruct;
-typedef struct {
-    Atom name;
-    unsigned long card32;
-} XFontProp;
-typedef struct {
-    XExtData *ext_data;
-    Font fid;
-    unsigned direction;
-    unsigned min_char_or_byte2;
-    unsigned max_char_or_byte2;
-    unsigned min_byte1;
-    unsigned max_byte1;
-    int all_chars_exist;
-    unsigned default_char;
-    int n_properties;
-    XFontProp *properties;
-    XCharStruct min_bounds;
-    XCharStruct max_bounds;
-    XCharStruct *per_char;
-    int ascent;
-    int descent;
-} XFontStruct;
-typedef struct {
-    char *chars;
-    int nchars;
-    int delta;
-    Font font;
-} XTextItem;
-typedef struct {
-    unsigned char byte1;
-    unsigned char byte2;
-} XChar2b;
-typedef struct {
-    XChar2b *chars;
-    int nchars;
-    int delta;
-    Font font;
-} XTextItem16;
-typedef union { Display *display;
-  GC gc;
-  Visual *visual;
-  Screen *screen;
-  ScreenFormat *pixmap_format;
-  XFontStruct *font; } XEDataObject;
-typedef struct {
-    XRectangle max_ink_extent;
-    XRectangle max_logical_extent;
-} XFontSetExtents;
-typedef struct _XOM *XOM;
-typedef struct _XOC *XOC, *XFontSet;
-typedef struct {
-    char *chars;
-    int nchars;
-    int delta;
-    XFontSet font_set;
-} XmbTextItem;
-typedef struct {
-    wchar_t *chars;
-    int nchars;
-    int delta;
-    XFontSet font_set;
-} XwcTextItem;
-typedef struct {
-    int charset_count;
-    char **charset_list;
-} XOMCharSetList;
-typedef enum {
-    XOMOrientation_LTR_TTB,
-    XOMOrientation_RTL_TTB,
-    XOMOrientation_TTB_LTR,
-    XOMOrientation_TTB_RTL,
-    XOMOrientation_Context
-} XOrientation;
-typedef struct {
-    int num_orientation;
-    XOrientation *orientation;
-} XOMOrientation;
-typedef struct {
-    int num_font;
-    XFontStruct **font_struct_list;
-    char **font_name_list;
-} XOMFontInfo;
-typedef struct _XIM *XIM;
-typedef struct _XIC *XIC;
-typedef void (*XIMProc)(
-    XIM,
-    XPointer,
-    XPointer
-);
-typedef int (*XICProc)(
-    XIC,
-    XPointer,
-    XPointer
-);
-typedef void (*XIDProc)(
-    Display*,
-    XPointer,
-    XPointer
-);
-typedef unsigned long XIMStyle;
-typedef struct {
-    unsigned short count_styles;
-    XIMStyle *supported_styles;
-} XIMStyles;
-typedef void *XVaNestedList;
-typedef struct {
-    XPointer client_data;
-    XIMProc callback;
-} XIMCallback;
-typedef struct {
-    XPointer client_data;
-    XICProc callback;
-} XICCallback;
-typedef unsigned long XIMFeedback;
-typedef struct _XIMText {
-    unsigned short length;
-    XIMFeedback *feedback;
-    int encoding_is_wchar;
-    union {
- char *multi_byte;
- wchar_t *wide_char;
-    } string;
-} XIMText;
-typedef unsigned long XIMPreeditState;
-typedef struct _XIMPreeditStateNotifyCallbackStruct {
-    XIMPreeditState state;
-} XIMPreeditStateNotifyCallbackStruct;
-typedef unsigned long XIMResetState;
-typedef unsigned long XIMStringConversionFeedback;
-typedef struct _XIMStringConversionText {
-    unsigned short length;
-    XIMStringConversionFeedback *feedback;
-    int encoding_is_wchar;
-    union {
- char *mbs;
- wchar_t *wcs;
-    } string;
-} XIMStringConversionText;
-typedef unsigned short XIMStringConversionPosition;
-typedef unsigned short XIMStringConversionType;
-typedef unsigned short XIMStringConversionOperation;
-typedef enum {
-    XIMForwardChar, XIMBackwardChar,
-    XIMForwardWord, XIMBackwardWord,
-    XIMCaretUp, XIMCaretDown,
-    XIMNextLine, XIMPreviousLine,
-    XIMLineStart, XIMLineEnd,
-    XIMAbsolutePosition,
-    XIMDontChange
-} XIMCaretDirection;
-typedef struct _XIMStringConversionCallbackStruct {
-    XIMStringConversionPosition position;
-    XIMCaretDirection direction;
-    XIMStringConversionOperation operation;
-    unsigned short factor;
-    XIMStringConversionText *text;
-} XIMStringConversionCallbackStruct;
-typedef struct _XIMPreeditDrawCallbackStruct {
-    int caret;
-    int chg_first;
-    int chg_length;
-    XIMText *text;
-} XIMPreeditDrawCallbackStruct;
-typedef enum {
-    XIMIsInvisible,
-    XIMIsPrimary,
-    XIMIsSecondary
-} XIMCaretStyle;
-typedef struct _XIMPreeditCaretCallbackStruct {
-    int position;
-    XIMCaretDirection direction;
-    XIMCaretStyle style;
-} XIMPreeditCaretCallbackStruct;
-typedef enum {
-    XIMTextType,
-    XIMBitmapType
-} XIMStatusDataType;
-typedef struct _XIMStatusDrawCallbackStruct {
-    XIMStatusDataType type;
-    union {
- XIMText *text;
- Pixmap bitmap;
-    } data;
-} XIMStatusDrawCallbackStruct;
-typedef struct _XIMHotKeyTrigger {
-    KeySym keysym;
-    int modifier;
-    int modifier_mask;
-} XIMHotKeyTrigger;
-typedef struct _XIMHotKeyTriggers {
-    int num_hot_key;
-    XIMHotKeyTrigger *key;
-} XIMHotKeyTriggers;
-typedef unsigned long XIMHotKeyState;
-typedef struct {
-    unsigned short count_values;
-    char **supported_values;
-} XIMValuesList;
-extern int _Xdebug;
-extern XFontStruct *XLoadQueryFont(
-    Display* ,
-   const 
-           char*
-);
-extern XFontStruct *XQueryFont(
-    Display* ,
-    XID
-);
-extern XTimeCoord *XGetMotionEvents(
-    Display* ,
-    Window ,
-    Time ,
-    Time ,
-    int*
-);
-extern XModifierKeymap *XDeleteModifiermapEntry(
-    XModifierKeymap* ,
-    KeyCode ,
-    int
-);
-extern XModifierKeymap *XGetModifierMapping(
-    Display*
-);
-extern XModifierKeymap *XInsertModifiermapEntry(
-    XModifierKeymap* ,
-    KeyCode ,
-    int
-);
-extern XModifierKeymap *XNewModifiermap(
-    int
-);
-extern XImage *XCreateImage(
-    Display* ,
-    Visual* ,
-    unsigned int ,
-    int ,
-    int ,
-    char* ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    int
-);
-extern int XInitImage(
-    XImage*
-);
-extern XImage *XGetImage(
-    Display* ,
-    Drawable ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    unsigned long ,
-    int
-);
-extern XImage *XGetSubImage(
-    Display* ,
-    Drawable ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    unsigned long ,
-    int ,
-    XImage* ,
-    int ,
-    int
-);
-extern Display *XOpenDisplay(
-   const 
-           char*
-);
-extern void XrmInitialize(
-    void
-);
-extern char *XFetchBytes(
-    Display* ,
-    int*
-);
-extern char *XFetchBuffer(
-    Display* ,
-    int* ,
-    int
-);
-extern char *XGetAtomName(
-    Display* ,
-    Atom
-);
-extern int XGetAtomNames(
-    Display* ,
-    Atom* ,
-    int ,
-    char**
-);
-extern char *XGetDefault(
-    Display* ,
-   const 
-           char* ,
-   const 
-           char*
-);
-extern char *XDisplayName(
-   const 
-           char*
-);
-extern char *XKeysymToString(
-    KeySym
-);
-extern int (*XSynchronize(
-    Display* ,
-    int
-))(
-    Display*
-);
-extern int (*XSetAfterFunction(
-    Display* ,
-    int (*) (
-      Display*
-            )
-))(
-    Display*
-);
-extern Atom XInternAtom(
-    Display* ,
-   const 
-           char* ,
-    int
-);
-extern int XInternAtoms(
-    Display* ,
-    char** ,
-    int ,
-    int ,
-    Atom*
-);
-extern Colormap XCopyColormapAndFree(
-    Display* ,
-    Colormap
-);
-extern Colormap XCreateColormap(
-    Display* ,
-    Window ,
-    Visual* ,
-    int
-);
-extern Cursor XCreatePixmapCursor(
-    Display* ,
-    Pixmap ,
-    Pixmap ,
-    XColor* ,
-    XColor* ,
-    unsigned int ,
-    unsigned int
-);
-extern Cursor XCreateGlyphCursor(
-    Display* ,
-    Font ,
-    Font ,
-    unsigned int ,
-    unsigned int ,
-    XColor 
-          const 
-                  * ,
-    XColor 
-          const 
-                  *
-);
-extern Cursor XCreateFontCursor(
-    Display* ,
-    unsigned int
-);
-extern Font XLoadFont(
-    Display* ,
-   const 
-           char*
-);
-extern GC XCreateGC(
-    Display* ,
-    Drawable ,
-    unsigned long ,
-    XGCValues*
-);
-extern GContext XGContextFromGC(
-    GC
-);
-extern void XFlushGC(
-    Display* ,
-    GC
-);
-extern Pixmap XCreatePixmap(
-    Display* ,
-    Drawable ,
-    unsigned int ,
-    unsigned int ,
-    unsigned int
-);
-extern Pixmap XCreateBitmapFromData(
-    Display* ,
-    Drawable ,
-   const 
-           char* ,
-    unsigned int ,
-    unsigned int
-);
-extern Pixmap XCreatePixmapFromBitmapData(
-    Display* ,
-    Drawable ,
-    char* ,
-    unsigned int ,
-    unsigned int ,
-    unsigned long ,
-    unsigned long ,
-    unsigned int
-);
-extern Window XCreateSimpleWindow(
-    Display* ,
-    Window ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    unsigned int ,
-    unsigned long ,
-    unsigned long
-);
-extern Window XGetSelectionOwner(
-    Display* ,
-    Atom
-);
-extern Window XCreateWindow(
-    Display* ,
-    Window ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    unsigned int ,
-    Visual* ,
-    unsigned long ,
-    XSetWindowAttributes*
-);
-extern Colormap *XListInstalledColormaps(
-    Display* ,
-    Window ,
-    int*
-);
-extern char **XListFonts(
-    Display* ,
-   const 
-           char* ,
-    int ,
-    int*
-);
-extern char **XListFontsWithInfo(
-    Display* ,
-   const 
-           char* ,
-    int ,
-    int* ,
-    XFontStruct**
-);
-extern char **XGetFontPath(
-    Display* ,
-    int*
-);
-extern char **XListExtensions(
-    Display* ,
-    int*
-);
-extern Atom *XListProperties(
-    Display* ,
-    Window ,
-    int*
-);
-extern XHostAddress *XListHosts(
-    Display* ,
-    int* ,
-    int*
-);
-__attribute__((deprecated))
-extern KeySym XKeycodeToKeysym(
-    Display* ,
-    KeyCode ,
-    int
-);
-extern KeySym XLookupKeysym(
-    XKeyEvent* ,
-    int
-);
-extern KeySym *XGetKeyboardMapping(
-    Display* ,
-    KeyCode ,
-    int ,
-    int*
-);
-extern KeySym XStringToKeysym(
-   const 
-           char*
-);
-extern long XMaxRequestSize(
-    Display*
-);
-extern long XExtendedMaxRequestSize(
-    Display*
-);
-extern char *XResourceManagerString(
-    Display*
-);
-extern char *XScreenResourceString(
- Screen*
-);
-extern unsigned long XDisplayMotionBufferSize(
-    Display*
-);
-extern VisualID XVisualIDFromVisual(
-    Visual*
-);
-extern int XInitThreads(
-    void
-);
-extern int XFreeThreads(
-    void
-);
-extern void XLockDisplay(
-    Display*
-);
-extern void XUnlockDisplay(
-    Display*
-);
-extern XExtCodes *XInitExtension(
-    Display* ,
-   const 
-           char*
-);
-extern XExtCodes *XAddExtension(
-    Display*
-);
-extern XExtData *XFindOnExtensionList(
-    XExtData** ,
-    int
-);
-extern XExtData **XEHeadOfExtensionList(
-    XEDataObject
-);
-extern Window XRootWindow(
-    Display* ,
-    int
-);
-extern Window XDefaultRootWindow(
-    Display*
-);
-extern Window XRootWindowOfScreen(
-    Screen*
-);
-extern Visual *XDefaultVisual(
-    Display* ,
-    int
-);
-extern Visual *XDefaultVisualOfScreen(
-    Screen*
-);
-extern GC XDefaultGC(
-    Display* ,
-    int
-);
-extern GC XDefaultGCOfScreen(
-    Screen*
-);
-extern unsigned long XBlackPixel(
-    Display* ,
-    int
-);
-extern unsigned long XWhitePixel(
-    Display* ,
-    int
-);
-extern unsigned long XAllPlanes(
-    void
-);
-extern unsigned long XBlackPixelOfScreen(
-    Screen*
-);
-extern unsigned long XWhitePixelOfScreen(
-    Screen*
-);
-extern unsigned long XNextRequest(
-    Display*
-);
-extern unsigned long XLastKnownRequestProcessed(
-    Display*
-);
-extern char *XServerVendor(
-    Display*
-);
-extern char *XDisplayString(
-    Display*
-);
-extern Colormap XDefaultColormap(
-    Display* ,
-    int
-);
-extern Colormap XDefaultColormapOfScreen(
-    Screen*
-);
-extern Display *XDisplayOfScreen(
-    Screen*
-);
-extern Screen *XScreenOfDisplay(
-    Display* ,
-    int
-);
-extern Screen *XDefaultScreenOfDisplay(
-    Display*
-);
-extern long XEventMaskOfScreen(
-    Screen*
-);
-extern int XScreenNumberOfScreen(
-    Screen*
-);
-typedef int (*XErrorHandler) (
-    Display* ,
-    XErrorEvent*
-);
-extern XErrorHandler XSetErrorHandler (
-    XErrorHandler
-);
-typedef int (*XIOErrorHandler) (
-    Display*
-);
-extern XIOErrorHandler XSetIOErrorHandler (
-    XIOErrorHandler
-);
-typedef void (*XIOErrorExitHandler) (
-    Display*,
-    void*
-);
-extern void XSetIOErrorExitHandler (
-    Display*,
-    XIOErrorExitHandler,
-    void*
-);
-extern XPixmapFormatValues *XListPixmapFormats(
-    Display* ,
-    int*
-);
-extern int *XListDepths(
-    Display* ,
-    int ,
-    int*
-);
-extern int XReconfigureWMWindow(
-    Display* ,
-    Window ,
-    int ,
-    unsigned int ,
-    XWindowChanges*
-);
-extern int XGetWMProtocols(
-    Display* ,
-    Window ,
-    Atom** ,
-    int*
-);
-extern int XSetWMProtocols(
-    Display* ,
-    Window ,
-    Atom* ,
-    int
-);
-extern int XIconifyWindow(
-    Display* ,
-    Window ,
-    int
-);
-extern int XWithdrawWindow(
-    Display* ,
-    Window ,
-    int
-);
-extern int XGetCommand(
-    Display* ,
-    Window ,
-    char*** ,
-    int*
-);
-extern int XGetWMColormapWindows(
-    Display* ,
-    Window ,
-    Window** ,
-    int*
-);
-extern int XSetWMColormapWindows(
-    Display* ,
-    Window ,
-    Window* ,
-    int
-);
-extern void XFreeStringList(
-    char**
-);
-extern int XSetTransientForHint(
-    Display* ,
-    Window ,
-    Window
-);
-extern int XActivateScreenSaver(
-    Display*
-);
-extern int XAddHost(
-    Display* ,
-    XHostAddress*
-);
-extern int XAddHosts(
-    Display* ,
-    XHostAddress* ,
-    int
-);
-extern int XAddToExtensionList(
-    struct _XExtData** ,
-    XExtData*
-);
-extern int XAddToSaveSet(
-    Display* ,
-    Window
-);
-extern int XAllocColor(
-    Display* ,
-    Colormap ,
-    XColor*
-);
-extern int XAllocColorCells(
-    Display* ,
-    Colormap ,
-    int ,
-    unsigned long* ,
-    unsigned int ,
-    unsigned long* ,
-    unsigned int
-);
-extern int XAllocColorPlanes(
-    Display* ,
-    Colormap ,
-    int ,
-    unsigned long* ,
-    int ,
-    int ,
-    int ,
-    int ,
-    unsigned long* ,
-    unsigned long* ,
-    unsigned long*
-);
-extern int XAllocNamedColor(
-    Display* ,
-    Colormap ,
-   const 
-           char* ,
-    XColor* ,
-    XColor*
-);
-extern int XAllowEvents(
-    Display* ,
-    int ,
-    Time
-);
-extern int XAutoRepeatOff(
-    Display*
-);
-extern int XAutoRepeatOn(
-    Display*
-);
-extern int XBell(
-    Display* ,
-    int
-);
-extern int XBitmapBitOrder(
-    Display*
-);
-extern int XBitmapPad(
-    Display*
-);
-extern int XBitmapUnit(
-    Display*
-);
-extern int XCellsOfScreen(
-    Screen*
-);
-extern int XChangeActivePointerGrab(
-    Display* ,
-    unsigned int ,
-    Cursor ,
-    Time
-);
-extern int XChangeGC(
-    Display* ,
-    GC ,
-    unsigned long ,
-    XGCValues*
-);
-extern int XChangeKeyboardControl(
-    Display* ,
-    unsigned long ,
-    XKeyboardControl*
-);
-extern int XChangeKeyboardMapping(
-    Display* ,
-    int ,
-    int ,
-    KeySym* ,
-    int
-);
-extern int XChangePointerControl(
-    Display* ,
-    int ,
-    int ,
-    int ,
-    int ,
-    int
-);
-extern int XChangeProperty(
-    Display* ,
-    Window ,
-    Atom ,
-    Atom ,
-    int ,
-    int ,
-   const 
-           unsigned char* ,
-    int
-);
-extern int XChangeSaveSet(
-    Display* ,
-    Window ,
-    int
-);
-extern int XChangeWindowAttributes(
-    Display* ,
-    Window ,
-    unsigned long ,
-    XSetWindowAttributes*
-);
-extern int XCheckIfEvent(
-    Display* ,
-    XEvent* ,
-    int (*) (
-        Display* ,
-               XEvent* ,
-               XPointer
-             ) ,
-    XPointer
-);
-extern int XCheckMaskEvent(
-    Display* ,
-    long ,
-    XEvent*
-);
-extern int XCheckTypedEvent(
-    Display* ,
-    int ,
-    XEvent*
-);
-extern int XCheckTypedWindowEvent(
-    Display* ,
-    Window ,
-    int ,
-    XEvent*
-);
-extern int XCheckWindowEvent(
-    Display* ,
-    Window ,
-    long ,
-    XEvent*
-);
-extern int XCirculateSubwindows(
-    Display* ,
-    Window ,
-    int
-);
-extern int XCirculateSubwindowsDown(
-    Display* ,
-    Window
-);
-extern int XCirculateSubwindowsUp(
-    Display* ,
-    Window
-);
-extern int XClearArea(
-    Display* ,
-    Window ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    int
-);
-extern int XClearWindow(
-    Display* ,
-    Window
-);
-extern int XCloseDisplay(
-    Display*
-);
-extern int XConfigureWindow(
-    Display* ,
-    Window ,
-    unsigned int ,
-    XWindowChanges*
-);
-extern int XConnectionNumber(
-    Display*
-);
-extern int XConvertSelection(
-    Display* ,
-    Atom ,
-    Atom ,
-    Atom ,
-    Window ,
-    Time
-);
-extern int XCopyArea(
-    Display* ,
-    Drawable ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    int
-);
-extern int XCopyGC(
-    Display* ,
-    GC ,
-    unsigned long ,
-    GC
-);
-extern int XCopyPlane(
-    Display* ,
-    Drawable ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    int ,
-    unsigned long
-);
-extern int XDefaultDepth(
-    Display* ,
-    int
-);
-extern int XDefaultDepthOfScreen(
-    Screen*
-);
-extern int XDefaultScreen(
-    Display*
-);
-extern int XDefineCursor(
-    Display* ,
-    Window ,
-    Cursor
-);
-extern int XDeleteProperty(
-    Display* ,
-    Window ,
-    Atom
-);
-extern int XDestroyWindow(
-    Display* ,
-    Window
-);
-extern int XDestroySubwindows(
-    Display* ,
-    Window
-);
-extern int XDoesBackingStore(
-    Screen*
-);
-extern int XDoesSaveUnders(
-    Screen*
-);
-extern int XDisableAccessControl(
-    Display*
-);
-extern int XDisplayCells(
-    Display* ,
-    int
-);
-extern int XDisplayHeight(
-    Display* ,
-    int
-);
-extern int XDisplayHeightMM(
-    Display* ,
-    int
-);
-extern int XDisplayKeycodes(
-    Display* ,
-    int* ,
-    int*
-);
-extern int XDisplayPlanes(
-    Display* ,
-    int
-);
-extern int XDisplayWidth(
-    Display* ,
-    int
-);
-extern int XDisplayWidthMM(
-    Display* ,
-    int
-);
-extern int XDrawArc(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    int
-);
-extern int XDrawArcs(
-    Display* ,
-    Drawable ,
-    GC ,
-    XArc* ,
-    int
-);
-extern int XDrawImageString(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-   const 
-           char* ,
-    int
-);
-extern int XDrawImageString16(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-   const 
-           XChar2b* ,
-    int
-);
-extern int XDrawLine(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    int ,
-    int
-);
-extern int XDrawLines(
-    Display* ,
-    Drawable ,
-    GC ,
-    XPoint* ,
-    int ,
-    int
-);
-extern int XDrawPoint(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int
-);
-extern int XDrawPoints(
-    Display* ,
-    Drawable ,
-    GC ,
-    XPoint* ,
-    int ,
-    int
-);
-extern int XDrawRectangle(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int
-);
-extern int XDrawRectangles(
-    Display* ,
-    Drawable ,
-    GC ,
-    XRectangle* ,
-    int
-);
-extern int XDrawSegments(
-    Display* ,
-    Drawable ,
-    GC ,
-    XSegment* ,
-    int
-);
-extern int XDrawString(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-   const 
-           char* ,
-    int
-);
-extern int XDrawString16(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-   const 
-           XChar2b* ,
-    int
-);
-extern int XDrawText(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    XTextItem* ,
-    int
-);
-extern int XDrawText16(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    XTextItem16* ,
-    int
-);
-extern int XEnableAccessControl(
-    Display*
-);
-extern int XEventsQueued(
-    Display* ,
-    int
-);
-extern int XFetchName(
-    Display* ,
-    Window ,
-    char**
-);
-extern int XFillArc(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    int
-);
-extern int XFillArcs(
-    Display* ,
-    Drawable ,
-    GC ,
-    XArc* ,
-    int
-);
-extern int XFillPolygon(
-    Display* ,
-    Drawable ,
-    GC ,
-    XPoint* ,
-    int ,
-    int ,
-    int
-);
-extern int XFillRectangle(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int
-);
-extern int XFillRectangles(
-    Display* ,
-    Drawable ,
-    GC ,
-    XRectangle* ,
-    int
-);
-extern int XFlush(
-    Display*
-);
-extern int XForceScreenSaver(
-    Display* ,
-    int
-);
-extern int XFree(
-    void*
-);
-extern int XFreeColormap(
-    Display* ,
-    Colormap
-);
-extern int XFreeColors(
-    Display* ,
-    Colormap ,
-    unsigned long* ,
-    int ,
-    unsigned long
-);
-extern int XFreeCursor(
-    Display* ,
-    Cursor
-);
-extern int XFreeExtensionList(
-    char**
-);
-extern int XFreeFont(
-    Display* ,
-    XFontStruct*
-);
-extern int XFreeFontInfo(
-    char** ,
-    XFontStruct* ,
-    int
-);
-extern int XFreeFontNames(
-    char**
-);
-extern int XFreeFontPath(
-    char**
-);
-extern int XFreeGC(
-    Display* ,
-    GC
-);
-extern int XFreeModifiermap(
-    XModifierKeymap*
-);
-extern int XFreePixmap(
-    Display* ,
-    Pixmap
-);
-extern int XGeometry(
-    Display* ,
-    int ,
-   const 
-           char* ,
-   const 
-           char* ,
-    unsigned int ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    int ,
-    int* ,
-    int* ,
-    int* ,
-    int*
-);
-extern int XGetErrorDatabaseText(
-    Display* ,
-   const 
-           char* ,
-   const 
-           char* ,
-   const 
-           char* ,
-    char* ,
-    int
-);
-extern int XGetErrorText(
-    Display* ,
-    int ,
-    char* ,
-    int
-);
-extern int XGetFontProperty(
-    XFontStruct* ,
-    Atom ,
-    unsigned long*
-);
-extern int XGetGCValues(
-    Display* ,
-    GC ,
-    unsigned long ,
-    XGCValues*
-);
-extern int XGetGeometry(
-    Display* ,
-    Drawable ,
-    Window* ,
-    int* ,
-    int* ,
-    unsigned int* ,
-    unsigned int* ,
-    unsigned int* ,
-    unsigned int*
-);
-extern int XGetIconName(
-    Display* ,
-    Window ,
-    char**
-);
-extern int XGetInputFocus(
-    Display* ,
-    Window* ,
-    int*
-);
-extern int XGetKeyboardControl(
-    Display* ,
-    XKeyboardState*
-);
-extern int XGetPointerControl(
-    Display* ,
-    int* ,
-    int* ,
-    int*
-);
-extern int XGetPointerMapping(
-    Display* ,
-    unsigned char* ,
-    int
-);
-extern int XGetScreenSaver(
-    Display* ,
-    int* ,
-    int* ,
-    int* ,
-    int*
-);
-extern int XGetTransientForHint(
-    Display* ,
-    Window ,
-    Window*
-);
-extern int XGetWindowProperty(
-    Display* ,
-    Window ,
-    Atom ,
-    long ,
-    long ,
-    int ,
-    Atom ,
-    Atom* ,
-    int* ,
-    unsigned long* ,
-    unsigned long* ,
-    unsigned char**
-);
-extern int XGetWindowAttributes(
-    Display* ,
-    Window ,
-    XWindowAttributes*
-);
-extern int XGrabButton(
-    Display* ,
-    unsigned int ,
-    unsigned int ,
-    Window ,
-    int ,
-    unsigned int ,
-    int ,
-    int ,
-    Window ,
-    Cursor
-);
-extern int XGrabKey(
-    Display* ,
-    int ,
-    unsigned int ,
-    Window ,
-    int ,
-    int ,
-    int
-);
-extern int XGrabKeyboard(
-    Display* ,
-    Window ,
-    int ,
-    int ,
-    int ,
-    Time
-);
-extern int XGrabPointer(
-    Display* ,
-    Window ,
-    int ,
-    unsigned int ,
-    int ,
-    int ,
-    Window ,
-    Cursor ,
-    Time
-);
-extern int XGrabServer(
-    Display*
-);
-extern int XHeightMMOfScreen(
-    Screen*
-);
-extern int XHeightOfScreen(
-    Screen*
-);
-extern int XIfEvent(
-    Display* ,
-    XEvent* ,
-    int (*) (
-        Display* ,
-               XEvent* ,
-               XPointer
-             ) ,
-    XPointer
-);
-extern int XImageByteOrder(
-    Display*
-);
-extern int XInstallColormap(
-    Display* ,
-    Colormap
-);
-extern KeyCode XKeysymToKeycode(
-    Display* ,
-    KeySym
-);
-extern int XKillClient(
-    Display* ,
-    XID
-);
-extern int XLookupColor(
-    Display* ,
-    Colormap ,
-   const 
-           char* ,
-    XColor* ,
-    XColor*
-);
-extern int XLowerWindow(
-    Display* ,
-    Window
-);
-extern int XMapRaised(
-    Display* ,
-    Window
-);
-extern int XMapSubwindows(
-    Display* ,
-    Window
-);
-extern int XMapWindow(
-    Display* ,
-    Window
-);
-extern int XMaskEvent(
-    Display* ,
-    long ,
-    XEvent*
-);
-extern int XMaxCmapsOfScreen(
-    Screen*
-);
-extern int XMinCmapsOfScreen(
-    Screen*
-);
-extern int XMoveResizeWindow(
-    Display* ,
-    Window ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int
-);
-extern int XMoveWindow(
-    Display* ,
-    Window ,
-    int ,
-    int
-);
-extern int XNextEvent(
-    Display* ,
-    XEvent*
-);
-extern int XNoOp(
-    Display*
-);
-extern int XParseColor(
-    Display* ,
-    Colormap ,
-   const 
-           char* ,
-    XColor*
-);
-extern int XParseGeometry(
-   const 
-           char* ,
-    int* ,
-    int* ,
-    unsigned int* ,
-    unsigned int*
-);
-extern int XPeekEvent(
-    Display* ,
-    XEvent*
-);
-extern int XPeekIfEvent(
-    Display* ,
-    XEvent* ,
-    int (*) (
-        Display* ,
-               XEvent* ,
-               XPointer
-             ) ,
-    XPointer
-);
-extern int XPending(
-    Display*
-);
-extern int XPlanesOfScreen(
-    Screen*
-);
-extern int XProtocolRevision(
-    Display*
-);
-extern int XProtocolVersion(
-    Display*
-);
-extern int XPutBackEvent(
-    Display* ,
-    XEvent*
-);
-extern int XPutImage(
-    Display* ,
-    Drawable ,
-    GC ,
-    XImage* ,
-    int ,
-    int ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int
-);
-extern int XQLength(
-    Display*
-);
-extern int XQueryBestCursor(
-    Display* ,
-    Drawable ,
-    unsigned int ,
-    unsigned int ,
-    unsigned int* ,
-    unsigned int*
-);
-extern int XQueryBestSize(
-    Display* ,
-    int ,
-    Drawable ,
-    unsigned int ,
-    unsigned int ,
-    unsigned int* ,
-    unsigned int*
-);
-extern int XQueryBestStipple(
-    Display* ,
-    Drawable ,
-    unsigned int ,
-    unsigned int ,
-    unsigned int* ,
-    unsigned int*
-);
-extern int XQueryBestTile(
-    Display* ,
-    Drawable ,
-    unsigned int ,
-    unsigned int ,
-    unsigned int* ,
-    unsigned int*
-);
-extern int XQueryColor(
-    Display* ,
-    Colormap ,
-    XColor*
-);
-extern int XQueryColors(
-    Display* ,
-    Colormap ,
-    XColor* ,
-    int
-);
-extern int XQueryExtension(
-    Display* ,
-   const 
-           char* ,
-    int* ,
-    int* ,
-    int*
-);
-extern int XQueryKeymap(
-    Display* ,
-    char [32]
-);
-extern int XQueryPointer(
-    Display* ,
-    Window ,
-    Window* ,
-    Window* ,
-    int* ,
-    int* ,
-    int* ,
-    int* ,
-    unsigned int*
-);
-extern int XQueryTextExtents(
-    Display* ,
-    XID ,
-   const 
-           char* ,
-    int ,
-    int* ,
-    int* ,
-    int* ,
-    XCharStruct*
-);
-extern int XQueryTextExtents16(
-    Display* ,
-    XID ,
-   const 
-           XChar2b* ,
-    int ,
-    int* ,
-    int* ,
-    int* ,
-    XCharStruct*
-);
-extern int XQueryTree(
-    Display* ,
-    Window ,
-    Window* ,
-    Window* ,
-    Window** ,
-    unsigned int*
-);
-extern int XRaiseWindow(
-    Display* ,
-    Window
-);
-extern int XReadBitmapFile(
-    Display* ,
-    Drawable ,
-   const 
-           char* ,
-    unsigned int* ,
-    unsigned int* ,
-    Pixmap* ,
-    int* ,
-    int*
-);
-extern int XReadBitmapFileData(
-   const 
-           char* ,
-    unsigned int* ,
-    unsigned int* ,
-    unsigned char** ,
-    int* ,
-    int*
-);
-extern int XRebindKeysym(
-    Display* ,
-    KeySym ,
-    KeySym* ,
-    int ,
-   const 
-           unsigned char* ,
-    int
-);
-extern int XRecolorCursor(
-    Display* ,
-    Cursor ,
-    XColor* ,
-    XColor*
-);
-extern int XRefreshKeyboardMapping(
-    XMappingEvent*
-);
-extern int XRemoveFromSaveSet(
-    Display* ,
-    Window
-);
-extern int XRemoveHost(
-    Display* ,
-    XHostAddress*
-);
-extern int XRemoveHosts(
-    Display* ,
-    XHostAddress* ,
-    int
-);
-extern int XReparentWindow(
-    Display* ,
-    Window ,
-    Window ,
-    int ,
-    int
-);
-extern int XResetScreenSaver(
-    Display*
-);
-extern int XResizeWindow(
-    Display* ,
-    Window ,
-    unsigned int ,
-    unsigned int
-);
-extern int XRestackWindows(
-    Display* ,
-    Window* ,
-    int
-);
-extern int XRotateBuffers(
-    Display* ,
-    int
-);
-extern int XRotateWindowProperties(
-    Display* ,
-    Window ,
-    Atom* ,
-    int ,
-    int
-);
-extern int XScreenCount(
-    Display*
-);
-extern int XSelectInput(
-    Display* ,
-    Window ,
-    long
-);
-extern int XSendEvent(
-    Display* ,
-    Window ,
-    int ,
-    long ,
-    XEvent*
-);
-extern int XSetAccessControl(
-    Display* ,
-    int
-);
-extern int XSetArcMode(
-    Display* ,
-    GC ,
-    int
-);
-extern int XSetBackground(
-    Display* ,
-    GC ,
-    unsigned long
-);
-extern int XSetClipMask(
-    Display* ,
-    GC ,
-    Pixmap
-);
-extern int XSetClipOrigin(
-    Display* ,
-    GC ,
-    int ,
-    int
-);
-extern int XSetClipRectangles(
-    Display* ,
-    GC ,
-    int ,
-    int ,
-    XRectangle* ,
-    int ,
-    int
-);
-extern int XSetCloseDownMode(
-    Display* ,
-    int
-);
-extern int XSetCommand(
-    Display* ,
-    Window ,
-    char** ,
-    int
-);
-extern int XSetDashes(
-    Display* ,
-    GC ,
-    int ,
-   const 
-           char* ,
-    int
-);
-extern int XSetFillRule(
-    Display* ,
-    GC ,
-    int
-);
-extern int XSetFillStyle(
-    Display* ,
-    GC ,
-    int
-);
-extern int XSetFont(
-    Display* ,
-    GC ,
-    Font
-);
-extern int XSetFontPath(
-    Display* ,
-    char** ,
-    int
-);
-extern int XSetForeground(
-    Display* ,
-    GC ,
-    unsigned long
-);
-extern int XSetFunction(
-    Display* ,
-    GC ,
-    int
-);
-extern int XSetGraphicsExposures(
-    Display* ,
-    GC ,
-    int
-);
-extern int XSetIconName(
-    Display* ,
-    Window ,
-   const 
-           char*
-);
-extern int XSetInputFocus(
-    Display* ,
-    Window ,
-    int ,
-    Time
-);
-extern int XSetLineAttributes(
-    Display* ,
-    GC ,
-    unsigned int ,
-    int ,
-    int ,
-    int
-);
-extern int XSetModifierMapping(
-    Display* ,
-    XModifierKeymap*
-);
-extern int XSetPlaneMask(
-    Display* ,
-    GC ,
-    unsigned long
-);
-extern int XSetPointerMapping(
-    Display* ,
-   const 
-           unsigned char* ,
-    int
-);
-extern int XSetScreenSaver(
-    Display* ,
-    int ,
-    int ,
-    int ,
-    int
-);
-extern int XSetSelectionOwner(
-    Display* ,
-    Atom ,
-    Window ,
-    Time
-);
-extern int XSetState(
-    Display* ,
-    GC ,
-    unsigned long ,
-    unsigned long ,
-    int ,
-    unsigned long
-);
-extern int XSetStipple(
-    Display* ,
-    GC ,
-    Pixmap
-);
-extern int XSetSubwindowMode(
-    Display* ,
-    GC ,
-    int
-);
-extern int XSetTSOrigin(
-    Display* ,
-    GC ,
-    int ,
-    int
-);
-extern int XSetTile(
-    Display* ,
-    GC ,
-    Pixmap
-);
-extern int XSetWindowBackground(
-    Display* ,
-    Window ,
-    unsigned long
-);
-extern int XSetWindowBackgroundPixmap(
-    Display* ,
-    Window ,
-    Pixmap
-);
-extern int XSetWindowBorder(
-    Display* ,
-    Window ,
-    unsigned long
-);
-extern int XSetWindowBorderPixmap(
-    Display* ,
-    Window ,
-    Pixmap
-);
-extern int XSetWindowBorderWidth(
-    Display* ,
-    Window ,
-    unsigned int
-);
-extern int XSetWindowColormap(
-    Display* ,
-    Window ,
-    Colormap
-);
-extern int XStoreBuffer(
-    Display* ,
-   const 
-           char* ,
-    int ,
-    int
-);
-extern int XStoreBytes(
-    Display* ,
-   const 
-           char* ,
-    int
-);
-extern int XStoreColor(
-    Display* ,
-    Colormap ,
-    XColor*
-);
-extern int XStoreColors(
-    Display* ,
-    Colormap ,
-    XColor* ,
-    int
-);
-extern int XStoreName(
-    Display* ,
-    Window ,
-   const 
-           char*
-);
-extern int XStoreNamedColor(
-    Display* ,
-    Colormap ,
-   const 
-           char* ,
-    unsigned long ,
-    int
-);
-extern int XSync(
-    Display* ,
-    int
-);
-extern int XTextExtents(
-    XFontStruct* ,
-   const 
-           char* ,
-    int ,
-    int* ,
-    int* ,
-    int* ,
-    XCharStruct*
-);
-extern int XTextExtents16(
-    XFontStruct* ,
-   const 
-           XChar2b* ,
-    int ,
-    int* ,
-    int* ,
-    int* ,
-    XCharStruct*
-);
-extern int XTextWidth(
-    XFontStruct* ,
-   const 
-           char* ,
-    int
-);
-extern int XTextWidth16(
-    XFontStruct* ,
-   const 
-           XChar2b* ,
-    int
-);
-extern int XTranslateCoordinates(
-    Display* ,
-    Window ,
-    Window ,
-    int ,
-    int ,
-    int* ,
-    int* ,
-    Window*
-);
-extern int XUndefineCursor(
-    Display* ,
-    Window
-);
-extern int XUngrabButton(
-    Display* ,
-    unsigned int ,
-    unsigned int ,
-    Window
-);
-extern int XUngrabKey(
-    Display* ,
-    int ,
-    unsigned int ,
-    Window
-);
-extern int XUngrabKeyboard(
-    Display* ,
-    Time
-);
-extern int XUngrabPointer(
-    Display* ,
-    Time
-);
-extern int XUngrabServer(
-    Display*
-);
-extern int XUninstallColormap(
-    Display* ,
-    Colormap
-);
-extern int XUnloadFont(
-    Display* ,
-    Font
-);
-extern int XUnmapSubwindows(
-    Display* ,
-    Window
-);
-extern int XUnmapWindow(
-    Display* ,
-    Window
-);
-extern int XVendorRelease(
-    Display*
-);
-extern int XWarpPointer(
-    Display* ,
-    Window ,
-    Window ,
-    int ,
-    int ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    int
-);
-extern int XWidthMMOfScreen(
-    Screen*
-);
-extern int XWidthOfScreen(
-    Screen*
-);
-extern int XWindowEvent(
-    Display* ,
-    Window ,
-    long ,
-    XEvent*
-);
-extern int XWriteBitmapFile(
-    Display* ,
-   const 
-           char* ,
-    Pixmap ,
-    unsigned int ,
-    unsigned int ,
-    int ,
-    int
-);
-extern int XSupportsLocale (void);
-extern char *XSetLocaleModifiers(
-    const char*
-);
-extern XOM XOpenOM(
-    Display* ,
-    struct _XrmHashBucketRec* ,
-   const 
-           char* ,
-   const 
-           char*
-);
-extern int XCloseOM(
-    XOM
-);
-extern char *XSetOMValues(
-    XOM ,
-    ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern char *XGetOMValues(
-    XOM ,
-    ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern Display *XDisplayOfOM(
-    XOM
-);
-extern char *XLocaleOfOM(
-    XOM
-);
-extern XOC XCreateOC(
-    XOM ,
-    ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern void XDestroyOC(
-    XOC
-);
-extern XOM XOMOfOC(
-    XOC
-);
-extern char *XSetOCValues(
-    XOC ,
-    ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern char *XGetOCValues(
-    XOC ,
-    ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern XFontSet XCreateFontSet(
-    Display* ,
-   const 
-           char* ,
-    char*** ,
-    int* ,
-    char**
-);
-extern void XFreeFontSet(
-    Display* ,
-    XFontSet
-);
-extern int XFontsOfFontSet(
-    XFontSet ,
-    XFontStruct*** ,
-    char***
-);
-extern char *XBaseFontNameListOfFontSet(
-    XFontSet
-);
-extern char *XLocaleOfFontSet(
-    XFontSet
-);
-extern int XContextDependentDrawing(
-    XFontSet
-);
-extern int XDirectionalDependentDrawing(
-    XFontSet
-);
-extern int XContextualDrawing(
-    XFontSet
-);
-extern XFontSetExtents *XExtentsOfFontSet(
-    XFontSet
-);
-extern int XmbTextEscapement(
-    XFontSet ,
-   const 
-           char* ,
-    int
-);
-extern int XwcTextEscapement(
-    XFontSet ,
-   const 
-           wchar_t* ,
-    int
-);
-extern int Xutf8TextEscapement(
-    XFontSet ,
-   const 
-           char* ,
-    int
-);
-extern int XmbTextExtents(
-    XFontSet ,
-   const 
-           char* ,
-    int ,
-    XRectangle* ,
-    XRectangle*
-);
-extern int XwcTextExtents(
-    XFontSet ,
-   const 
-           wchar_t* ,
-    int ,
-    XRectangle* ,
-    XRectangle*
-);
-extern int Xutf8TextExtents(
-    XFontSet ,
-   const 
-           char* ,
-    int ,
-    XRectangle* ,
-    XRectangle*
-);
-extern int XmbTextPerCharExtents(
-    XFontSet ,
-   const 
-           char* ,
-    int ,
-    XRectangle* ,
-    XRectangle* ,
-    int ,
-    int* ,
-    XRectangle* ,
-    XRectangle*
-);
-extern int XwcTextPerCharExtents(
-    XFontSet ,
-   const 
-           wchar_t* ,
-    int ,
-    XRectangle* ,
-    XRectangle* ,
-    int ,
-    int* ,
-    XRectangle* ,
-    XRectangle*
-);
-extern int Xutf8TextPerCharExtents(
-    XFontSet ,
-   const 
-           char* ,
-    int ,
-    XRectangle* ,
-    XRectangle* ,
-    int ,
-    int* ,
-    XRectangle* ,
-    XRectangle*
-);
-extern void XmbDrawText(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    XmbTextItem* ,
-    int
-);
-extern void XwcDrawText(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    XwcTextItem* ,
-    int
-);
-extern void Xutf8DrawText(
-    Display* ,
-    Drawable ,
-    GC ,
-    int ,
-    int ,
-    XmbTextItem* ,
-    int
-);
-extern void XmbDrawString(
-    Display* ,
-    Drawable ,
-    XFontSet ,
-    GC ,
-    int ,
-    int ,
-   const 
-           char* ,
-    int
-);
-extern void XwcDrawString(
-    Display* ,
-    Drawable ,
-    XFontSet ,
-    GC ,
-    int ,
-    int ,
-   const 
-           wchar_t* ,
-    int
-);
-extern void Xutf8DrawString(
-    Display* ,
-    Drawable ,
-    XFontSet ,
-    GC ,
-    int ,
-    int ,
-   const 
-           char* ,
-    int
-);
-extern void XmbDrawImageString(
-    Display* ,
-    Drawable ,
-    XFontSet ,
-    GC ,
-    int ,
-    int ,
-   const 
-           char* ,
-    int
-);
-extern void XwcDrawImageString(
-    Display* ,
-    Drawable ,
-    XFontSet ,
-    GC ,
-    int ,
-    int ,
-   const 
-           wchar_t* ,
-    int
-);
-extern void Xutf8DrawImageString(
-    Display* ,
-    Drawable ,
-    XFontSet ,
-    GC ,
-    int ,
-    int ,
-   const 
-           char* ,
-    int
-);
-extern XIM XOpenIM(
-    Display* ,
-    struct _XrmHashBucketRec* ,
-    char* ,
-    char*
-);
-extern int XCloseIM(
-    XIM
-);
-extern char *XGetIMValues(
-    XIM , ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern char *XSetIMValues(
-    XIM , ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern Display *XDisplayOfIM(
-    XIM
-);
-extern char *XLocaleOfIM(
-    XIM
-);
-extern XIC XCreateIC(
-    XIM , ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern void XDestroyIC(
-    XIC
-);
-extern void XSetICFocus(
-    XIC
-);
-extern void XUnsetICFocus(
-    XIC
-);
-extern wchar_t *XwcResetIC(
-    XIC
-);
-extern char *XmbResetIC(
-    XIC
-);
-extern char *Xutf8ResetIC(
-    XIC
-);
-extern char *XSetICValues(
-    XIC , ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern char *XGetICValues(
-    XIC , ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern XIM XIMOfIC(
-    XIC
-);
-extern int XFilterEvent(
-    XEvent* ,
-    Window
-);
-extern int XmbLookupString(
-    XIC ,
-    XKeyPressedEvent* ,
-    char* ,
-    int ,
-    KeySym* ,
-    int*
-);
-extern int XwcLookupString(
-    XIC ,
-    XKeyPressedEvent* ,
-    wchar_t* ,
-    int ,
-    KeySym* ,
-    int*
-);
-extern int Xutf8LookupString(
-    XIC ,
-    XKeyPressedEvent* ,
-    char* ,
-    int ,
-    KeySym* ,
-    int*
-);
-extern XVaNestedList XVaCreateNestedList(
-    int , ...
-) 
- __attribute__ ((__sentinel__(
- 0
- )))
-               ;
-extern int XRegisterIMInstantiateCallback(
-    Display* ,
-    struct _XrmHashBucketRec* ,
-    char* ,
-    char* ,
-    XIDProc ,
-    XPointer
-);
-extern int XUnregisterIMInstantiateCallback(
-    Display* ,
-    struct _XrmHashBucketRec* ,
-    char* ,
-    char* ,
-    XIDProc ,
-    XPointer
-);
-typedef void (*XConnectionWatchProc)(
-    Display* ,
-    XPointer ,
-    int ,
-    int ,
-    XPointer*
-);
-extern int XInternalConnectionNumbers(
-    Display* ,
-    int** ,
-    int*
-);
-extern void XProcessInternalConnection(
-    Display* ,
-    int
-);
-extern int XAddConnectionWatch(
-    Display* ,
-    XConnectionWatchProc ,
-    XPointer
-);
-extern void XRemoveConnectionWatch(
-    Display* ,
-    XConnectionWatchProc ,
-    XPointer
-);
-extern void XSetAuthorization(
-    char * ,
-    int ,
-    char * ,
-    int
-);
-extern int _Xmbtowc(
-    wchar_t * ,
-    char * ,
-    int
-);
-extern int _Xwctomb(
-    char * ,
-    wchar_t
-);
-extern int XGetEventData(
-    Display* ,
-    XGenericEventCookie*
-);
-extern void XFreeEventData(
-    Display* ,
-    XGenericEventCookie*
-);
-enum {X_PROTOCOL=11};
-enum {X_PROTOCOL_REVISION=0};
-enum {None=0};
-enum {ParentRelative=1};
-enum {CopyFromParent=0};
-enum {PointerWindow=0};
-enum {InputFocus=1};
-enum {PointerRoot=1};
-enum {AnyPropertyType=0};
-enum {AnyKey=0};
 enum {AnyButton=0};
-enum {AllTemporary=0};
-enum {CurrentTime=0};
-enum {NoSymbol=0};
-enum {NoEventMask=0};
-enum {KeyPressMask=1};
-enum {KeyReleaseMask=2};
-enum {ButtonPressMask=4};
-enum {ButtonReleaseMask=8};
-enum {EnterWindowMask=16};
-enum {LeaveWindowMask=32};
-enum {PointerMotionMask=64};
-enum {PointerMotionHintMask=128};
-enum {Button1MotionMask=256};
-enum {Button2MotionMask=512};
-enum {Button3MotionMask=1024};
-enum {Button4MotionMask=2048};
-enum {Button5MotionMask=4096};
-enum {ButtonMotionMask=8192};
-enum {KeymapStateMask=16384};
-enum {ExposureMask=32768};
-enum {VisibilityChangeMask=65536};
-enum {StructureNotifyMask=131072};
-enum {ResizeRedirectMask=262144};
-enum {SubstructureNotifyMask=524288};
-enum {SubstructureRedirectMask=1048576};
-enum {FocusChangeMask=2097152};
-enum {PropertyChangeMask=4194304};
-enum {ColormapChangeMask=8388608};
-enum {OwnerGrabButtonMask=16777216};
-enum {KeyPress=2};
-enum {KeyRelease=3};
+enum {AnyModifier=32768};
 enum {ButtonPress=4};
+enum {ButtonPressMask=4};
 enum {ButtonRelease=5};
-enum {MotionNotify=6};
-enum {EnterNotify=7};
-enum {LeaveNotify=8};
-enum {FocusIn=9};
-enum {FocusOut=10};
-enum {KeymapNotify=11};
-enum {Expose=12};
-enum {GraphicsExpose=13};
-enum {NoExpose=14};
-enum {VisibilityNotify=15};
-enum {CreateNotify=16};
-enum {DestroyNotify=17};
-enum {UnmapNotify=18};
-enum {MapNotify=19};
-enum {MapRequest=20};
-enum {ReparentNotify=21};
-enum {ConfigureNotify=22};
-enum {ConfigureRequest=23};
-enum {GravityNotify=24};
-enum {ResizeRequest=25};
 enum {CirculateNotify=26};
 enum {CirculateRequest=27};
-enum {PropertyNotify=28};
-enum {SelectionClear=29};
-enum {SelectionRequest=30};
-enum {SelectionNotify=31};
-enum {ColormapNotify=32};
 enum {ClientMessage=33};
-enum {MappingNotify=34};
-enum {GenericEvent=35};
-enum {LASTEvent=36};
-enum {ShiftMask=1};
-enum {LockMask=2};
+enum {ColormapNotify=32};
+enum {ConfigureNotify=22};
+enum {ConfigureRequest=23};
 enum {ControlMask=4};
+enum {CreateNotify=16};
+enum {CurrentTime=0};
+enum {DestroyNotify=17};
+enum {EnterNotify=7};
+enum {Expose=12};
+enum {FocusIn=9};
+enum {FocusOut=10};
+enum {GenericEvent=35};
+enum {GrabModeAsync=1};
+enum {GrabModeSync=0};
+enum {GraphicsExpose=13};
+enum {GravityNotify=24};
+enum {IsViewable=2};
+enum {KeyPress=2};
+enum {KeyRelease=3};
+enum {KeymapNotify=11};
+enum {LASTEvent=36};
+enum {LeaveNotify=8};
+enum {LockMask=2};
+enum {MapNotify=19};
+enum {MapRequest=20};
+enum {MappingNotify=34};
 enum {Mod1Mask=8};
 enum {Mod2Mask=16};
 enum {Mod3Mask=32};
 enum {Mod4Mask=64};
 enum {Mod5Mask=128};
-enum {ShiftMapIndex=0};
-enum {LockMapIndex=1};
-enum {ControlMapIndex=2};
-enum {Mod1MapIndex=3};
-enum {Mod2MapIndex=4};
-enum {Mod3MapIndex=5};
-enum {Mod4MapIndex=6};
-enum {Mod5MapIndex=7};
-enum {Button1Mask=256};
-enum {Button2Mask=512};
-enum {Button3Mask=1024};
-enum {Button4Mask=2048};
-enum {Button5Mask=4096};
-enum {AnyModifier=32768};
-enum {Button1=1};
-enum {Button2=2};
-enum {Button3=3};
-enum {Button4=4};
-enum {Button5=5};
-enum {NotifyNormal=0};
-enum {NotifyGrab=1};
-enum {NotifyUngrab=2};
-enum {NotifyWhileGrabbed=3};
-enum {NotifyHint=1};
-enum {NotifyAncestor=0};
-enum {NotifyVirtual=1};
-enum {NotifyInferior=2};
-enum {NotifyNonlinear=3};
-enum {NotifyNonlinearVirtual=4};
-enum {NotifyPointer=5};
-enum {NotifyPointerRoot=6};
-enum {NotifyDetailNone=7};
-enum {VisibilityUnobscured=0};
-enum {VisibilityPartiallyObscured=1};
-enum {VisibilityFullyObscured=2};
-enum {PlaceOnTop=0};
-enum {PlaceOnBottom=1};
-enum {FamilyInternet=0};
-enum {FamilyDECnet=1};
-enum {FamilyChaos=2};
-enum {FamilyInternet6=6};
-enum {FamilyServerInterpreted=5};
-enum {PropertyNewValue=0};
-enum {PropertyDelete=1};
-enum {ColormapUninstalled=0};
-enum {ColormapInstalled=1};
-enum {GrabModeSync=0};
-enum {GrabModeAsync=1};
-enum {GrabSuccess=0};
-enum {AlreadyGrabbed=1};
-enum {GrabInvalidTime=2};
-enum {GrabNotViewable=3};
-enum {GrabFrozen=4};
-enum {AsyncPointer=0};
-enum {SyncPointer=1};
+enum {MotionNotify=6};
+enum {NoExpose=14};
+enum {PropertyNotify=28};
+enum {ReparentNotify=21};
 enum {ReplayPointer=2};
-enum {AsyncKeyboard=3};
-enum {SyncKeyboard=4};
-enum {ReplayKeyboard=5};
-enum {AsyncBoth=6};
-enum {SyncBoth=7};
+enum {ResizeRequest=25};
 enum {RevertToParent=2};
-enum {Success=0};
-enum {BadRequest=1};
-enum {BadValue=2};
-enum {BadWindow=3};
-enum {BadPixmap=4};
-enum {BadAtom=5};
-enum {BadCursor=6};
-enum {BadFont=7};
-enum {BadMatch=8};
-enum {BadDrawable=9};
-enum {BadAccess=10};
-enum {BadAlloc=11};
-enum {BadColor=12};
-enum {BadGC=13};
-enum {BadIDChoice=14};
-enum {BadName=15};
-enum {BadLength=16};
-enum {BadImplementation=17};
-enum {FirstExtensionError=128};
-enum {LastExtensionError=255};
-enum {InputOutput=1};
-enum {InputOnly=2};
-enum {CWBackPixmap=1};
-enum {CWBackPixel=2};
-enum {CWBorderPixmap=4};
-enum {CWBorderPixel=8};
-enum {CWBitGravity=16};
-enum {CWWinGravity=32};
-enum {CWBackingStore=64};
-enum {CWBackingPlanes=128};
-enum {CWBackingPixel=256};
-enum {CWOverrideRedirect=512};
-enum {CWSaveUnder=1024};
-enum {CWEventMask=2048};
-enum {CWDontPropagate=4096};
-enum {CWColormap=8192};
-enum {CWCursor=16384};
-enum {CWX=1};
-enum {CWY=2};
-enum {CWWidth=4};
-enum {CWHeight=8};
-enum {CWBorderWidth=16};
-enum {CWSibling=32};
-enum {CWStackMode=64};
-enum {ForgetGravity=0};
-enum {NorthWestGravity=1};
-enum {NorthGravity=2};
-enum {NorthEastGravity=3};
-enum {WestGravity=4};
-enum {CenterGravity=5};
-enum {EastGravity=6};
-enum {SouthWestGravity=7};
-enum {SouthGravity=8};
-enum {SouthEastGravity=9};
-enum {StaticGravity=10};
-enum {UnmapGravity=0};
-enum {NotUseful=0};
-enum {WhenMapped=1};
-enum {Always=2};
-enum {IsUnmapped=0};
-enum {IsUnviewable=1};
-enum {IsViewable=2};
-enum {SetModeInsert=0};
-enum {SetModeDelete=1};
-enum {DestroyAll=0};
-enum {RetainPermanent=1};
-enum {RetainTemporary=2};
-enum {Above=0};
-enum {Below=1};
-enum {TopIf=2};
-enum {BottomIf=3};
-enum {Opposite=4};
-enum {RaiseLowest=0};
-enum {LowerHighest=1};
-enum {PropModeReplace=0};
-enum {PropModePrepend=1};
-enum {PropModeAppend=2};
-enum {GXclear=0};
-enum {GXand=1};
-enum {GXandReverse=2};
-enum {GXcopy=3};
-enum {GXandInverted=4};
-enum {GXnoop=5};
-enum {GXxor=6};
-enum {GXor=7};
-enum {GXnor=8};
-enum {GXequiv=9};
-enum {GXinvert=10};
-enum {GXorReverse=11};
-enum {GXcopyInverted=12};
-enum {GXorInverted=13};
-enum {GXnand=14};
-enum {GXset=15};
-enum {LineSolid=0};
-enum {LineOnOffDash=1};
-enum {LineDoubleDash=2};
-enum {CapNotLast=0};
-enum {CapButt=1};
-enum {CapRound=2};
-enum {CapProjecting=3};
-enum {JoinMiter=0};
-enum {JoinRound=1};
-enum {JoinBevel=2};
-enum {FillSolid=0};
-enum {FillTiled=1};
-enum {FillStippled=2};
-enum {FillOpaqueStippled=3};
-enum {EvenOddRule=0};
-enum {WindingRule=1};
-enum {ClipByChildren=0};
-enum {IncludeInferiors=1};
-enum {Unsorted=0};
-enum {YSorted=1};
-enum {YXSorted=2};
-enum {YXBanded=3};
-enum {CoordModeOrigin=0};
-enum {CoordModePrevious=1};
-enum {Complex=0};
-enum {Nonconvex=1};
-enum {Convex=2};
-enum {ArcChord=0};
-enum {ArcPieSlice=1};
-enum {GCFunction=1};
-enum {GCPlaneMask=2};
-enum {GCForeground=4};
-enum {GCBackground=8};
-enum {GCLineWidth=16};
-enum {GCLineStyle=32};
-enum {GCCapStyle=64};
-enum {GCJoinStyle=128};
-enum {GCFillStyle=256};
-enum {GCFillRule=512};
-enum {GCTile=1024};
-enum {GCStipple=2048};
-enum {GCTileStipXOrigin=4096};
-enum {GCTileStipYOrigin=8192};
-enum {GCFont=16384};
-enum {GCSubwindowMode=32768};
-enum {GCGraphicsExposures=65536};
-enum {GCClipXOrigin=131072};
-enum {GCClipYOrigin=262144};
-enum {GCClipMask=524288};
-enum {GCDashOffset=1048576};
-enum {GCDashList=2097152};
-enum {GCArcMode=4194304};
-enum {GCLastBit=22};
-enum {FontLeftToRight=0};
-enum {FontRightToLeft=1};
-enum {FontChange=255};
-enum {XYBitmap=0};
-enum {XYPixmap=1};
-enum {ZPixmap=2};
-enum {AllocNone=0};
-enum {AllocAll=1};
-enum {DoRed=1};
-enum {DoGreen=2};
-enum {DoBlue=4};
-enum {CursorShape=0};
-enum {TileShape=1};
-enum {StippleShape=2};
-enum {AutoRepeatModeOff=0};
-enum {AutoRepeatModeOn=1};
-enum {AutoRepeatModeDefault=2};
-enum {LedModeOff=0};
-enum {LedModeOn=1};
-enum {KBKeyClickPercent=1};
-enum {KBBellPercent=2};
-enum {KBBellPitch=4};
-enum {KBBellDuration=8};
-enum {KBLed=16};
-enum {KBLedMode=32};
-enum {KBKey=64};
-enum {KBAutoRepeatMode=128};
-enum {MappingSuccess=0};
-enum {MappingBusy=1};
-enum {MappingFailed=2};
-enum {MappingModifier=0};
-enum {MappingKeyboard=1};
-enum {MappingPointer=2};
-enum {DontPreferBlanking=0};
-enum {PreferBlanking=1};
-enum {DefaultBlanking=2};
-enum {DisableScreenSaver=0};
-enum {DisableScreenInterval=0};
-enum {DontAllowExposures=0};
-enum {AllowExposures=1};
-enum {DefaultExposures=2};
-enum {ScreenSaverReset=0};
-enum {ScreenSaverActive=1};
-enum {HostInsert=0};
-enum {HostDelete=1};
-enum {EnableAccess=1};
-enum {DisableAccess=0};
-enum {StaticGray=0};
-enum {GrayScale=1};
-enum {StaticColor=2};
-enum {PseudoColor=3};
-enum {TrueColor=4};
-enum {DirectColor=5};
-enum {LSBFirst=0};
-enum {MSBFirst=1};
-typedef unsigned long XID;
-typedef unsigned long Mask;
-typedef unsigned long Atom;
-typedef unsigned long VisualID;
-typedef unsigned long Time;
-typedef XID Window;
-typedef XID Drawable;
-typedef XID Font;
-typedef XID Pixmap;
-typedef XID Cursor;
-typedef XID Colormap;
-typedef XID GContext;
-typedef XID KeySym;
-typedef unsigned char KeyCode;
-enum {XK_VoidSymbol=16777215};
-enum {XK_BackSpace=65288};
-enum {XK_Tab=65289};
-enum {XK_Linefeed=65290};
-enum {XK_Clear=65291};
-enum {XK_Return=65293};
-enum {XK_Pause=65299};
-enum {XK_Scroll_Lock=65300};
-enum {XK_Sys_Req=65301};
-enum {XK_Escape=65307};
-enum {XK_Delete=65535};
-enum {XK_Multi_key=65312};
-enum {XK_Codeinput=65335};
-enum {XK_SingleCandidate=65340};
-enum {XK_MultipleCandidate=65341};
-enum {XK_PreviousCandidate=65342};
-enum {XK_Kanji=65313};
-enum {XK_Muhenkan=65314};
-enum {XK_Henkan_Mode=65315};
-enum {XK_Henkan=65315};
-enum {XK_Romaji=65316};
-enum {XK_Hiragana=65317};
-enum {XK_Katakana=65318};
-enum {XK_Hiragana_Katakana=65319};
-enum {XK_Zenkaku=65320};
-enum {XK_Hankaku=65321};
-enum {XK_Zenkaku_Hankaku=65322};
-enum {XK_Touroku=65323};
-enum {XK_Massyo=65324};
-enum {XK_Kana_Lock=65325};
-enum {XK_Kana_Shift=65326};
-enum {XK_Eisu_Shift=65327};
-enum {XK_Eisu_toggle=65328};
-enum {XK_Kanji_Bangou=65335};
-enum {XK_Zen_Koho=65341};
-enum {XK_Mae_Koho=65342};
-enum {XK_Home=65360};
-enum {XK_Left=65361};
-enum {XK_Up=65362};
-enum {XK_Right=65363};
-enum {XK_Down=65364};
-enum {XK_Prior=65365};
-enum {XK_Page_Up=65365};
-enum {XK_Next=65366};
-enum {XK_Page_Down=65366};
-enum {XK_End=65367};
-enum {XK_Begin=65368};
-enum {XK_Select=65376};
-enum {XK_Print=65377};
-enum {XK_Execute=65378};
-enum {XK_Insert=65379};
-enum {XK_Undo=65381};
-enum {XK_Redo=65382};
-enum {XK_Menu=65383};
-enum {XK_Find=65384};
-enum {XK_Cancel=65385};
-enum {XK_Help=65386};
-enum {XK_Break=65387};
-enum {XK_Mode_switch=65406};
-enum {XK_script_switch=65406};
-enum {XK_Num_Lock=65407};
-enum {XK_KP_Space=65408};
-enum {XK_KP_Tab=65417};
-enum {XK_KP_Enter=65421};
-enum {XK_KP_F1=65425};
-enum {XK_KP_F2=65426};
-enum {XK_KP_F3=65427};
-enum {XK_KP_F4=65428};
-enum {XK_KP_Home=65429};
-enum {XK_KP_Left=65430};
-enum {XK_KP_Up=65431};
-enum {XK_KP_Right=65432};
-enum {XK_KP_Down=65433};
-enum {XK_KP_Prior=65434};
-enum {XK_KP_Page_Up=65434};
-enum {XK_KP_Next=65435};
-enum {XK_KP_Page_Down=65435};
-enum {XK_KP_End=65436};
-enum {XK_KP_Begin=65437};
-enum {XK_KP_Insert=65438};
-enum {XK_KP_Delete=65439};
-enum {XK_KP_Equal=65469};
-enum {XK_KP_Multiply=65450};
-enum {XK_KP_Add=65451};
-enum {XK_KP_Separator=65452};
-enum {XK_KP_Subtract=65453};
-enum {XK_KP_Decimal=65454};
-enum {XK_KP_Divide=65455};
-enum {XK_KP_0=65456};
-enum {XK_KP_1=65457};
-enum {XK_KP_2=65458};
-enum {XK_KP_3=65459};
-enum {XK_KP_4=65460};
-enum {XK_KP_5=65461};
-enum {XK_KP_6=65462};
-enum {XK_KP_7=65463};
-enum {XK_KP_8=65464};
-enum {XK_KP_9=65465};
-enum {XK_F1=65470};
-enum {XK_F2=65471};
-enum {XK_F3=65472};
-enum {XK_F4=65473};
-enum {XK_F5=65474};
-enum {XK_F6=65475};
-enum {XK_F7=65476};
-enum {XK_F8=65477};
-enum {XK_F9=65478};
-enum {XK_F10=65479};
-enum {XK_F11=65480};
-enum {XK_L1=65480};
-enum {XK_F12=65481};
-enum {XK_L2=65481};
-enum {XK_F13=65482};
-enum {XK_L3=65482};
-enum {XK_F14=65483};
-enum {XK_L4=65483};
-enum {XK_F15=65484};
-enum {XK_L5=65484};
-enum {XK_F16=65485};
-enum {XK_L6=65485};
-enum {XK_F17=65486};
-enum {XK_L7=65486};
-enum {XK_F18=65487};
-enum {XK_L8=65487};
-enum {XK_F19=65488};
-enum {XK_L9=65488};
-enum {XK_F20=65489};
-enum {XK_L10=65489};
-enum {XK_F21=65490};
-enum {XK_R1=65490};
-enum {XK_F22=65491};
-enum {XK_R2=65491};
-enum {XK_F23=65492};
-enum {XK_R3=65492};
-enum {XK_F24=65493};
-enum {XK_R4=65493};
-enum {XK_F25=65494};
-enum {XK_R5=65494};
-enum {XK_F26=65495};
-enum {XK_R6=65495};
-enum {XK_F27=65496};
-enum {XK_R7=65496};
-enum {XK_F28=65497};
-enum {XK_R8=65497};
-enum {XK_F29=65498};
-enum {XK_R9=65498};
-enum {XK_F30=65499};
-enum {XK_R10=65499};
-enum {XK_F31=65500};
-enum {XK_R11=65500};
-enum {XK_F32=65501};
-enum {XK_R12=65501};
-enum {XK_F33=65502};
-enum {XK_R13=65502};
-enum {XK_F34=65503};
-enum {XK_R14=65503};
-enum {XK_F35=65504};
-enum {XK_R15=65504};
-enum {XK_Shift_L=65505};
-enum {XK_Shift_R=65506};
-enum {XK_Control_L=65507};
-enum {XK_Control_R=65508};
-enum {XK_Caps_Lock=65509};
-enum {XK_Shift_Lock=65510};
-enum {XK_Meta_L=65511};
-enum {XK_Meta_R=65512};
-enum {XK_Alt_L=65513};
-enum {XK_Alt_R=65514};
-enum {XK_Super_L=65515};
-enum {XK_Super_R=65516};
-enum {XK_Hyper_L=65517};
-enum {XK_Hyper_R=65518};
-enum {XK_ISO_Lock=65025};
-enum {XK_ISO_Level2_Latch=65026};
-enum {XK_ISO_Level3_Shift=65027};
-enum {XK_ISO_Level3_Latch=65028};
-enum {XK_ISO_Level3_Lock=65029};
-enum {XK_ISO_Level5_Shift=65041};
-enum {XK_ISO_Level5_Latch=65042};
-enum {XK_ISO_Level5_Lock=65043};
-enum {XK_ISO_Group_Shift=65406};
-enum {XK_ISO_Group_Latch=65030};
-enum {XK_ISO_Group_Lock=65031};
-enum {XK_ISO_Next_Group=65032};
-enum {XK_ISO_Next_Group_Lock=65033};
-enum {XK_ISO_Prev_Group=65034};
-enum {XK_ISO_Prev_Group_Lock=65035};
-enum {XK_ISO_First_Group=65036};
-enum {XK_ISO_First_Group_Lock=65037};
-enum {XK_ISO_Last_Group=65038};
-enum {XK_ISO_Last_Group_Lock=65039};
-enum {XK_ISO_Left_Tab=65056};
-enum {XK_ISO_Move_Line_Up=65057};
-enum {XK_ISO_Move_Line_Down=65058};
-enum {XK_ISO_Partial_Line_Up=65059};
-enum {XK_ISO_Partial_Line_Down=65060};
-enum {XK_ISO_Partial_Space_Left=65061};
-enum {XK_ISO_Partial_Space_Right=65062};
-enum {XK_ISO_Set_Margin_Left=65063};
-enum {XK_ISO_Set_Margin_Right=65064};
-enum {XK_ISO_Release_Margin_Left=65065};
-enum {XK_ISO_Release_Margin_Right=65066};
-enum {XK_ISO_Release_Both_Margins=65067};
-enum {XK_ISO_Fast_Cursor_Left=65068};
-enum {XK_ISO_Fast_Cursor_Right=65069};
-enum {XK_ISO_Fast_Cursor_Up=65070};
-enum {XK_ISO_Fast_Cursor_Down=65071};
-enum {XK_ISO_Continuous_Underline=65072};
-enum {XK_ISO_Discontinuous_Underline=65073};
-enum {XK_ISO_Emphasize=65074};
-enum {XK_ISO_Center_Object=65075};
-enum {XK_ISO_Enter=65076};
-enum {XK_dead_grave=65104};
-enum {XK_dead_acute=65105};
-enum {XK_dead_circumflex=65106};
-enum {XK_dead_tilde=65107};
-enum {XK_dead_perispomeni=65107};
-enum {XK_dead_macron=65108};
-enum {XK_dead_breve=65109};
-enum {XK_dead_abovedot=65110};
-enum {XK_dead_diaeresis=65111};
-enum {XK_dead_abovering=65112};
-enum {XK_dead_doubleacute=65113};
-enum {XK_dead_caron=65114};
-enum {XK_dead_cedilla=65115};
-enum {XK_dead_ogonek=65116};
-enum {XK_dead_iota=65117};
-enum {XK_dead_voiced_sound=65118};
-enum {XK_dead_semivoiced_sound=65119};
-enum {XK_dead_belowdot=65120};
-enum {XK_dead_hook=65121};
-enum {XK_dead_horn=65122};
-enum {XK_dead_stroke=65123};
-enum {XK_dead_abovecomma=65124};
-enum {XK_dead_psili=65124};
-enum {XK_dead_abovereversedcomma=65125};
-enum {XK_dead_dasia=65125};
-enum {XK_dead_doublegrave=65126};
-enum {XK_dead_belowring=65127};
-enum {XK_dead_belowmacron=65128};
-enum {XK_dead_belowcircumflex=65129};
-enum {XK_dead_belowtilde=65130};
-enum {XK_dead_belowbreve=65131};
-enum {XK_dead_belowdiaeresis=65132};
-enum {XK_dead_invertedbreve=65133};
-enum {XK_dead_belowcomma=65134};
-enum {XK_dead_currency=65135};
-enum {XK_dead_a=65152};
-enum {XK_dead_A=65153};
-enum {XK_dead_e=65154};
-enum {XK_dead_E=65155};
-enum {XK_dead_i=65156};
-enum {XK_dead_I=65157};
-enum {XK_dead_o=65158};
-enum {XK_dead_O=65159};
-enum {XK_dead_u=65160};
-enum {XK_dead_U=65161};
-enum {XK_dead_schwa=65162};
-enum {XK_dead_SCHWA=65163};
-enum {XK_dead_small_schwa=65162};
-enum {XK_dead_capital_schwa=65163};
-enum {XK_dead_greek=65164};
-enum {XK_First_Virtual_Screen=65232};
-enum {XK_Prev_Virtual_Screen=65233};
-enum {XK_Next_Virtual_Screen=65234};
-enum {XK_Last_Virtual_Screen=65236};
-enum {XK_Terminate_Server=65237};
-enum {XK_AccessX_Enable=65136};
-enum {XK_AccessX_Feedback_Enable=65137};
-enum {XK_RepeatKeys_Enable=65138};
-enum {XK_SlowKeys_Enable=65139};
-enum {XK_BounceKeys_Enable=65140};
-enum {XK_StickyKeys_Enable=65141};
-enum {XK_MouseKeys_Enable=65142};
-enum {XK_MouseKeys_Accel_Enable=65143};
-enum {XK_Overlay1_Enable=65144};
-enum {XK_Overlay2_Enable=65145};
-enum {XK_AudibleBell_Enable=65146};
-enum {XK_Pointer_Left=65248};
-enum {XK_Pointer_Right=65249};
-enum {XK_Pointer_Up=65250};
-enum {XK_Pointer_Down=65251};
-enum {XK_Pointer_UpLeft=65252};
-enum {XK_Pointer_UpRight=65253};
-enum {XK_Pointer_DownLeft=65254};
-enum {XK_Pointer_DownRight=65255};
-enum {XK_Pointer_Button_Dflt=65256};
-enum {XK_Pointer_Button1=65257};
-enum {XK_Pointer_Button2=65258};
-enum {XK_Pointer_Button3=65259};
-enum {XK_Pointer_Button4=65260};
-enum {XK_Pointer_Button5=65261};
-enum {XK_Pointer_DblClick_Dflt=65262};
-enum {XK_Pointer_DblClick1=65263};
-enum {XK_Pointer_DblClick2=65264};
-enum {XK_Pointer_DblClick3=65265};
-enum {XK_Pointer_DblClick4=65266};
-enum {XK_Pointer_DblClick5=65267};
-enum {XK_Pointer_Drag_Dflt=65268};
-enum {XK_Pointer_Drag1=65269};
-enum {XK_Pointer_Drag2=65270};
-enum {XK_Pointer_Drag3=65271};
-enum {XK_Pointer_Drag4=65272};
-enum {XK_Pointer_Drag5=65277};
-enum {XK_Pointer_EnableKeys=65273};
-enum {XK_Pointer_Accelerate=65274};
-enum {XK_Pointer_DfltBtnNext=65275};
-enum {XK_Pointer_DfltBtnPrev=65276};
-enum {XK_ch=65184};
-enum {XK_Ch=65185};
-enum {XK_CH=65186};
-enum {XK_c_h=65187};
-enum {XK_C_h=65188};
-enum {XK_C_H=65189};
-enum {XK_3270_Duplicate=64769};
-enum {XK_3270_FieldMark=64770};
-enum {XK_3270_Right2=64771};
-enum {XK_3270_Left2=64772};
-enum {XK_3270_BackTab=64773};
-enum {XK_3270_EraseEOF=64774};
-enum {XK_3270_EraseInput=64775};
-enum {XK_3270_Reset=64776};
-enum {XK_3270_Quit=64777};
-enum {XK_3270_PA1=64778};
-enum {XK_3270_PA2=64779};
-enum {XK_3270_PA3=64780};
-enum {XK_3270_Test=64781};
-enum {XK_3270_Attn=64782};
-enum {XK_3270_CursorBlink=64783};
-enum {XK_3270_AltCursor=64784};
-enum {XK_3270_KeyClick=64785};
-enum {XK_3270_Jump=64786};
-enum {XK_3270_Ident=64787};
-enum {XK_3270_Rule=64788};
-enum {XK_3270_Copy=64789};
-enum {XK_3270_Play=64790};
-enum {XK_3270_Setup=64791};
-enum {XK_3270_Record=64792};
-enum {XK_3270_ChangeScreen=64793};
-enum {XK_3270_DeleteWord=64794};
-enum {XK_3270_ExSelect=64795};
-enum {XK_3270_CursorSelect=64796};
-enum {XK_3270_PrintScreen=64797};
-enum {XK_3270_Enter=64798};
-enum {XK_space=32};
-enum {XK_exclam=33};
-enum {XK_quotedbl=34};
-enum {XK_numbersign=35};
-enum {XK_dollar=36};
-enum {XK_percent=37};
-enum {XK_ampersand=38};
-enum {XK_apostrophe=39};
-enum {XK_quoteright=39};
-enum {XK_parenleft=40};
-enum {XK_parenright=41};
-enum {XK_asterisk=42};
-enum {XK_plus=43};
-enum {XK_comma=44};
-enum {XK_minus=45};
-enum {XK_period=46};
-enum {XK_slash=47};
+enum {SelectionClear=29};
+enum {SelectionNotify=31};
+enum {SelectionRequest=30};
+enum {ShiftMask=1};
+enum {StructureNotifyMask=131072};
+enum {SubstructureNotifyMask=524288};
+enum {SubstructureRedirectMask=1048576};
+enum {UnmapNotify=18};
+enum {VisibilityNotify=15};
+typedef unsigned long XID;;
+typedef XID Window;;
+struct _XDisplay;
+typedef struct _XDisplay Display;;
+typedef unsigned long Time;;
+extern int XAllowEvents( Display* , int , Time );;
+extern int XCloseDisplay( Display* );;
+typedef struct { int x, y; int width, height; int border_width; Window sibling; int stack_mode; } XWindowChanges;;
+extern int XConfigureWindow( Display* , Window , unsigned int , XWindowChanges* );;
+extern int XDefaultScreen( Display* );;
+typedef char *XPointer;;
+typedef struct _XExtData { int number; struct _XExtData *next; int (*free_private)( struct _XExtData *extension ); XPointer private_data; } XExtData;;
+typedef unsigned long VisualID;;
+typedef struct { XExtData *ext_data; VisualID visualid; int class; unsigned long red_mask, green_mask, blue_mask; int bits_per_rgb; int map_entries; } Visual;;
+typedef struct { int depth; int nvisuals; Visual *visuals; } Depth;;
+typedef struct _XGC *GC;;
+typedef XID Colormap;;
+typedef struct { XExtData *ext_data; struct _XDisplay *display; Window root; int width, height; int mwidth, mheight; int ndepths; Depth *depths; int root_depth; Visual *root_visual; GC default_gc; Colormap cmap; unsigned long white_pixel; unsigned long black_pixel; int max_maps, min_maps; int backing_store; int save_unders; long root_input_mask; } Screen;;
+extern Screen *XDefaultScreenOfDisplay( Display* );;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; } XAnyEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; Window root; Window subwindow; Time time; int x, y; int x_root, y_root; unsigned int state; unsigned int keycode; int same_screen; } XKeyEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; Window root; Window subwindow; Time time; int x, y; int x_root, y_root; unsigned int state; unsigned int button; int same_screen; } XButtonEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; Window root; Window subwindow; Time time; int x, y; int x_root, y_root; unsigned int state; char is_hint; int same_screen; } XMotionEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; Window root; Window subwindow; Time time; int x, y; int x_root, y_root; int mode; int detail; int same_screen; int focus; unsigned int state; } XCrossingEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; int mode; int detail; } XFocusChangeEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; int x, y; int width, height; int count; } XExposeEvent;;
+typedef XID Drawable;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Drawable drawable; int x, y; int width, height; int count; int major_code; int minor_code; } XGraphicsExposeEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Drawable drawable; int major_code; int minor_code; } XNoExposeEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; int state; } XVisibilityEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window parent; Window window; int x, y; int width, height; int border_width; int override_redirect; } XCreateWindowEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window event; Window window; } XDestroyWindowEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window event; Window window; int from_configure; } XUnmapEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window event; Window window; int override_redirect; } XMapEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window parent; Window window; } XMapRequestEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window event; Window window; Window parent; int x, y; int override_redirect; } XReparentEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window event; Window window; int x, y; int width, height; int border_width; Window above; int override_redirect; } XConfigureEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window event; Window window; int x, y; } XGravityEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; int width, height; } XResizeRequestEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window parent; Window window; int x, y; int width, height; int border_width; Window above; int detail; unsigned long value_mask; } XConfigureRequestEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window event; Window window; int place; } XCirculateEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window parent; Window window; int place; } XCirculateRequestEvent;;
+typedef unsigned long Atom;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; Atom atom; Time time; int state; } XPropertyEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; Atom selection; Time time; } XSelectionClearEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window owner; Window requestor; Atom selection; Atom target; Atom property; Time time; } XSelectionRequestEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window requestor; Atom selection; Atom target; Atom property; Time time; } XSelectionEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; Colormap colormap; int new; int state; } XColormapEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; Atom message_type; int format; union { char b[20]; short s[10]; long l[5]; } data; } XClientMessageEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; int request; int first_keycode; int count; } XMappingEvent;;
+typedef struct { int type; Display *display; XID resourceid; unsigned long serial; unsigned char error_code; unsigned char request_code; unsigned char minor_code; } XErrorEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; Window window; char key_vector[32]; } XKeymapEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; int extension; int evtype; } XGenericEvent;;
+typedef struct { int type; unsigned long serial; int send_event; Display *display; int extension; int evtype; unsigned int cookie; void *data; } XGenericEventCookie;;
+typedef union _XEvent { int type; XAnyEvent xany; XKeyEvent xkey; XButtonEvent xbutton; XMotionEvent xmotion; XCrossingEvent xcrossing; XFocusChangeEvent xfocus; XExposeEvent xexpose; XGraphicsExposeEvent xgraphicsexpose; XNoExposeEvent xnoexpose; XVisibilityEvent xvisibility; XCreateWindowEvent xcreatewindow; XDestroyWindowEvent xdestroywindow; XUnmapEvent xunmap; XMapEvent xmap; XMapRequestEvent xmaprequest; XReparentEvent xreparent; XConfigureEvent xconfigure; XGravityEvent xgravity; XResizeRequestEvent xresizerequest; XConfigureRequestEvent xconfigurerequest; XCirculateEvent xcirculate; XCirculateRequestEvent xcirculaterequest; XPropertyEvent xproperty; XSelectionClearEvent xselectionclear; XSelectionRequestEvent xselectionrequest; XSelectionEvent xselection; XColormapEvent xcolormap; XClientMessageEvent xclient; XMappingEvent xmapping; XErrorEvent xerror; XKeymapEvent xkeymap; XGenericEvent xgeneric; XGenericEventCookie xcookie; long pad[24]; } XEvent;;
+extern int XFree( void* );;
+extern int XGetInputFocus( Display* , Window* , int* );;
+typedef struct { int x, y; int width, height; int border_width; int depth; Visual *visual; Window root; int class; int bit_gravity; int win_gravity; int backing_store; unsigned long backing_planes; unsigned long backing_pixel; int save_under; Colormap colormap; int map_installed; int map_state; long all_event_masks; long your_event_mask; long do_not_propagate_mask; int override_redirect; Screen *screen; } XWindowAttributes;;
+extern int XGetWindowAttributes( Display* , Window , XWindowAttributes* );;
+typedef XID Cursor;;
+extern int XGrabButton( Display* , unsigned int , unsigned int , Window , int , unsigned int , int , int , Window , Cursor );;
+extern int XGrabKey( Display* , int , unsigned int , Window , int , int , int );;
+extern Atom XInternAtom( Display* , const char* , int );;
+typedef unsigned char KeyCode;;
+typedef XID KeySym;;
+extern KeyCode XKeysymToKeycode( Display* , KeySym );;
+extern int XMapWindow( Display* , Window );;
+extern int XMoveResizeWindow( Display* , Window , int , int , unsigned int , unsigned int );;
+extern int XNextEvent( Display* , XEvent* );;
+extern Display *XOpenDisplay( const char* );;
+extern int XPending( Display* );;
+extern int XQueryTree( Display* , Window , Window* , Window* , Window** , unsigned int* );;
+extern Window XRootWindow( Display* , int );;
+extern int XSelectInput( Display* , Window , long );;
+extern int XSendEvent( Display* , Window , int , long , XEvent* );;
+extern int XSetInputFocus( Display* , Window , int , Time );;
+extern int XSync( Display* , int );;
+extern int XUnmapWindow( Display* , Window );;
 enum {XK_0=48};
 enum {XK_1=49};
 enum {XK_2=50};
 enum {XK_3=51};
+enum {XK_3270_AltCursor=64784};
+enum {XK_3270_Attn=64782};
+enum {XK_3270_BackTab=64773};
+enum {XK_3270_ChangeScreen=64793};
+enum {XK_3270_Copy=64789};
+enum {XK_3270_CursorBlink=64783};
+enum {XK_3270_CursorSelect=64796};
+enum {XK_3270_DeleteWord=64794};
+enum {XK_3270_Duplicate=64769};
+enum {XK_3270_Enter=64798};
+enum {XK_3270_EraseEOF=64774};
+enum {XK_3270_EraseInput=64775};
+enum {XK_3270_ExSelect=64795};
+enum {XK_3270_FieldMark=64770};
+enum {XK_3270_Ident=64787};
+enum {XK_3270_Jump=64786};
+enum {XK_3270_KeyClick=64785};
+enum {XK_3270_Left2=64772};
+enum {XK_3270_PA1=64778};
+enum {XK_3270_PA2=64779};
+enum {XK_3270_PA3=64780};
+enum {XK_3270_Play=64790};
+enum {XK_3270_PrintScreen=64797};
+enum {XK_3270_Quit=64777};
+enum {XK_3270_Record=64792};
+enum {XK_3270_Reset=64776};
+enum {XK_3270_Right2=64771};
+enum {XK_3270_Rule=64788};
+enum {XK_3270_Setup=64791};
+enum {XK_3270_Test=64781};
 enum {XK_4=52};
 enum {XK_5=53};
 enum {XK_6=54};
 enum {XK_7=55};
 enum {XK_8=56};
 enum {XK_9=57};
-enum {XK_colon=58};
-enum {XK_semicolon=59};
-enum {XK_less=60};
-enum {XK_equal=61};
-enum {XK_greater=62};
-enum {XK_question=63};
-enum {XK_at=64};
 enum {XK_A=65};
-enum {XK_B=66};
-enum {XK_C=67};
-enum {XK_D=68};
-enum {XK_E=69};
-enum {XK_F=70};
-enum {XK_G=71};
-enum {XK_H=72};
-enum {XK_I=73};
-enum {XK_J=74};
-enum {XK_K=75};
-enum {XK_L=76};
-enum {XK_M=77};
-enum {XK_N=78};
-enum {XK_O=79};
-enum {XK_P=80};
-enum {XK_Q=81};
-enum {XK_R=82};
-enum {XK_S=83};
-enum {XK_T=84};
-enum {XK_U=85};
-enum {XK_V=86};
-enum {XK_W=87};
-enum {XK_X=88};
-enum {XK_Y=89};
-enum {XK_Z=90};
-enum {XK_bracketleft=91};
-enum {XK_backslash=92};
-enum {XK_bracketright=93};
-enum {XK_asciicircum=94};
-enum {XK_underscore=95};
-enum {XK_grave=96};
-enum {XK_quoteleft=96};
-enum {XK_a=97};
-enum {XK_b=98};
-enum {XK_c=99};
-enum {XK_d=100};
-enum {XK_e=101};
-enum {XK_f=102};
-enum {XK_g=103};
-enum {XK_h=104};
-enum {XK_i=105};
-enum {XK_j=106};
-enum {XK_k=107};
-enum {XK_l=108};
-enum {XK_m=109};
-enum {XK_n=110};
-enum {XK_o=111};
-enum {XK_p=112};
-enum {XK_q=113};
-enum {XK_r=114};
-enum {XK_s=115};
-enum {XK_t=116};
-enum {XK_u=117};
-enum {XK_v=118};
-enum {XK_w=119};
-enum {XK_x=120};
-enum {XK_y=121};
-enum {XK_z=122};
-enum {XK_braceleft=123};
-enum {XK_bar=124};
-enum {XK_braceright=125};
-enum {XK_asciitilde=126};
-enum {XK_nobreakspace=160};
-enum {XK_exclamdown=161};
-enum {XK_cent=162};
-enum {XK_sterling=163};
-enum {XK_currency=164};
-enum {XK_yen=165};
-enum {XK_brokenbar=166};
-enum {XK_section=167};
-enum {XK_diaeresis=168};
-enum {XK_copyright=169};
-enum {XK_ordfeminine=170};
-enum {XK_guillemetleft=171};
-enum {XK_guillemotleft=171};
-enum {XK_notsign=172};
-enum {XK_hyphen=173};
-enum {XK_registered=174};
-enum {XK_macron=175};
-enum {XK_degree=176};
-enum {XK_plusminus=177};
-enum {XK_twosuperior=178};
-enum {XK_threesuperior=179};
-enum {XK_acute=180};
-enum {XK_mu=181};
-enum {XK_paragraph=182};
-enum {XK_periodcentered=183};
-enum {XK_cedilla=184};
-enum {XK_onesuperior=185};
-enum {XK_ordmasculine=186};
-enum {XK_masculine=186};
-enum {XK_guillemetright=187};
-enum {XK_guillemotright=187};
-enum {XK_onequarter=188};
-enum {XK_onehalf=189};
-enum {XK_threequarters=190};
-enum {XK_questiondown=191};
-enum {XK_Agrave=192};
-enum {XK_Aacute=193};
-enum {XK_Acircumflex=194};
-enum {XK_Atilde=195};
-enum {XK_Adiaeresis=196};
-enum {XK_Aring=197};
 enum {XK_AE=198};
-enum {XK_Ccedilla=199};
-enum {XK_Egrave=200};
-enum {XK_Eacute=201};
-enum {XK_Ecircumflex=202};
-enum {XK_Ediaeresis=203};
-enum {XK_Igrave=204};
-enum {XK_Iacute=205};
-enum {XK_Icircumflex=206};
-enum {XK_Idiaeresis=207};
-enum {XK_ETH=208};
-enum {XK_Eth=208};
-enum {XK_Ntilde=209};
-enum {XK_Ograve=210};
-enum {XK_Oacute=211};
-enum {XK_Ocircumflex=212};
-enum {XK_Otilde=213};
-enum {XK_Odiaeresis=214};
-enum {XK_multiply=215};
-enum {XK_Oslash=216};
-enum {XK_Ooblique=216};
-enum {XK_Ugrave=217};
-enum {XK_Uacute=218};
-enum {XK_Ucircumflex=219};
-enum {XK_Udiaeresis=220};
-enum {XK_Yacute=221};
-enum {XK_THORN=222};
-enum {XK_Thorn=222};
-enum {XK_ssharp=223};
-enum {XK_agrave=224};
-enum {XK_aacute=225};
-enum {XK_acircumflex=226};
-enum {XK_atilde=227};
-enum {XK_adiaeresis=228};
-enum {XK_aring=229};
-enum {XK_ae=230};
-enum {XK_ccedilla=231};
-enum {XK_egrave=232};
-enum {XK_eacute=233};
-enum {XK_ecircumflex=234};
-enum {XK_ediaeresis=235};
-enum {XK_igrave=236};
-enum {XK_iacute=237};
-enum {XK_icircumflex=238};
-enum {XK_idiaeresis=239};
-enum {XK_eth=240};
-enum {XK_ntilde=241};
-enum {XK_ograve=242};
-enum {XK_oacute=243};
-enum {XK_ocircumflex=244};
-enum {XK_otilde=245};
-enum {XK_odiaeresis=246};
-enum {XK_division=247};
-enum {XK_oslash=248};
-enum {XK_ooblique=248};
-enum {XK_ugrave=249};
-enum {XK_uacute=250};
-enum {XK_ucircumflex=251};
-enum {XK_udiaeresis=252};
-enum {XK_yacute=253};
-enum {XK_thorn=254};
-enum {XK_ydiaeresis=255};
-enum {XK_Aogonek=417};
-enum {XK_breve=418};
-enum {XK_Lstroke=419};
-enum {XK_Lcaron=421};
-enum {XK_Sacute=422};
-enum {XK_Scaron=425};
-enum {XK_Scedilla=426};
-enum {XK_Tcaron=427};
-enum {XK_Zacute=428};
-enum {XK_Zcaron=430};
-enum {XK_Zabovedot=431};
-enum {XK_aogonek=433};
-enum {XK_ogonek=434};
-enum {XK_lstroke=435};
-enum {XK_lcaron=437};
-enum {XK_sacute=438};
-enum {XK_caron=439};
-enum {XK_scaron=441};
-enum {XK_scedilla=442};
-enum {XK_tcaron=443};
-enum {XK_zacute=444};
-enum {XK_doubleacute=445};
-enum {XK_zcaron=446};
-enum {XK_zabovedot=447};
-enum {XK_Racute=448};
+enum {XK_Aacute=193};
+enum {XK_Abelowdot=16785056};
 enum {XK_Abreve=451};
-enum {XK_Lacute=453};
-enum {XK_Cacute=454};
-enum {XK_Ccaron=456};
-enum {XK_Eogonek=458};
-enum {XK_Ecaron=460};
-enum {XK_Dcaron=463};
-enum {XK_Dstroke=464};
-enum {XK_Nacute=465};
-enum {XK_Ncaron=466};
-enum {XK_Odoubleacute=469};
-enum {XK_Rcaron=472};
-enum {XK_Uring=473};
-enum {XK_Udoubleacute=475};
-enum {XK_Tcedilla=478};
-enum {XK_racute=480};
-enum {XK_abreve=483};
-enum {XK_lacute=485};
-enum {XK_cacute=486};
-enum {XK_ccaron=488};
-enum {XK_eogonek=490};
-enum {XK_ecaron=492};
-enum {XK_dcaron=495};
-enum {XK_dstroke=496};
-enum {XK_nacute=497};
-enum {XK_ncaron=498};
-enum {XK_odoubleacute=501};
-enum {XK_rcaron=504};
-enum {XK_uring=505};
-enum {XK_udoubleacute=507};
-enum {XK_tcedilla=510};
-enum {XK_abovedot=511};
-enum {XK_Hstroke=673};
-enum {XK_Hcircumflex=678};
-enum {XK_Iabovedot=681};
-enum {XK_Gbreve=683};
-enum {XK_Jcircumflex=684};
-enum {XK_hstroke=689};
-enum {XK_hcircumflex=694};
-enum {XK_idotless=697};
-enum {XK_gbreve=699};
-enum {XK_jcircumflex=700};
-enum {XK_Cabovedot=709};
-enum {XK_Ccircumflex=710};
-enum {XK_Gabovedot=725};
-enum {XK_Gcircumflex=728};
-enum {XK_Ubreve=733};
-enum {XK_Scircumflex=734};
-enum {XK_cabovedot=741};
-enum {XK_ccircumflex=742};
-enum {XK_gabovedot=757};
-enum {XK_gcircumflex=760};
-enum {XK_ubreve=765};
-enum {XK_scircumflex=766};
-enum {XK_kra=930};
-enum {XK_kappa=930};
-enum {XK_Rcedilla=931};
-enum {XK_Itilde=933};
-enum {XK_Lcedilla=934};
-enum {XK_Emacron=938};
-enum {XK_Gcedilla=939};
-enum {XK_Tslash=940};
-enum {XK_rcedilla=947};
-enum {XK_itilde=949};
-enum {XK_lcedilla=950};
-enum {XK_emacron=954};
-enum {XK_gcedilla=955};
-enum {XK_tslash=956};
-enum {XK_ENG=957};
-enum {XK_eng=959};
+enum {XK_Abreveacute=16785070};
+enum {XK_Abrevebelowdot=16785078};
+enum {XK_Abrevegrave=16785072};
+enum {XK_Abrevehook=16785074};
+enum {XK_Abrevetilde=16785076};
+enum {XK_AccessX_Enable=65136};
+enum {XK_AccessX_Feedback_Enable=65137};
+enum {XK_Acircumflex=194};
+enum {XK_Acircumflexacute=16785060};
+enum {XK_Acircumflexbelowdot=16785068};
+enum {XK_Acircumflexgrave=16785062};
+enum {XK_Acircumflexhook=16785064};
+enum {XK_Acircumflextilde=16785066};
+enum {XK_Adiaeresis=196};
+enum {XK_Agrave=192};
+enum {XK_Ahook=16785058};
+enum {XK_Alt_L=65513};
+enum {XK_Alt_R=65514};
 enum {XK_Amacron=960};
-enum {XK_Iogonek=967};
-enum {XK_Eabovedot=972};
-enum {XK_Imacron=975};
-enum {XK_Ncedilla=977};
-enum {XK_Omacron=978};
-enum {XK_Kcedilla=979};
-enum {XK_Uogonek=985};
-enum {XK_Utilde=989};
-enum {XK_Umacron=990};
-enum {XK_amacron=992};
-enum {XK_iogonek=999};
-enum {XK_eabovedot=1004};
-enum {XK_imacron=1007};
-enum {XK_ncedilla=1009};
-enum {XK_omacron=1010};
-enum {XK_kcedilla=1011};
-enum {XK_uogonek=1017};
-enum {XK_utilde=1021};
-enum {XK_umacron=1022};
-enum {XK_Wcircumflex=16777588};
-enum {XK_wcircumflex=16777589};
-enum {XK_Ycircumflex=16777590};
-enum {XK_ycircumflex=16777591};
-enum {XK_Babovedot=16784898};
-enum {XK_babovedot=16784899};
-enum {XK_Dabovedot=16784906};
-enum {XK_dabovedot=16784907};
-enum {XK_Fabovedot=16784926};
-enum {XK_fabovedot=16784927};
-enum {XK_Mabovedot=16784960};
-enum {XK_mabovedot=16784961};
-enum {XK_Pabovedot=16784982};
-enum {XK_pabovedot=16784983};
-enum {XK_Sabovedot=16784992};
-enum {XK_sabovedot=16784993};
-enum {XK_Tabovedot=16785002};
-enum {XK_tabovedot=16785003};
-enum {XK_Wgrave=16785024};
-enum {XK_wgrave=16785025};
-enum {XK_Wacute=16785026};
-enum {XK_wacute=16785027};
-enum {XK_Wdiaeresis=16785028};
-enum {XK_wdiaeresis=16785029};
-enum {XK_Ygrave=16785138};
-enum {XK_ygrave=16785139};
-enum {XK_OE=5052};
-enum {XK_oe=5053};
-enum {XK_Ydiaeresis=5054};
-enum {XK_overline=1150};
-enum {XK_kana_fullstop=1185};
-enum {XK_kana_openingbracket=1186};
-enum {XK_kana_closingbracket=1187};
-enum {XK_kana_comma=1188};
-enum {XK_kana_conjunctive=1189};
-enum {XK_kana_middledot=1189};
-enum {XK_kana_WO=1190};
-enum {XK_kana_a=1191};
-enum {XK_kana_i=1192};
-enum {XK_kana_u=1193};
-enum {XK_kana_e=1194};
-enum {XK_kana_o=1195};
-enum {XK_kana_ya=1196};
-enum {XK_kana_yu=1197};
-enum {XK_kana_yo=1198};
-enum {XK_kana_tsu=1199};
-enum {XK_kana_tu=1199};
-enum {XK_prolongedsound=1200};
-enum {XK_kana_A=1201};
-enum {XK_kana_I=1202};
-enum {XK_kana_U=1203};
-enum {XK_kana_E=1204};
-enum {XK_kana_O=1205};
-enum {XK_kana_KA=1206};
-enum {XK_kana_KI=1207};
-enum {XK_kana_KU=1208};
-enum {XK_kana_KE=1209};
-enum {XK_kana_KO=1210};
-enum {XK_kana_SA=1211};
-enum {XK_kana_SHI=1212};
-enum {XK_kana_SU=1213};
-enum {XK_kana_SE=1214};
-enum {XK_kana_SO=1215};
-enum {XK_kana_TA=1216};
-enum {XK_kana_CHI=1217};
-enum {XK_kana_TI=1217};
-enum {XK_kana_TSU=1218};
-enum {XK_kana_TU=1218};
-enum {XK_kana_TE=1219};
-enum {XK_kana_TO=1220};
-enum {XK_kana_NA=1221};
-enum {XK_kana_NI=1222};
-enum {XK_kana_NU=1223};
-enum {XK_kana_NE=1224};
-enum {XK_kana_NO=1225};
-enum {XK_kana_HA=1226};
-enum {XK_kana_HI=1227};
-enum {XK_kana_FU=1228};
-enum {XK_kana_HU=1228};
-enum {XK_kana_HE=1229};
-enum {XK_kana_HO=1230};
-enum {XK_kana_MA=1231};
-enum {XK_kana_MI=1232};
-enum {XK_kana_MU=1233};
-enum {XK_kana_ME=1234};
-enum {XK_kana_MO=1235};
-enum {XK_kana_YA=1236};
-enum {XK_kana_YU=1237};
-enum {XK_kana_YO=1238};
-enum {XK_kana_RA=1239};
-enum {XK_kana_RI=1240};
-enum {XK_kana_RU=1241};
-enum {XK_kana_RE=1242};
-enum {XK_kana_RO=1243};
-enum {XK_kana_WA=1244};
-enum {XK_kana_N=1245};
-enum {XK_voicedsound=1246};
-enum {XK_semivoicedsound=1247};
-enum {XK_kana_switch=65406};
-enum {XK_Farsi_0=16778992};
-enum {XK_Farsi_1=16778993};
-enum {XK_Farsi_2=16778994};
-enum {XK_Farsi_3=16778995};
-enum {XK_Farsi_4=16778996};
-enum {XK_Farsi_5=16778997};
-enum {XK_Farsi_6=16778998};
-enum {XK_Farsi_7=16778999};
-enum {XK_Farsi_8=16779000};
-enum {XK_Farsi_9=16779001};
-enum {XK_Arabic_percent=16778858};
-enum {XK_Arabic_superscript_alef=16778864};
-enum {XK_Arabic_tteh=16778873};
-enum {XK_Arabic_peh=16778878};
-enum {XK_Arabic_tcheh=16778886};
-enum {XK_Arabic_ddal=16778888};
-enum {XK_Arabic_rreh=16778897};
-enum {XK_Arabic_comma=1452};
-enum {XK_Arabic_fullstop=16778964};
+enum {XK_Aogonek=417};
 enum {XK_Arabic_0=16778848};
 enum {XK_Arabic_1=16778849};
 enum {XK_Arabic_2=16778850};
@@ -4730,979 +214,1189 @@ enum {XK_Arabic_6=16778854};
 enum {XK_Arabic_7=16778855};
 enum {XK_Arabic_8=16778856};
 enum {XK_Arabic_9=16778857};
-enum {XK_Arabic_semicolon=1467};
-enum {XK_Arabic_question_mark=1471};
-enum {XK_Arabic_hamza=1473};
-enum {XK_Arabic_maddaonalef=1474};
-enum {XK_Arabic_hamzaonalef=1475};
-enum {XK_Arabic_hamzaonwaw=1476};
-enum {XK_Arabic_hamzaunderalef=1477};
-enum {XK_Arabic_hamzaonyeh=1478};
-enum {XK_Arabic_alef=1479};
-enum {XK_Arabic_beh=1480};
-enum {XK_Arabic_tehmarbuta=1481};
-enum {XK_Arabic_teh=1482};
-enum {XK_Arabic_theh=1483};
-enum {XK_Arabic_jeem=1484};
-enum {XK_Arabic_hah=1485};
-enum {XK_Arabic_khah=1486};
-enum {XK_Arabic_dal=1487};
-enum {XK_Arabic_thal=1488};
-enum {XK_Arabic_ra=1489};
-enum {XK_Arabic_zain=1490};
-enum {XK_Arabic_seen=1491};
-enum {XK_Arabic_sheen=1492};
-enum {XK_Arabic_sad=1493};
-enum {XK_Arabic_dad=1494};
-enum {XK_Arabic_tah=1495};
-enum {XK_Arabic_zah=1496};
 enum {XK_Arabic_ain=1497};
-enum {XK_Arabic_ghain=1498};
-enum {XK_Arabic_tatweel=1504};
-enum {XK_Arabic_feh=1505};
-enum {XK_Arabic_qaf=1506};
-enum {XK_Arabic_kaf=1507};
-enum {XK_Arabic_lam=1508};
-enum {XK_Arabic_meem=1509};
-enum {XK_Arabic_noon=1510};
-enum {XK_Arabic_ha=1511};
-enum {XK_Arabic_heh=1511};
-enum {XK_Arabic_waw=1512};
+enum {XK_Arabic_alef=1479};
 enum {XK_Arabic_alefmaksura=1513};
-enum {XK_Arabic_yeh=1514};
-enum {XK_Arabic_fathatan=1515};
-enum {XK_Arabic_dammatan=1516};
-enum {XK_Arabic_kasratan=1517};
-enum {XK_Arabic_fatha=1518};
+enum {XK_Arabic_beh=1480};
+enum {XK_Arabic_comma=1452};
+enum {XK_Arabic_dad=1494};
+enum {XK_Arabic_dal=1487};
 enum {XK_Arabic_damma=1519};
-enum {XK_Arabic_kasra=1520};
-enum {XK_Arabic_shadda=1521};
-enum {XK_Arabic_sukun=1522};
-enum {XK_Arabic_madda_above=16778835};
+enum {XK_Arabic_dammatan=1516};
+enum {XK_Arabic_ddal=16778888};
+enum {XK_Arabic_farsi_yeh=16778956};
+enum {XK_Arabic_fatha=1518};
+enum {XK_Arabic_fathatan=1515};
+enum {XK_Arabic_feh=1505};
+enum {XK_Arabic_fullstop=16778964};
+enum {XK_Arabic_gaf=16778927};
+enum {XK_Arabic_ghain=1498};
+enum {XK_Arabic_ha=1511};
+enum {XK_Arabic_hah=1485};
+enum {XK_Arabic_hamza=1473};
 enum {XK_Arabic_hamza_above=16778836};
 enum {XK_Arabic_hamza_below=16778837};
-enum {XK_Arabic_jeh=16778904};
-enum {XK_Arabic_veh=16778916};
-enum {XK_Arabic_keheh=16778921};
-enum {XK_Arabic_gaf=16778927};
-enum {XK_Arabic_noon_ghunna=16778938};
+enum {XK_Arabic_hamzaonalef=1475};
+enum {XK_Arabic_hamzaonwaw=1476};
+enum {XK_Arabic_hamzaonyeh=1478};
+enum {XK_Arabic_hamzaunderalef=1477};
+enum {XK_Arabic_heh=1511};
 enum {XK_Arabic_heh_doachashmee=16778942};
-enum {XK_Farsi_yeh=16778956};
-enum {XK_Arabic_farsi_yeh=16778956};
-enum {XK_Arabic_yeh_baree=16778962};
 enum {XK_Arabic_heh_goal=16778945};
+enum {XK_Arabic_jeem=1484};
+enum {XK_Arabic_jeh=16778904};
+enum {XK_Arabic_kaf=1507};
+enum {XK_Arabic_kasra=1520};
+enum {XK_Arabic_kasratan=1517};
+enum {XK_Arabic_keheh=16778921};
+enum {XK_Arabic_khah=1486};
+enum {XK_Arabic_lam=1508};
+enum {XK_Arabic_madda_above=16778835};
+enum {XK_Arabic_maddaonalef=1474};
+enum {XK_Arabic_meem=1509};
+enum {XK_Arabic_noon=1510};
+enum {XK_Arabic_noon_ghunna=16778938};
+enum {XK_Arabic_peh=16778878};
+enum {XK_Arabic_percent=16778858};
+enum {XK_Arabic_qaf=1506};
+enum {XK_Arabic_question_mark=1471};
+enum {XK_Arabic_ra=1489};
+enum {XK_Arabic_rreh=16778897};
+enum {XK_Arabic_sad=1493};
+enum {XK_Arabic_seen=1491};
+enum {XK_Arabic_semicolon=1467};
+enum {XK_Arabic_shadda=1521};
+enum {XK_Arabic_sheen=1492};
+enum {XK_Arabic_sukun=1522};
+enum {XK_Arabic_superscript_alef=16778864};
 enum {XK_Arabic_switch=65406};
-enum {XK_Cyrillic_GHE_bar=16778386};
-enum {XK_Cyrillic_ghe_bar=16778387};
-enum {XK_Cyrillic_ZHE_descender=16778390};
-enum {XK_Cyrillic_zhe_descender=16778391};
-enum {XK_Cyrillic_KA_descender=16778394};
-enum {XK_Cyrillic_ka_descender=16778395};
-enum {XK_Cyrillic_KA_vertstroke=16778396};
-enum {XK_Cyrillic_ka_vertstroke=16778397};
-enum {XK_Cyrillic_EN_descender=16778402};
-enum {XK_Cyrillic_en_descender=16778403};
-enum {XK_Cyrillic_U_straight=16778414};
-enum {XK_Cyrillic_u_straight=16778415};
-enum {XK_Cyrillic_U_straight_bar=16778416};
-enum {XK_Cyrillic_u_straight_bar=16778417};
-enum {XK_Cyrillic_HA_descender=16778418};
-enum {XK_Cyrillic_ha_descender=16778419};
-enum {XK_Cyrillic_CHE_descender=16778422};
-enum {XK_Cyrillic_che_descender=16778423};
-enum {XK_Cyrillic_CHE_vertstroke=16778424};
-enum {XK_Cyrillic_che_vertstroke=16778425};
-enum {XK_Cyrillic_SHHA=16778426};
-enum {XK_Cyrillic_shha=16778427};
-enum {XK_Cyrillic_SCHWA=16778456};
-enum {XK_Cyrillic_schwa=16778457};
-enum {XK_Cyrillic_I_macron=16778466};
-enum {XK_Cyrillic_i_macron=16778467};
-enum {XK_Cyrillic_O_bar=16778472};
-enum {XK_Cyrillic_o_bar=16778473};
-enum {XK_Cyrillic_U_macron=16778478};
-enum {XK_Cyrillic_u_macron=16778479};
-enum {XK_Serbian_dje=1697};
-enum {XK_Macedonia_gje=1698};
-enum {XK_Cyrillic_io=1699};
-enum {XK_Ukrainian_ie=1700};
-enum {XK_Ukranian_je=1700};
-enum {XK_Macedonia_dse=1701};
-enum {XK_Ukrainian_i=1702};
-enum {XK_Ukranian_i=1702};
-enum {XK_Ukrainian_yi=1703};
-enum {XK_Ukranian_yi=1703};
-enum {XK_Cyrillic_je=1704};
-enum {XK_Serbian_je=1704};
-enum {XK_Cyrillic_lje=1705};
-enum {XK_Serbian_lje=1705};
-enum {XK_Cyrillic_nje=1706};
-enum {XK_Serbian_nje=1706};
-enum {XK_Serbian_tshe=1707};
-enum {XK_Macedonia_kje=1708};
-enum {XK_Ukrainian_ghe_with_upturn=1709};
-enum {XK_Byelorussian_shortu=1710};
-enum {XK_Cyrillic_dzhe=1711};
-enum {XK_Serbian_dze=1711};
-enum {XK_numerosign=1712};
-enum {XK_Serbian_DJE=1713};
-enum {XK_Macedonia_GJE=1714};
-enum {XK_Cyrillic_IO=1715};
-enum {XK_Ukrainian_IE=1716};
-enum {XK_Ukranian_JE=1716};
-enum {XK_Macedonia_DSE=1717};
-enum {XK_Ukrainian_I=1718};
-enum {XK_Ukranian_I=1718};
-enum {XK_Ukrainian_YI=1719};
-enum {XK_Ukranian_YI=1719};
-enum {XK_Cyrillic_JE=1720};
-enum {XK_Serbian_JE=1720};
-enum {XK_Cyrillic_LJE=1721};
-enum {XK_Serbian_LJE=1721};
-enum {XK_Cyrillic_NJE=1722};
-enum {XK_Serbian_NJE=1722};
-enum {XK_Serbian_TSHE=1723};
-enum {XK_Macedonia_KJE=1724};
-enum {XK_Ukrainian_GHE_WITH_UPTURN=1725};
+enum {XK_Arabic_tah=1495};
+enum {XK_Arabic_tatweel=1504};
+enum {XK_Arabic_tcheh=16778886};
+enum {XK_Arabic_teh=1482};
+enum {XK_Arabic_tehmarbuta=1481};
+enum {XK_Arabic_thal=1488};
+enum {XK_Arabic_theh=1483};
+enum {XK_Arabic_tteh=16778873};
+enum {XK_Arabic_veh=16778916};
+enum {XK_Arabic_waw=1512};
+enum {XK_Arabic_yeh=1514};
+enum {XK_Arabic_yeh_baree=16778962};
+enum {XK_Arabic_zah=1496};
+enum {XK_Arabic_zain=1490};
+enum {XK_Aring=197};
+enum {XK_Armenian_AT=16778552};
+enum {XK_Armenian_AYB=16778545};
+enum {XK_Armenian_BEN=16778546};
+enum {XK_Armenian_CHA=16778569};
+enum {XK_Armenian_DA=16778548};
+enum {XK_Armenian_DZA=16778561};
+enum {XK_Armenian_E=16778551};
+enum {XK_Armenian_FE=16778582};
+enum {XK_Armenian_GHAT=16778562};
+enum {XK_Armenian_GIM=16778547};
+enum {XK_Armenian_HI=16778565};
+enum {XK_Armenian_HO=16778560};
+enum {XK_Armenian_INI=16778555};
+enum {XK_Armenian_JE=16778571};
+enum {XK_Armenian_KE=16778580};
+enum {XK_Armenian_KEN=16778559};
+enum {XK_Armenian_KHE=16778557};
+enum {XK_Armenian_LYUN=16778556};
+enum {XK_Armenian_MEN=16778564};
+enum {XK_Armenian_NU=16778566};
+enum {XK_Armenian_O=16778581};
+enum {XK_Armenian_PE=16778570};
+enum {XK_Armenian_PYUR=16778579};
+enum {XK_Armenian_RA=16778572};
+enum {XK_Armenian_RE=16778576};
+enum {XK_Armenian_SE=16778573};
+enum {XK_Armenian_SHA=16778567};
+enum {XK_Armenian_TCHE=16778563};
+enum {XK_Armenian_TO=16778553};
+enum {XK_Armenian_TSA=16778558};
+enum {XK_Armenian_TSO=16778577};
+enum {XK_Armenian_TYUN=16778575};
+enum {XK_Armenian_VEV=16778574};
+enum {XK_Armenian_VO=16778568};
+enum {XK_Armenian_VYUN=16778578};
+enum {XK_Armenian_YECH=16778549};
+enum {XK_Armenian_ZA=16778550};
+enum {XK_Armenian_ZHE=16778554};
+enum {XK_Armenian_accent=16778587};
+enum {XK_Armenian_amanak=16778588};
+enum {XK_Armenian_apostrophe=16778586};
+enum {XK_Armenian_at=16778600};
+enum {XK_Armenian_ayb=16778593};
+enum {XK_Armenian_ben=16778594};
+enum {XK_Armenian_but=16778589};
+enum {XK_Armenian_cha=16778617};
+enum {XK_Armenian_da=16778596};
+enum {XK_Armenian_dza=16778609};
+enum {XK_Armenian_e=16778599};
+enum {XK_Armenian_exclam=16778588};
+enum {XK_Armenian_fe=16778630};
+enum {XK_Armenian_full_stop=16778633};
+enum {XK_Armenian_ghat=16778610};
+enum {XK_Armenian_gim=16778595};
+enum {XK_Armenian_hi=16778613};
+enum {XK_Armenian_ho=16778608};
+enum {XK_Armenian_hyphen=16778634};
+enum {XK_Armenian_ini=16778603};
+enum {XK_Armenian_je=16778619};
+enum {XK_Armenian_ke=16778628};
+enum {XK_Armenian_ken=16778607};
+enum {XK_Armenian_khe=16778605};
+enum {XK_Armenian_ligature_ew=16778631};
+enum {XK_Armenian_lyun=16778604};
+enum {XK_Armenian_men=16778612};
+enum {XK_Armenian_nu=16778614};
+enum {XK_Armenian_o=16778629};
+enum {XK_Armenian_paruyk=16778590};
+enum {XK_Armenian_pe=16778618};
+enum {XK_Armenian_pyur=16778627};
+enum {XK_Armenian_question=16778590};
+enum {XK_Armenian_ra=16778620};
+enum {XK_Armenian_re=16778624};
+enum {XK_Armenian_se=16778621};
+enum {XK_Armenian_separation_mark=16778589};
+enum {XK_Armenian_sha=16778615};
+enum {XK_Armenian_shesht=16778587};
+enum {XK_Armenian_tche=16778611};
+enum {XK_Armenian_to=16778601};
+enum {XK_Armenian_tsa=16778606};
+enum {XK_Armenian_tso=16778625};
+enum {XK_Armenian_tyun=16778623};
+enum {XK_Armenian_verjaket=16778633};
+enum {XK_Armenian_vev=16778622};
+enum {XK_Armenian_vo=16778616};
+enum {XK_Armenian_vyun=16778626};
+enum {XK_Armenian_yech=16778597};
+enum {XK_Armenian_yentamna=16778634};
+enum {XK_Armenian_za=16778598};
+enum {XK_Armenian_zhe=16778602};
+enum {XK_Atilde=195};
+enum {XK_AudibleBell_Enable=65146};
+enum {XK_B=66};
+enum {XK_Babovedot=16784898};
+enum {XK_BackSpace=65288};
+enum {XK_Begin=65368};
+enum {XK_BounceKeys_Enable=65140};
+enum {XK_Break=65387};
 enum {XK_Byelorussian_SHORTU=1726};
-enum {XK_Cyrillic_DZHE=1727};
-enum {XK_Serbian_DZE=1727};
-enum {XK_Cyrillic_yu=1728};
-enum {XK_Cyrillic_a=1729};
-enum {XK_Cyrillic_be=1730};
-enum {XK_Cyrillic_tse=1731};
-enum {XK_Cyrillic_de=1732};
-enum {XK_Cyrillic_ie=1733};
-enum {XK_Cyrillic_ef=1734};
-enum {XK_Cyrillic_ghe=1735};
-enum {XK_Cyrillic_ha=1736};
-enum {XK_Cyrillic_i=1737};
-enum {XK_Cyrillic_shorti=1738};
-enum {XK_Cyrillic_ka=1739};
-enum {XK_Cyrillic_el=1740};
-enum {XK_Cyrillic_em=1741};
-enum {XK_Cyrillic_en=1742};
-enum {XK_Cyrillic_o=1743};
-enum {XK_Cyrillic_pe=1744};
-enum {XK_Cyrillic_ya=1745};
-enum {XK_Cyrillic_er=1746};
-enum {XK_Cyrillic_es=1747};
-enum {XK_Cyrillic_te=1748};
-enum {XK_Cyrillic_u=1749};
-enum {XK_Cyrillic_zhe=1750};
-enum {XK_Cyrillic_ve=1751};
-enum {XK_Cyrillic_softsign=1752};
-enum {XK_Cyrillic_yeru=1753};
-enum {XK_Cyrillic_ze=1754};
-enum {XK_Cyrillic_sha=1755};
-enum {XK_Cyrillic_e=1756};
-enum {XK_Cyrillic_shcha=1757};
-enum {XK_Cyrillic_che=1758};
-enum {XK_Cyrillic_hardsign=1759};
-enum {XK_Cyrillic_YU=1760};
+enum {XK_Byelorussian_shortu=1710};
+enum {XK_C=67};
+enum {XK_CH=65186};
+enum {XK_C_H=65189};
+enum {XK_C_h=65188};
+enum {XK_Cabovedot=709};
+enum {XK_Cacute=454};
+enum {XK_Cancel=65385};
+enum {XK_Caps_Lock=65509};
+enum {XK_Ccaron=456};
+enum {XK_Ccedilla=199};
+enum {XK_Ccircumflex=710};
+enum {XK_Ch=65185};
+enum {XK_Clear=65291};
+enum {XK_Codeinput=65335};
+enum {XK_ColonSign=16785569};
+enum {XK_Control_L=65507};
+enum {XK_Control_R=65508};
+enum {XK_CruzeiroSign=16785570};
 enum {XK_Cyrillic_A=1761};
 enum {XK_Cyrillic_BE=1762};
-enum {XK_Cyrillic_TSE=1763};
+enum {XK_Cyrillic_CHE=1790};
+enum {XK_Cyrillic_CHE_descender=16778422};
+enum {XK_Cyrillic_CHE_vertstroke=16778424};
 enum {XK_Cyrillic_DE=1764};
-enum {XK_Cyrillic_IE=1765};
+enum {XK_Cyrillic_DZHE=1727};
+enum {XK_Cyrillic_E=1788};
 enum {XK_Cyrillic_EF=1766};
-enum {XK_Cyrillic_GHE=1767};
-enum {XK_Cyrillic_HA=1768};
-enum {XK_Cyrillic_I=1769};
-enum {XK_Cyrillic_SHORTI=1770};
-enum {XK_Cyrillic_KA=1771};
 enum {XK_Cyrillic_EL=1772};
 enum {XK_Cyrillic_EM=1773};
 enum {XK_Cyrillic_EN=1774};
-enum {XK_Cyrillic_O=1775};
-enum {XK_Cyrillic_PE=1776};
-enum {XK_Cyrillic_YA=1777};
+enum {XK_Cyrillic_EN_descender=16778402};
 enum {XK_Cyrillic_ER=1778};
 enum {XK_Cyrillic_ES=1779};
-enum {XK_Cyrillic_TE=1780};
-enum {XK_Cyrillic_U=1781};
-enum {XK_Cyrillic_ZHE=1782};
-enum {XK_Cyrillic_VE=1783};
-enum {XK_Cyrillic_SOFTSIGN=1784};
-enum {XK_Cyrillic_YERU=1785};
-enum {XK_Cyrillic_ZE=1786};
-enum {XK_Cyrillic_SHA=1787};
-enum {XK_Cyrillic_E=1788};
-enum {XK_Cyrillic_SHCHA=1789};
-enum {XK_Cyrillic_CHE=1790};
+enum {XK_Cyrillic_GHE=1767};
+enum {XK_Cyrillic_GHE_bar=16778386};
+enum {XK_Cyrillic_HA=1768};
 enum {XK_Cyrillic_HARDSIGN=1791};
-enum {XK_Greek_ALPHAaccent=1953};
-enum {XK_Greek_EPSILONaccent=1954};
-enum {XK_Greek_ETAaccent=1955};
-enum {XK_Greek_IOTAaccent=1956};
-enum {XK_Greek_IOTAdieresis=1957};
-enum {XK_Greek_IOTAdiaeresis=1957};
-enum {XK_Greek_OMICRONaccent=1959};
-enum {XK_Greek_UPSILONaccent=1960};
-enum {XK_Greek_UPSILONdieresis=1961};
-enum {XK_Greek_OMEGAaccent=1963};
-enum {XK_Greek_accentdieresis=1966};
-enum {XK_Greek_horizbar=1967};
-enum {XK_Greek_alphaaccent=1969};
-enum {XK_Greek_epsilonaccent=1970};
-enum {XK_Greek_etaaccent=1971};
-enum {XK_Greek_iotaaccent=1972};
-enum {XK_Greek_iotadieresis=1973};
-enum {XK_Greek_iotaaccentdieresis=1974};
-enum {XK_Greek_omicronaccent=1975};
-enum {XK_Greek_upsilonaccent=1976};
-enum {XK_Greek_upsilondieresis=1977};
-enum {XK_Greek_upsilonaccentdieresis=1978};
-enum {XK_Greek_omegaaccent=1979};
-enum {XK_Greek_ALPHA=1985};
-enum {XK_Greek_BETA=1986};
-enum {XK_Greek_GAMMA=1987};
-enum {XK_Greek_DELTA=1988};
-enum {XK_Greek_EPSILON=1989};
-enum {XK_Greek_ZETA=1990};
-enum {XK_Greek_ETA=1991};
-enum {XK_Greek_THETA=1992};
-enum {XK_Greek_IOTA=1993};
-enum {XK_Greek_KAPPA=1994};
-enum {XK_Greek_LAMDA=1995};
-enum {XK_Greek_LAMBDA=1995};
-enum {XK_Greek_MU=1996};
-enum {XK_Greek_NU=1997};
-enum {XK_Greek_XI=1998};
-enum {XK_Greek_OMICRON=1999};
-enum {XK_Greek_PI=2000};
-enum {XK_Greek_RHO=2001};
-enum {XK_Greek_SIGMA=2002};
-enum {XK_Greek_TAU=2004};
-enum {XK_Greek_UPSILON=2005};
-enum {XK_Greek_PHI=2006};
-enum {XK_Greek_CHI=2007};
-enum {XK_Greek_PSI=2008};
-enum {XK_Greek_OMEGA=2009};
-enum {XK_Greek_alpha=2017};
-enum {XK_Greek_beta=2018};
-enum {XK_Greek_gamma=2019};
-enum {XK_Greek_delta=2020};
-enum {XK_Greek_epsilon=2021};
-enum {XK_Greek_zeta=2022};
-enum {XK_Greek_eta=2023};
-enum {XK_Greek_theta=2024};
-enum {XK_Greek_iota=2025};
-enum {XK_Greek_kappa=2026};
-enum {XK_Greek_lamda=2027};
-enum {XK_Greek_lambda=2027};
-enum {XK_Greek_mu=2028};
-enum {XK_Greek_nu=2029};
-enum {XK_Greek_xi=2030};
-enum {XK_Greek_omicron=2031};
-enum {XK_Greek_pi=2032};
-enum {XK_Greek_rho=2033};
-enum {XK_Greek_sigma=2034};
-enum {XK_Greek_finalsmallsigma=2035};
-enum {XK_Greek_tau=2036};
-enum {XK_Greek_upsilon=2037};
-enum {XK_Greek_phi=2038};
-enum {XK_Greek_chi=2039};
-enum {XK_Greek_psi=2040};
-enum {XK_Greek_omega=2041};
-enum {XK_Greek_switch=65406};
-enum {XK_leftradical=2209};
-enum {XK_topleftradical=2210};
-enum {XK_horizconnector=2211};
-enum {XK_topintegral=2212};
-enum {XK_botintegral=2213};
-enum {XK_vertconnector=2214};
-enum {XK_topleftsqbracket=2215};
-enum {XK_botleftsqbracket=2216};
-enum {XK_toprightsqbracket=2217};
-enum {XK_botrightsqbracket=2218};
-enum {XK_topleftparens=2219};
-enum {XK_botleftparens=2220};
-enum {XK_toprightparens=2221};
-enum {XK_botrightparens=2222};
-enum {XK_leftmiddlecurlybrace=2223};
-enum {XK_rightmiddlecurlybrace=2224};
-enum {XK_topleftsummation=2225};
-enum {XK_botleftsummation=2226};
-enum {XK_topvertsummationconnector=2227};
-enum {XK_botvertsummationconnector=2228};
-enum {XK_toprightsummation=2229};
-enum {XK_botrightsummation=2230};
-enum {XK_rightmiddlesummation=2231};
-enum {XK_lessthanequal=2236};
-enum {XK_notequal=2237};
-enum {XK_greaterthanequal=2238};
-enum {XK_integral=2239};
-enum {XK_therefore=2240};
-enum {XK_variation=2241};
-enum {XK_infinity=2242};
-enum {XK_nabla=2245};
-enum {XK_approximate=2248};
-enum {XK_similarequal=2249};
-enum {XK_ifonlyif=2253};
-enum {XK_implies=2254};
-enum {XK_identical=2255};
-enum {XK_radical=2262};
-enum {XK_includedin=2266};
-enum {XK_includes=2267};
-enum {XK_intersection=2268};
-enum {XK_union=2269};
-enum {XK_logicaland=2270};
-enum {XK_logicalor=2271};
-enum {XK_partialderivative=2287};
-enum {XK_function=2294};
-enum {XK_leftarrow=2299};
-enum {XK_uparrow=2300};
-enum {XK_rightarrow=2301};
-enum {XK_downarrow=2302};
-enum {XK_blank=2527};
-enum {XK_soliddiamond=2528};
-enum {XK_checkerboard=2529};
-enum {XK_ht=2530};
-enum {XK_ff=2531};
-enum {XK_cr=2532};
-enum {XK_lf=2533};
-enum {XK_nl=2536};
-enum {XK_vt=2537};
-enum {XK_lowrightcorner=2538};
-enum {XK_uprightcorner=2539};
-enum {XK_upleftcorner=2540};
-enum {XK_lowleftcorner=2541};
-enum {XK_crossinglines=2542};
-enum {XK_horizlinescan1=2543};
-enum {XK_horizlinescan3=2544};
-enum {XK_horizlinescan5=2545};
-enum {XK_horizlinescan7=2546};
-enum {XK_horizlinescan9=2547};
-enum {XK_leftt=2548};
-enum {XK_rightt=2549};
-enum {XK_bott=2550};
-enum {XK_topt=2551};
-enum {XK_vertbar=2552};
-enum {XK_emspace=2721};
-enum {XK_enspace=2722};
-enum {XK_em3space=2723};
-enum {XK_em4space=2724};
-enum {XK_digitspace=2725};
-enum {XK_punctspace=2726};
-enum {XK_thinspace=2727};
-enum {XK_hairspace=2728};
-enum {XK_emdash=2729};
-enum {XK_endash=2730};
-enum {XK_signifblank=2732};
-enum {XK_ellipsis=2734};
-enum {XK_doubbaselinedot=2735};
-enum {XK_onethird=2736};
-enum {XK_twothirds=2737};
-enum {XK_onefifth=2738};
-enum {XK_twofifths=2739};
-enum {XK_threefifths=2740};
-enum {XK_fourfifths=2741};
-enum {XK_onesixth=2742};
-enum {XK_fivesixths=2743};
-enum {XK_careof=2744};
-enum {XK_figdash=2747};
-enum {XK_leftanglebracket=2748};
-enum {XK_decimalpoint=2749};
-enum {XK_rightanglebracket=2750};
-enum {XK_marker=2751};
-enum {XK_oneeighth=2755};
-enum {XK_threeeighths=2756};
-enum {XK_fiveeighths=2757};
-enum {XK_seveneighths=2758};
-enum {XK_trademark=2761};
-enum {XK_signaturemark=2762};
-enum {XK_trademarkincircle=2763};
-enum {XK_leftopentriangle=2764};
-enum {XK_rightopentriangle=2765};
-enum {XK_emopencircle=2766};
-enum {XK_emopenrectangle=2767};
-enum {XK_leftsinglequotemark=2768};
-enum {XK_rightsinglequotemark=2769};
-enum {XK_leftdoublequotemark=2770};
-enum {XK_rightdoublequotemark=2771};
-enum {XK_prescription=2772};
-enum {XK_permille=2773};
-enum {XK_minutes=2774};
-enum {XK_seconds=2775};
-enum {XK_latincross=2777};
-enum {XK_hexagram=2778};
-enum {XK_filledrectbullet=2779};
-enum {XK_filledlefttribullet=2780};
-enum {XK_filledrighttribullet=2781};
-enum {XK_emfilledcircle=2782};
-enum {XK_emfilledrect=2783};
-enum {XK_enopencircbullet=2784};
-enum {XK_enopensquarebullet=2785};
-enum {XK_openrectbullet=2786};
-enum {XK_opentribulletup=2787};
-enum {XK_opentribulletdown=2788};
-enum {XK_openstar=2789};
-enum {XK_enfilledcircbullet=2790};
-enum {XK_enfilledsqbullet=2791};
-enum {XK_filledtribulletup=2792};
-enum {XK_filledtribulletdown=2793};
-enum {XK_leftpointer=2794};
-enum {XK_rightpointer=2795};
-enum {XK_club=2796};
-enum {XK_diamond=2797};
-enum {XK_heart=2798};
-enum {XK_maltesecross=2800};
-enum {XK_dagger=2801};
-enum {XK_doubledagger=2802};
-enum {XK_checkmark=2803};
-enum {XK_ballotcross=2804};
-enum {XK_musicalsharp=2805};
-enum {XK_musicalflat=2806};
-enum {XK_malesymbol=2807};
-enum {XK_femalesymbol=2808};
-enum {XK_telephone=2809};
-enum {XK_telephonerecorder=2810};
-enum {XK_phonographcopyright=2811};
-enum {XK_caret=2812};
-enum {XK_singlelowquotemark=2813};
-enum {XK_doublelowquotemark=2814};
-enum {XK_cursor=2815};
-enum {XK_leftcaret=2979};
-enum {XK_rightcaret=2982};
-enum {XK_downcaret=2984};
-enum {XK_upcaret=2985};
-enum {XK_overbar=3008};
-enum {XK_downtack=3010};
-enum {XK_upshoe=3011};
-enum {XK_downstile=3012};
-enum {XK_underbar=3014};
-enum {XK_jot=3018};
-enum {XK_quad=3020};
-enum {XK_uptack=3022};
-enum {XK_circle=3023};
-enum {XK_upstile=3027};
-enum {XK_downshoe=3030};
-enum {XK_rightshoe=3032};
-enum {XK_leftshoe=3034};
-enum {XK_lefttack=3036};
-enum {XK_righttack=3068};
-enum {XK_hebrew_doublelowline=3295};
-enum {XK_hebrew_aleph=3296};
-enum {XK_hebrew_bet=3297};
-enum {XK_hebrew_beth=3297};
-enum {XK_hebrew_gimel=3298};
-enum {XK_hebrew_gimmel=3298};
-enum {XK_hebrew_dalet=3299};
-enum {XK_hebrew_daleth=3299};
-enum {XK_hebrew_he=3300};
-enum {XK_hebrew_waw=3301};
-enum {XK_hebrew_zain=3302};
-enum {XK_hebrew_zayin=3302};
-enum {XK_hebrew_chet=3303};
-enum {XK_hebrew_het=3303};
-enum {XK_hebrew_tet=3304};
-enum {XK_hebrew_teth=3304};
-enum {XK_hebrew_yod=3305};
-enum {XK_hebrew_finalkaph=3306};
-enum {XK_hebrew_kaph=3307};
-enum {XK_hebrew_lamed=3308};
-enum {XK_hebrew_finalmem=3309};
-enum {XK_hebrew_mem=3310};
-enum {XK_hebrew_finalnun=3311};
-enum {XK_hebrew_nun=3312};
-enum {XK_hebrew_samech=3313};
-enum {XK_hebrew_samekh=3313};
-enum {XK_hebrew_ayin=3314};
-enum {XK_hebrew_finalpe=3315};
-enum {XK_hebrew_pe=3316};
-enum {XK_hebrew_finalzade=3317};
-enum {XK_hebrew_finalzadi=3317};
-enum {XK_hebrew_zade=3318};
-enum {XK_hebrew_zadi=3318};
-enum {XK_hebrew_qoph=3319};
-enum {XK_hebrew_kuf=3319};
-enum {XK_hebrew_resh=3320};
-enum {XK_hebrew_shin=3321};
-enum {XK_hebrew_taw=3322};
-enum {XK_hebrew_taf=3322};
-enum {XK_Hebrew_switch=65406};
-enum {XK_Thai_kokai=3489};
-enum {XK_Thai_khokhai=3490};
-enum {XK_Thai_khokhuat=3491};
-enum {XK_Thai_khokhwai=3492};
-enum {XK_Thai_khokhon=3493};
-enum {XK_Thai_khorakhang=3494};
-enum {XK_Thai_ngongu=3495};
-enum {XK_Thai_chochan=3496};
-enum {XK_Thai_choching=3497};
-enum {XK_Thai_chochang=3498};
-enum {XK_Thai_soso=3499};
-enum {XK_Thai_chochoe=3500};
-enum {XK_Thai_yoying=3501};
-enum {XK_Thai_dochada=3502};
-enum {XK_Thai_topatak=3503};
-enum {XK_Thai_thothan=3504};
-enum {XK_Thai_thonangmontho=3505};
-enum {XK_Thai_thophuthao=3506};
-enum {XK_Thai_nonen=3507};
-enum {XK_Thai_dodek=3508};
-enum {XK_Thai_totao=3509};
-enum {XK_Thai_thothung=3510};
-enum {XK_Thai_thothahan=3511};
-enum {XK_Thai_thothong=3512};
-enum {XK_Thai_nonu=3513};
-enum {XK_Thai_bobaimai=3514};
-enum {XK_Thai_popla=3515};
-enum {XK_Thai_phophung=3516};
-enum {XK_Thai_fofa=3517};
-enum {XK_Thai_phophan=3518};
-enum {XK_Thai_fofan=3519};
-enum {XK_Thai_phosamphao=3520};
-enum {XK_Thai_moma=3521};
-enum {XK_Thai_yoyak=3522};
-enum {XK_Thai_rorua=3523};
-enum {XK_Thai_ru=3524};
-enum {XK_Thai_loling=3525};
-enum {XK_Thai_lu=3526};
-enum {XK_Thai_wowaen=3527};
-enum {XK_Thai_sosala=3528};
-enum {XK_Thai_sorusi=3529};
-enum {XK_Thai_sosua=3530};
-enum {XK_Thai_hohip=3531};
-enum {XK_Thai_lochula=3532};
-enum {XK_Thai_oang=3533};
-enum {XK_Thai_honokhuk=3534};
-enum {XK_Thai_paiyannoi=3535};
-enum {XK_Thai_saraa=3536};
-enum {XK_Thai_maihanakat=3537};
-enum {XK_Thai_saraaa=3538};
-enum {XK_Thai_saraam=3539};
-enum {XK_Thai_sarai=3540};
-enum {XK_Thai_saraii=3541};
-enum {XK_Thai_saraue=3542};
-enum {XK_Thai_sarauee=3543};
-enum {XK_Thai_sarau=3544};
-enum {XK_Thai_sarauu=3545};
-enum {XK_Thai_phinthu=3546};
-enum {XK_Thai_maihanakat_maitho=3550};
-enum {XK_Thai_baht=3551};
-enum {XK_Thai_sarae=3552};
-enum {XK_Thai_saraae=3553};
-enum {XK_Thai_sarao=3554};
-enum {XK_Thai_saraaimaimuan=3555};
-enum {XK_Thai_saraaimaimalai=3556};
-enum {XK_Thai_lakkhangyao=3557};
-enum {XK_Thai_maiyamok=3558};
-enum {XK_Thai_maitaikhu=3559};
-enum {XK_Thai_maiek=3560};
-enum {XK_Thai_maitho=3561};
-enum {XK_Thai_maitri=3562};
-enum {XK_Thai_maichattawa=3563};
-enum {XK_Thai_thanthakhat=3564};
-enum {XK_Thai_nikhahit=3565};
-enum {XK_Thai_leksun=3568};
-enum {XK_Thai_leknung=3569};
-enum {XK_Thai_leksong=3570};
-enum {XK_Thai_leksam=3571};
-enum {XK_Thai_leksi=3572};
-enum {XK_Thai_lekha=3573};
-enum {XK_Thai_lekhok=3574};
-enum {XK_Thai_lekchet=3575};
-enum {XK_Thai_lekpaet=3576};
-enum {XK_Thai_lekkao=3577};
-enum {XK_Hangul=65329};
-enum {XK_Hangul_Start=65330};
-enum {XK_Hangul_End=65331};
-enum {XK_Hangul_Hanja=65332};
-enum {XK_Hangul_Jamo=65333};
-enum {XK_Hangul_Romaja=65334};
-enum {XK_Hangul_Codeinput=65335};
-enum {XK_Hangul_Jeonja=65336};
-enum {XK_Hangul_Banja=65337};
-enum {XK_Hangul_PreHanja=65338};
-enum {XK_Hangul_PostHanja=65339};
-enum {XK_Hangul_SingleCandidate=65340};
-enum {XK_Hangul_MultipleCandidate=65341};
-enum {XK_Hangul_PreviousCandidate=65342};
-enum {XK_Hangul_Special=65343};
-enum {XK_Hangul_switch=65406};
-enum {XK_Hangul_Kiyeog=3745};
-enum {XK_Hangul_SsangKiyeog=3746};
-enum {XK_Hangul_KiyeogSios=3747};
-enum {XK_Hangul_Nieun=3748};
-enum {XK_Hangul_NieunJieuj=3749};
-enum {XK_Hangul_NieunHieuh=3750};
-enum {XK_Hangul_Dikeud=3751};
-enum {XK_Hangul_SsangDikeud=3752};
-enum {XK_Hangul_Rieul=3753};
-enum {XK_Hangul_RieulKiyeog=3754};
-enum {XK_Hangul_RieulMieum=3755};
-enum {XK_Hangul_RieulPieub=3756};
-enum {XK_Hangul_RieulSios=3757};
-enum {XK_Hangul_RieulTieut=3758};
-enum {XK_Hangul_RieulPhieuf=3759};
-enum {XK_Hangul_RieulHieuh=3760};
-enum {XK_Hangul_Mieum=3761};
-enum {XK_Hangul_Pieub=3762};
-enum {XK_Hangul_SsangPieub=3763};
-enum {XK_Hangul_PieubSios=3764};
-enum {XK_Hangul_Sios=3765};
-enum {XK_Hangul_SsangSios=3766};
-enum {XK_Hangul_Ieung=3767};
-enum {XK_Hangul_Jieuj=3768};
-enum {XK_Hangul_SsangJieuj=3769};
-enum {XK_Hangul_Cieuc=3770};
-enum {XK_Hangul_Khieuq=3771};
-enum {XK_Hangul_Tieut=3772};
-enum {XK_Hangul_Phieuf=3773};
-enum {XK_Hangul_Hieuh=3774};
-enum {XK_Hangul_A=3775};
-enum {XK_Hangul_AE=3776};
-enum {XK_Hangul_YA=3777};
-enum {XK_Hangul_YAE=3778};
-enum {XK_Hangul_EO=3779};
-enum {XK_Hangul_E=3780};
-enum {XK_Hangul_YEO=3781};
-enum {XK_Hangul_YE=3782};
-enum {XK_Hangul_O=3783};
-enum {XK_Hangul_WA=3784};
-enum {XK_Hangul_WAE=3785};
-enum {XK_Hangul_OE=3786};
-enum {XK_Hangul_YO=3787};
-enum {XK_Hangul_U=3788};
-enum {XK_Hangul_WEO=3789};
-enum {XK_Hangul_WE=3790};
-enum {XK_Hangul_WI=3791};
-enum {XK_Hangul_YU=3792};
-enum {XK_Hangul_EU=3793};
-enum {XK_Hangul_YI=3794};
-enum {XK_Hangul_I=3795};
-enum {XK_Hangul_J_Kiyeog=3796};
-enum {XK_Hangul_J_SsangKiyeog=3797};
-enum {XK_Hangul_J_KiyeogSios=3798};
-enum {XK_Hangul_J_Nieun=3799};
-enum {XK_Hangul_J_NieunJieuj=3800};
-enum {XK_Hangul_J_NieunHieuh=3801};
-enum {XK_Hangul_J_Dikeud=3802};
-enum {XK_Hangul_J_Rieul=3803};
-enum {XK_Hangul_J_RieulKiyeog=3804};
-enum {XK_Hangul_J_RieulMieum=3805};
-enum {XK_Hangul_J_RieulPieub=3806};
-enum {XK_Hangul_J_RieulSios=3807};
-enum {XK_Hangul_J_RieulTieut=3808};
-enum {XK_Hangul_J_RieulPhieuf=3809};
-enum {XK_Hangul_J_RieulHieuh=3810};
-enum {XK_Hangul_J_Mieum=3811};
-enum {XK_Hangul_J_Pieub=3812};
-enum {XK_Hangul_J_PieubSios=3813};
-enum {XK_Hangul_J_Sios=3814};
-enum {XK_Hangul_J_SsangSios=3815};
-enum {XK_Hangul_J_Ieung=3816};
-enum {XK_Hangul_J_Jieuj=3817};
-enum {XK_Hangul_J_Cieuc=3818};
-enum {XK_Hangul_J_Khieuq=3819};
-enum {XK_Hangul_J_Tieut=3820};
-enum {XK_Hangul_J_Phieuf=3821};
-enum {XK_Hangul_J_Hieuh=3822};
-enum {XK_Hangul_RieulYeorinHieuh=3823};
-enum {XK_Hangul_SunkyeongeumMieum=3824};
-enum {XK_Hangul_SunkyeongeumPieub=3825};
-enum {XK_Hangul_PanSios=3826};
-enum {XK_Hangul_KkogjiDalrinIeung=3827};
-enum {XK_Hangul_SunkyeongeumPhieuf=3828};
-enum {XK_Hangul_YeorinHieuh=3829};
-enum {XK_Hangul_AraeA=3830};
-enum {XK_Hangul_AraeAE=3831};
-enum {XK_Hangul_J_PanSios=3832};
-enum {XK_Hangul_J_KkogjiDalrinIeung=3833};
-enum {XK_Hangul_J_YeorinHieuh=3834};
-enum {XK_Korean_Won=3839};
-enum {XK_Armenian_ligature_ew=16778631};
-enum {XK_Armenian_full_stop=16778633};
-enum {XK_Armenian_verjaket=16778633};
-enum {XK_Armenian_separation_mark=16778589};
-enum {XK_Armenian_but=16778589};
-enum {XK_Armenian_hyphen=16778634};
-enum {XK_Armenian_yentamna=16778634};
-enum {XK_Armenian_exclam=16778588};
-enum {XK_Armenian_amanak=16778588};
-enum {XK_Armenian_accent=16778587};
-enum {XK_Armenian_shesht=16778587};
-enum {XK_Armenian_question=16778590};
-enum {XK_Armenian_paruyk=16778590};
-enum {XK_Armenian_AYB=16778545};
-enum {XK_Armenian_ayb=16778593};
-enum {XK_Armenian_BEN=16778546};
-enum {XK_Armenian_ben=16778594};
-enum {XK_Armenian_GIM=16778547};
-enum {XK_Armenian_gim=16778595};
-enum {XK_Armenian_DA=16778548};
-enum {XK_Armenian_da=16778596};
-enum {XK_Armenian_YECH=16778549};
-enum {XK_Armenian_yech=16778597};
-enum {XK_Armenian_ZA=16778550};
-enum {XK_Armenian_za=16778598};
-enum {XK_Armenian_E=16778551};
-enum {XK_Armenian_e=16778599};
-enum {XK_Armenian_AT=16778552};
-enum {XK_Armenian_at=16778600};
-enum {XK_Armenian_TO=16778553};
-enum {XK_Armenian_to=16778601};
-enum {XK_Armenian_ZHE=16778554};
-enum {XK_Armenian_zhe=16778602};
-enum {XK_Armenian_INI=16778555};
-enum {XK_Armenian_ini=16778603};
-enum {XK_Armenian_LYUN=16778556};
-enum {XK_Armenian_lyun=16778604};
-enum {XK_Armenian_KHE=16778557};
-enum {XK_Armenian_khe=16778605};
-enum {XK_Armenian_TSA=16778558};
-enum {XK_Armenian_tsa=16778606};
-enum {XK_Armenian_KEN=16778559};
-enum {XK_Armenian_ken=16778607};
-enum {XK_Armenian_HO=16778560};
-enum {XK_Armenian_ho=16778608};
-enum {XK_Armenian_DZA=16778561};
-enum {XK_Armenian_dza=16778609};
-enum {XK_Armenian_GHAT=16778562};
-enum {XK_Armenian_ghat=16778610};
-enum {XK_Armenian_TCHE=16778563};
-enum {XK_Armenian_tche=16778611};
-enum {XK_Armenian_MEN=16778564};
-enum {XK_Armenian_men=16778612};
-enum {XK_Armenian_HI=16778565};
-enum {XK_Armenian_hi=16778613};
-enum {XK_Armenian_NU=16778566};
-enum {XK_Armenian_nu=16778614};
-enum {XK_Armenian_SHA=16778567};
-enum {XK_Armenian_sha=16778615};
-enum {XK_Armenian_VO=16778568};
-enum {XK_Armenian_vo=16778616};
-enum {XK_Armenian_CHA=16778569};
-enum {XK_Armenian_cha=16778617};
-enum {XK_Armenian_PE=16778570};
-enum {XK_Armenian_pe=16778618};
-enum {XK_Armenian_JE=16778571};
-enum {XK_Armenian_je=16778619};
-enum {XK_Armenian_RA=16778572};
-enum {XK_Armenian_ra=16778620};
-enum {XK_Armenian_SE=16778573};
-enum {XK_Armenian_se=16778621};
-enum {XK_Armenian_VEV=16778574};
-enum {XK_Armenian_vev=16778622};
-enum {XK_Armenian_TYUN=16778575};
-enum {XK_Armenian_tyun=16778623};
-enum {XK_Armenian_RE=16778576};
-enum {XK_Armenian_re=16778624};
-enum {XK_Armenian_TSO=16778577};
-enum {XK_Armenian_tso=16778625};
-enum {XK_Armenian_VYUN=16778578};
-enum {XK_Armenian_vyun=16778626};
-enum {XK_Armenian_PYUR=16778579};
-enum {XK_Armenian_pyur=16778627};
-enum {XK_Armenian_KE=16778580};
-enum {XK_Armenian_ke=16778628};
-enum {XK_Armenian_O=16778581};
-enum {XK_Armenian_o=16778629};
-enum {XK_Armenian_FE=16778582};
-enum {XK_Armenian_fe=16778630};
-enum {XK_Armenian_apostrophe=16778586};
+enum {XK_Cyrillic_HA_descender=16778418};
+enum {XK_Cyrillic_I=1769};
+enum {XK_Cyrillic_IE=1765};
+enum {XK_Cyrillic_IO=1715};
+enum {XK_Cyrillic_I_macron=16778466};
+enum {XK_Cyrillic_JE=1720};
+enum {XK_Cyrillic_KA=1771};
+enum {XK_Cyrillic_KA_descender=16778394};
+enum {XK_Cyrillic_KA_vertstroke=16778396};
+enum {XK_Cyrillic_LJE=1721};
+enum {XK_Cyrillic_NJE=1722};
+enum {XK_Cyrillic_O=1775};
+enum {XK_Cyrillic_O_bar=16778472};
+enum {XK_Cyrillic_PE=1776};
+enum {XK_Cyrillic_SCHWA=16778456};
+enum {XK_Cyrillic_SHA=1787};
+enum {XK_Cyrillic_SHCHA=1789};
+enum {XK_Cyrillic_SHHA=16778426};
+enum {XK_Cyrillic_SHORTI=1770};
+enum {XK_Cyrillic_SOFTSIGN=1784};
+enum {XK_Cyrillic_TE=1780};
+enum {XK_Cyrillic_TSE=1763};
+enum {XK_Cyrillic_U=1781};
+enum {XK_Cyrillic_U_macron=16778478};
+enum {XK_Cyrillic_U_straight=16778414};
+enum {XK_Cyrillic_U_straight_bar=16778416};
+enum {XK_Cyrillic_VE=1783};
+enum {XK_Cyrillic_YA=1777};
+enum {XK_Cyrillic_YERU=1785};
+enum {XK_Cyrillic_YU=1760};
+enum {XK_Cyrillic_ZE=1786};
+enum {XK_Cyrillic_ZHE=1782};
+enum {XK_Cyrillic_ZHE_descender=16778390};
+enum {XK_Cyrillic_a=1729};
+enum {XK_Cyrillic_be=1730};
+enum {XK_Cyrillic_che=1758};
+enum {XK_Cyrillic_che_descender=16778423};
+enum {XK_Cyrillic_che_vertstroke=16778425};
+enum {XK_Cyrillic_de=1732};
+enum {XK_Cyrillic_dzhe=1711};
+enum {XK_Cyrillic_e=1756};
+enum {XK_Cyrillic_ef=1734};
+enum {XK_Cyrillic_el=1740};
+enum {XK_Cyrillic_em=1741};
+enum {XK_Cyrillic_en=1742};
+enum {XK_Cyrillic_en_descender=16778403};
+enum {XK_Cyrillic_er=1746};
+enum {XK_Cyrillic_es=1747};
+enum {XK_Cyrillic_ghe=1735};
+enum {XK_Cyrillic_ghe_bar=16778387};
+enum {XK_Cyrillic_ha=1736};
+enum {XK_Cyrillic_ha_descender=16778419};
+enum {XK_Cyrillic_hardsign=1759};
+enum {XK_Cyrillic_i=1737};
+enum {XK_Cyrillic_i_macron=16778467};
+enum {XK_Cyrillic_ie=1733};
+enum {XK_Cyrillic_io=1699};
+enum {XK_Cyrillic_je=1704};
+enum {XK_Cyrillic_ka=1739};
+enum {XK_Cyrillic_ka_descender=16778395};
+enum {XK_Cyrillic_ka_vertstroke=16778397};
+enum {XK_Cyrillic_lje=1705};
+enum {XK_Cyrillic_nje=1706};
+enum {XK_Cyrillic_o=1743};
+enum {XK_Cyrillic_o_bar=16778473};
+enum {XK_Cyrillic_pe=1744};
+enum {XK_Cyrillic_schwa=16778457};
+enum {XK_Cyrillic_sha=1755};
+enum {XK_Cyrillic_shcha=1757};
+enum {XK_Cyrillic_shha=16778427};
+enum {XK_Cyrillic_shorti=1738};
+enum {XK_Cyrillic_softsign=1752};
+enum {XK_Cyrillic_te=1748};
+enum {XK_Cyrillic_tse=1731};
+enum {XK_Cyrillic_u=1749};
+enum {XK_Cyrillic_u_macron=16778479};
+enum {XK_Cyrillic_u_straight=16778415};
+enum {XK_Cyrillic_u_straight_bar=16778417};
+enum {XK_Cyrillic_ve=1751};
+enum {XK_Cyrillic_ya=1745};
+enum {XK_Cyrillic_yeru=1753};
+enum {XK_Cyrillic_yu=1728};
+enum {XK_Cyrillic_ze=1754};
+enum {XK_Cyrillic_zhe=1750};
+enum {XK_Cyrillic_zhe_descender=16778391};
+enum {XK_D=68};
+enum {XK_Dabovedot=16784906};
+enum {XK_Dcaron=463};
+enum {XK_Delete=65535};
+enum {XK_DongSign=16785579};
+enum {XK_Down=65364};
+enum {XK_Dstroke=464};
+enum {XK_E=69};
+enum {XK_ENG=957};
+enum {XK_ETH=208};
+enum {XK_EZH=16777655};
+enum {XK_Eabovedot=972};
+enum {XK_Eacute=201};
+enum {XK_Ebelowdot=16785080};
+enum {XK_Ecaron=460};
+enum {XK_Ecircumflex=202};
+enum {XK_Ecircumflexacute=16785086};
+enum {XK_Ecircumflexbelowdot=16785094};
+enum {XK_Ecircumflexgrave=16785088};
+enum {XK_Ecircumflexhook=16785090};
+enum {XK_Ecircumflextilde=16785092};
+enum {XK_EcuSign=16785568};
+enum {XK_Ediaeresis=203};
+enum {XK_Egrave=200};
+enum {XK_Ehook=16785082};
+enum {XK_Eisu_Shift=65327};
+enum {XK_Eisu_toggle=65328};
+enum {XK_Emacron=938};
+enum {XK_End=65367};
+enum {XK_Eogonek=458};
+enum {XK_Escape=65307};
+enum {XK_Eth=208};
+enum {XK_Etilde=16785084};
+enum {XK_EuroSign=8364};
+enum {XK_Execute=65378};
+enum {XK_F=70};
+enum {XK_F1=65470};
+enum {XK_F10=65479};
+enum {XK_F11=65480};
+enum {XK_F12=65481};
+enum {XK_F13=65482};
+enum {XK_F14=65483};
+enum {XK_F15=65484};
+enum {XK_F16=65485};
+enum {XK_F17=65486};
+enum {XK_F18=65487};
+enum {XK_F19=65488};
+enum {XK_F2=65471};
+enum {XK_F20=65489};
+enum {XK_F21=65490};
+enum {XK_F22=65491};
+enum {XK_F23=65492};
+enum {XK_F24=65493};
+enum {XK_F25=65494};
+enum {XK_F26=65495};
+enum {XK_F27=65496};
+enum {XK_F28=65497};
+enum {XK_F29=65498};
+enum {XK_F3=65472};
+enum {XK_F30=65499};
+enum {XK_F31=65500};
+enum {XK_F32=65501};
+enum {XK_F33=65502};
+enum {XK_F34=65503};
+enum {XK_F35=65504};
+enum {XK_F4=65473};
+enum {XK_F5=65474};
+enum {XK_F6=65475};
+enum {XK_F7=65476};
+enum {XK_F8=65477};
+enum {XK_F9=65478};
+enum {XK_FFrancSign=16785571};
+enum {XK_Fabovedot=16784926};
+enum {XK_Farsi_0=16778992};
+enum {XK_Farsi_1=16778993};
+enum {XK_Farsi_2=16778994};
+enum {XK_Farsi_3=16778995};
+enum {XK_Farsi_4=16778996};
+enum {XK_Farsi_5=16778997};
+enum {XK_Farsi_6=16778998};
+enum {XK_Farsi_7=16778999};
+enum {XK_Farsi_8=16779000};
+enum {XK_Farsi_9=16779001};
+enum {XK_Farsi_yeh=16778956};
+enum {XK_Find=65384};
+enum {XK_First_Virtual_Screen=65232};
+enum {XK_G=71};
+enum {XK_Gabovedot=725};
+enum {XK_Gbreve=683};
+enum {XK_Gcaron=16777702};
+enum {XK_Gcedilla=939};
+enum {XK_Gcircumflex=728};
 enum {XK_Georgian_an=16781520};
 enum {XK_Georgian_ban=16781521};
-enum {XK_Georgian_gan=16781522};
+enum {XK_Georgian_can=16781546};
+enum {XK_Georgian_char=16781549};
+enum {XK_Georgian_chin=16781545};
+enum {XK_Georgian_cil=16781548};
 enum {XK_Georgian_don=16781523};
 enum {XK_Georgian_en=16781524};
-enum {XK_Georgian_vin=16781525};
-enum {XK_Georgian_zen=16781526};
-enum {XK_Georgian_tan=16781527};
+enum {XK_Georgian_fi=16781558};
+enum {XK_Georgian_gan=16781522};
+enum {XK_Georgian_ghan=16781542};
+enum {XK_Georgian_hae=16781552};
+enum {XK_Georgian_har=16781556};
+enum {XK_Georgian_he=16781553};
+enum {XK_Georgian_hie=16781554};
+enum {XK_Georgian_hoe=16781557};
 enum {XK_Georgian_in=16781528};
+enum {XK_Georgian_jhan=16781551};
+enum {XK_Georgian_jil=16781547};
 enum {XK_Georgian_kan=16781529};
+enum {XK_Georgian_khar=16781541};
 enum {XK_Georgian_las=16781530};
 enum {XK_Georgian_man=16781531};
 enum {XK_Georgian_nar=16781532};
 enum {XK_Georgian_on=16781533};
 enum {XK_Georgian_par=16781534};
-enum {XK_Georgian_zhar=16781535};
+enum {XK_Georgian_phar=16781540};
+enum {XK_Georgian_qar=16781543};
 enum {XK_Georgian_rae=16781536};
 enum {XK_Georgian_san=16781537};
+enum {XK_Georgian_shin=16781544};
+enum {XK_Georgian_tan=16781527};
 enum {XK_Georgian_tar=16781538};
 enum {XK_Georgian_un=16781539};
-enum {XK_Georgian_phar=16781540};
-enum {XK_Georgian_khar=16781541};
-enum {XK_Georgian_ghan=16781542};
-enum {XK_Georgian_qar=16781543};
-enum {XK_Georgian_shin=16781544};
-enum {XK_Georgian_chin=16781545};
-enum {XK_Georgian_can=16781546};
-enum {XK_Georgian_jil=16781547};
-enum {XK_Georgian_cil=16781548};
-enum {XK_Georgian_char=16781549};
-enum {XK_Georgian_xan=16781550};
-enum {XK_Georgian_jhan=16781551};
-enum {XK_Georgian_hae=16781552};
-enum {XK_Georgian_he=16781553};
-enum {XK_Georgian_hie=16781554};
+enum {XK_Georgian_vin=16781525};
 enum {XK_Georgian_we=16781555};
-enum {XK_Georgian_har=16781556};
-enum {XK_Georgian_hoe=16781557};
-enum {XK_Georgian_fi=16781558};
-enum {XK_Xabovedot=16785034};
-enum {XK_Ibreve=16777516};
-enum {XK_Zstroke=16777653};
-enum {XK_Gcaron=16777702};
-enum {XK_Ocaron=16777681};
-enum {XK_Obarred=16777631};
-enum {XK_xabovedot=16785035};
-enum {XK_ibreve=16777517};
-enum {XK_zstroke=16777654};
-enum {XK_gcaron=16777703};
-enum {XK_ocaron=16777682};
-enum {XK_obarred=16777845};
-enum {XK_SCHWA=16777615};
-enum {XK_schwa=16777817};
-enum {XK_EZH=16777655};
-enum {XK_ezh=16777874};
-enum {XK_Lbelowdot=16784950};
-enum {XK_lbelowdot=16784951};
-enum {XK_Abelowdot=16785056};
-enum {XK_abelowdot=16785057};
-enum {XK_Ahook=16785058};
-enum {XK_ahook=16785059};
-enum {XK_Acircumflexacute=16785060};
-enum {XK_acircumflexacute=16785061};
-enum {XK_Acircumflexgrave=16785062};
-enum {XK_acircumflexgrave=16785063};
-enum {XK_Acircumflexhook=16785064};
-enum {XK_acircumflexhook=16785065};
-enum {XK_Acircumflextilde=16785066};
-enum {XK_acircumflextilde=16785067};
-enum {XK_Acircumflexbelowdot=16785068};
-enum {XK_acircumflexbelowdot=16785069};
-enum {XK_Abreveacute=16785070};
-enum {XK_abreveacute=16785071};
-enum {XK_Abrevegrave=16785072};
-enum {XK_abrevegrave=16785073};
-enum {XK_Abrevehook=16785074};
-enum {XK_abrevehook=16785075};
-enum {XK_Abrevetilde=16785076};
-enum {XK_abrevetilde=16785077};
-enum {XK_Abrevebelowdot=16785078};
-enum {XK_abrevebelowdot=16785079};
-enum {XK_Ebelowdot=16785080};
-enum {XK_ebelowdot=16785081};
-enum {XK_Ehook=16785082};
-enum {XK_ehook=16785083};
-enum {XK_Etilde=16785084};
-enum {XK_etilde=16785085};
-enum {XK_Ecircumflexacute=16785086};
-enum {XK_ecircumflexacute=16785087};
-enum {XK_Ecircumflexgrave=16785088};
-enum {XK_ecircumflexgrave=16785089};
-enum {XK_Ecircumflexhook=16785090};
-enum {XK_ecircumflexhook=16785091};
-enum {XK_Ecircumflextilde=16785092};
-enum {XK_ecircumflextilde=16785093};
-enum {XK_Ecircumflexbelowdot=16785094};
-enum {XK_ecircumflexbelowdot=16785095};
-enum {XK_Ihook=16785096};
-enum {XK_ihook=16785097};
+enum {XK_Georgian_xan=16781550};
+enum {XK_Georgian_zen=16781526};
+enum {XK_Georgian_zhar=16781535};
+enum {XK_Greek_ALPHA=1985};
+enum {XK_Greek_ALPHAaccent=1953};
+enum {XK_Greek_BETA=1986};
+enum {XK_Greek_CHI=2007};
+enum {XK_Greek_DELTA=1988};
+enum {XK_Greek_EPSILON=1989};
+enum {XK_Greek_EPSILONaccent=1954};
+enum {XK_Greek_ETA=1991};
+enum {XK_Greek_ETAaccent=1955};
+enum {XK_Greek_GAMMA=1987};
+enum {XK_Greek_IOTA=1993};
+enum {XK_Greek_IOTAaccent=1956};
+enum {XK_Greek_IOTAdiaeresis=1957};
+enum {XK_Greek_IOTAdieresis=1957};
+enum {XK_Greek_KAPPA=1994};
+enum {XK_Greek_LAMBDA=1995};
+enum {XK_Greek_LAMDA=1995};
+enum {XK_Greek_MU=1996};
+enum {XK_Greek_NU=1997};
+enum {XK_Greek_OMEGA=2009};
+enum {XK_Greek_OMEGAaccent=1963};
+enum {XK_Greek_OMICRON=1999};
+enum {XK_Greek_OMICRONaccent=1959};
+enum {XK_Greek_PHI=2006};
+enum {XK_Greek_PI=2000};
+enum {XK_Greek_PSI=2008};
+enum {XK_Greek_RHO=2001};
+enum {XK_Greek_SIGMA=2002};
+enum {XK_Greek_TAU=2004};
+enum {XK_Greek_THETA=1992};
+enum {XK_Greek_UPSILON=2005};
+enum {XK_Greek_UPSILONaccent=1960};
+enum {XK_Greek_UPSILONdieresis=1961};
+enum {XK_Greek_XI=1998};
+enum {XK_Greek_ZETA=1990};
+enum {XK_Greek_accentdieresis=1966};
+enum {XK_Greek_alpha=2017};
+enum {XK_Greek_alphaaccent=1969};
+enum {XK_Greek_beta=2018};
+enum {XK_Greek_chi=2039};
+enum {XK_Greek_delta=2020};
+enum {XK_Greek_epsilon=2021};
+enum {XK_Greek_epsilonaccent=1970};
+enum {XK_Greek_eta=2023};
+enum {XK_Greek_etaaccent=1971};
+enum {XK_Greek_finalsmallsigma=2035};
+enum {XK_Greek_gamma=2019};
+enum {XK_Greek_horizbar=1967};
+enum {XK_Greek_iota=2025};
+enum {XK_Greek_iotaaccent=1972};
+enum {XK_Greek_iotaaccentdieresis=1974};
+enum {XK_Greek_iotadieresis=1973};
+enum {XK_Greek_kappa=2026};
+enum {XK_Greek_lambda=2027};
+enum {XK_Greek_lamda=2027};
+enum {XK_Greek_mu=2028};
+enum {XK_Greek_nu=2029};
+enum {XK_Greek_omega=2041};
+enum {XK_Greek_omegaaccent=1979};
+enum {XK_Greek_omicron=2031};
+enum {XK_Greek_omicronaccent=1975};
+enum {XK_Greek_phi=2038};
+enum {XK_Greek_pi=2032};
+enum {XK_Greek_psi=2040};
+enum {XK_Greek_rho=2033};
+enum {XK_Greek_sigma=2034};
+enum {XK_Greek_switch=65406};
+enum {XK_Greek_tau=2036};
+enum {XK_Greek_theta=2024};
+enum {XK_Greek_upsilon=2037};
+enum {XK_Greek_upsilonaccent=1976};
+enum {XK_Greek_upsilonaccentdieresis=1978};
+enum {XK_Greek_upsilondieresis=1977};
+enum {XK_Greek_xi=2030};
+enum {XK_Greek_zeta=2022};
+enum {XK_H=72};
+enum {XK_Hangul=65329};
+enum {XK_Hangul_A=3775};
+enum {XK_Hangul_AE=3776};
+enum {XK_Hangul_AraeA=3830};
+enum {XK_Hangul_AraeAE=3831};
+enum {XK_Hangul_Banja=65337};
+enum {XK_Hangul_Cieuc=3770};
+enum {XK_Hangul_Codeinput=65335};
+enum {XK_Hangul_Dikeud=3751};
+enum {XK_Hangul_E=3780};
+enum {XK_Hangul_EO=3779};
+enum {XK_Hangul_EU=3793};
+enum {XK_Hangul_End=65331};
+enum {XK_Hangul_Hanja=65332};
+enum {XK_Hangul_Hieuh=3774};
+enum {XK_Hangul_I=3795};
+enum {XK_Hangul_Ieung=3767};
+enum {XK_Hangul_J_Cieuc=3818};
+enum {XK_Hangul_J_Dikeud=3802};
+enum {XK_Hangul_J_Hieuh=3822};
+enum {XK_Hangul_J_Ieung=3816};
+enum {XK_Hangul_J_Jieuj=3817};
+enum {XK_Hangul_J_Khieuq=3819};
+enum {XK_Hangul_J_Kiyeog=3796};
+enum {XK_Hangul_J_KiyeogSios=3798};
+enum {XK_Hangul_J_KkogjiDalrinIeung=3833};
+enum {XK_Hangul_J_Mieum=3811};
+enum {XK_Hangul_J_Nieun=3799};
+enum {XK_Hangul_J_NieunHieuh=3801};
+enum {XK_Hangul_J_NieunJieuj=3800};
+enum {XK_Hangul_J_PanSios=3832};
+enum {XK_Hangul_J_Phieuf=3821};
+enum {XK_Hangul_J_Pieub=3812};
+enum {XK_Hangul_J_PieubSios=3813};
+enum {XK_Hangul_J_Rieul=3803};
+enum {XK_Hangul_J_RieulHieuh=3810};
+enum {XK_Hangul_J_RieulKiyeog=3804};
+enum {XK_Hangul_J_RieulMieum=3805};
+enum {XK_Hangul_J_RieulPhieuf=3809};
+enum {XK_Hangul_J_RieulPieub=3806};
+enum {XK_Hangul_J_RieulSios=3807};
+enum {XK_Hangul_J_RieulTieut=3808};
+enum {XK_Hangul_J_Sios=3814};
+enum {XK_Hangul_J_SsangKiyeog=3797};
+enum {XK_Hangul_J_SsangSios=3815};
+enum {XK_Hangul_J_Tieut=3820};
+enum {XK_Hangul_J_YeorinHieuh=3834};
+enum {XK_Hangul_Jamo=65333};
+enum {XK_Hangul_Jeonja=65336};
+enum {XK_Hangul_Jieuj=3768};
+enum {XK_Hangul_Khieuq=3771};
+enum {XK_Hangul_Kiyeog=3745};
+enum {XK_Hangul_KiyeogSios=3747};
+enum {XK_Hangul_KkogjiDalrinIeung=3827};
+enum {XK_Hangul_Mieum=3761};
+enum {XK_Hangul_MultipleCandidate=65341};
+enum {XK_Hangul_Nieun=3748};
+enum {XK_Hangul_NieunHieuh=3750};
+enum {XK_Hangul_NieunJieuj=3749};
+enum {XK_Hangul_O=3783};
+enum {XK_Hangul_OE=3786};
+enum {XK_Hangul_PanSios=3826};
+enum {XK_Hangul_Phieuf=3773};
+enum {XK_Hangul_Pieub=3762};
+enum {XK_Hangul_PieubSios=3764};
+enum {XK_Hangul_PostHanja=65339};
+enum {XK_Hangul_PreHanja=65338};
+enum {XK_Hangul_PreviousCandidate=65342};
+enum {XK_Hangul_Rieul=3753};
+enum {XK_Hangul_RieulHieuh=3760};
+enum {XK_Hangul_RieulKiyeog=3754};
+enum {XK_Hangul_RieulMieum=3755};
+enum {XK_Hangul_RieulPhieuf=3759};
+enum {XK_Hangul_RieulPieub=3756};
+enum {XK_Hangul_RieulSios=3757};
+enum {XK_Hangul_RieulTieut=3758};
+enum {XK_Hangul_RieulYeorinHieuh=3823};
+enum {XK_Hangul_Romaja=65334};
+enum {XK_Hangul_SingleCandidate=65340};
+enum {XK_Hangul_Sios=3765};
+enum {XK_Hangul_Special=65343};
+enum {XK_Hangul_SsangDikeud=3752};
+enum {XK_Hangul_SsangJieuj=3769};
+enum {XK_Hangul_SsangKiyeog=3746};
+enum {XK_Hangul_SsangPieub=3763};
+enum {XK_Hangul_SsangSios=3766};
+enum {XK_Hangul_Start=65330};
+enum {XK_Hangul_SunkyeongeumMieum=3824};
+enum {XK_Hangul_SunkyeongeumPhieuf=3828};
+enum {XK_Hangul_SunkyeongeumPieub=3825};
+enum {XK_Hangul_Tieut=3772};
+enum {XK_Hangul_U=3788};
+enum {XK_Hangul_WA=3784};
+enum {XK_Hangul_WAE=3785};
+enum {XK_Hangul_WE=3790};
+enum {XK_Hangul_WEO=3789};
+enum {XK_Hangul_WI=3791};
+enum {XK_Hangul_YA=3777};
+enum {XK_Hangul_YAE=3778};
+enum {XK_Hangul_YE=3782};
+enum {XK_Hangul_YEO=3781};
+enum {XK_Hangul_YI=3794};
+enum {XK_Hangul_YO=3787};
+enum {XK_Hangul_YU=3792};
+enum {XK_Hangul_YeorinHieuh=3829};
+enum {XK_Hangul_switch=65406};
+enum {XK_Hankaku=65321};
+enum {XK_Hcircumflex=678};
+enum {XK_Hebrew_switch=65406};
+enum {XK_Help=65386};
+enum {XK_Henkan=65315};
+enum {XK_Henkan_Mode=65315};
+enum {XK_Hiragana=65317};
+enum {XK_Hiragana_Katakana=65319};
+enum {XK_Home=65360};
+enum {XK_Hstroke=673};
+enum {XK_Hyper_L=65517};
+enum {XK_Hyper_R=65518};
+enum {XK_I=73};
+enum {XK_ISO_Center_Object=65075};
+enum {XK_ISO_Continuous_Underline=65072};
+enum {XK_ISO_Discontinuous_Underline=65073};
+enum {XK_ISO_Emphasize=65074};
+enum {XK_ISO_Enter=65076};
+enum {XK_ISO_Fast_Cursor_Down=65071};
+enum {XK_ISO_Fast_Cursor_Left=65068};
+enum {XK_ISO_Fast_Cursor_Right=65069};
+enum {XK_ISO_Fast_Cursor_Up=65070};
+enum {XK_ISO_First_Group=65036};
+enum {XK_ISO_First_Group_Lock=65037};
+enum {XK_ISO_Group_Latch=65030};
+enum {XK_ISO_Group_Lock=65031};
+enum {XK_ISO_Group_Shift=65406};
+enum {XK_ISO_Last_Group=65038};
+enum {XK_ISO_Last_Group_Lock=65039};
+enum {XK_ISO_Left_Tab=65056};
+enum {XK_ISO_Level2_Latch=65026};
+enum {XK_ISO_Level3_Latch=65028};
+enum {XK_ISO_Level3_Lock=65029};
+enum {XK_ISO_Level3_Shift=65027};
+enum {XK_ISO_Level5_Latch=65042};
+enum {XK_ISO_Level5_Lock=65043};
+enum {XK_ISO_Level5_Shift=65041};
+enum {XK_ISO_Lock=65025};
+enum {XK_ISO_Move_Line_Down=65058};
+enum {XK_ISO_Move_Line_Up=65057};
+enum {XK_ISO_Next_Group=65032};
+enum {XK_ISO_Next_Group_Lock=65033};
+enum {XK_ISO_Partial_Line_Down=65060};
+enum {XK_ISO_Partial_Line_Up=65059};
+enum {XK_ISO_Partial_Space_Left=65061};
+enum {XK_ISO_Partial_Space_Right=65062};
+enum {XK_ISO_Prev_Group=65034};
+enum {XK_ISO_Prev_Group_Lock=65035};
+enum {XK_ISO_Release_Both_Margins=65067};
+enum {XK_ISO_Release_Margin_Left=65065};
+enum {XK_ISO_Release_Margin_Right=65066};
+enum {XK_ISO_Set_Margin_Left=65063};
+enum {XK_ISO_Set_Margin_Right=65064};
+enum {XK_Iabovedot=681};
+enum {XK_Iacute=205};
 enum {XK_Ibelowdot=16785098};
-enum {XK_ibelowdot=16785099};
-enum {XK_Obelowdot=16785100};
-enum {XK_obelowdot=16785101};
-enum {XK_Ohook=16785102};
-enum {XK_ohook=16785103};
-enum {XK_Ocircumflexacute=16785104};
-enum {XK_ocircumflexacute=16785105};
-enum {XK_Ocircumflexgrave=16785106};
-enum {XK_ocircumflexgrave=16785107};
-enum {XK_Ocircumflexhook=16785108};
-enum {XK_ocircumflexhook=16785109};
-enum {XK_Ocircumflextilde=16785110};
-enum {XK_ocircumflextilde=16785111};
-enum {XK_Ocircumflexbelowdot=16785112};
-enum {XK_ocircumflexbelowdot=16785113};
-enum {XK_Ohornacute=16785114};
-enum {XK_ohornacute=16785115};
-enum {XK_Ohorngrave=16785116};
-enum {XK_ohorngrave=16785117};
-enum {XK_Ohornhook=16785118};
-enum {XK_ohornhook=16785119};
-enum {XK_Ohorntilde=16785120};
-enum {XK_ohorntilde=16785121};
-enum {XK_Ohornbelowdot=16785122};
-enum {XK_ohornbelowdot=16785123};
-enum {XK_Ubelowdot=16785124};
-enum {XK_ubelowdot=16785125};
-enum {XK_Uhook=16785126};
-enum {XK_uhook=16785127};
-enum {XK_Uhornacute=16785128};
-enum {XK_uhornacute=16785129};
-enum {XK_Uhorngrave=16785130};
-enum {XK_uhorngrave=16785131};
-enum {XK_Uhornhook=16785132};
-enum {XK_uhornhook=16785133};
-enum {XK_Uhorntilde=16785134};
-enum {XK_uhorntilde=16785135};
-enum {XK_Uhornbelowdot=16785136};
-enum {XK_uhornbelowdot=16785137};
-enum {XK_Ybelowdot=16785140};
-enum {XK_ybelowdot=16785141};
-enum {XK_Yhook=16785142};
-enum {XK_yhook=16785143};
-enum {XK_Ytilde=16785144};
-enum {XK_ytilde=16785145};
-enum {XK_Ohorn=16777632};
-enum {XK_ohorn=16777633};
-enum {XK_Uhorn=16777647};
-enum {XK_uhorn=16777648};
-enum {XK_combining_tilde=16777987};
-enum {XK_combining_grave=16777984};
-enum {XK_combining_acute=16777985};
-enum {XK_combining_hook=16777993};
-enum {XK_combining_belowdot=16778019};
-enum {XK_EcuSign=16785568};
-enum {XK_ColonSign=16785569};
-enum {XK_CruzeiroSign=16785570};
-enum {XK_FFrancSign=16785571};
+enum {XK_Ibreve=16777516};
+enum {XK_Icircumflex=206};
+enum {XK_Idiaeresis=207};
+enum {XK_Igrave=204};
+enum {XK_Ihook=16785096};
+enum {XK_Imacron=975};
+enum {XK_Insert=65379};
+enum {XK_Iogonek=967};
+enum {XK_Itilde=933};
+enum {XK_J=74};
+enum {XK_Jcircumflex=684};
+enum {XK_K=75};
+enum {XK_KP_0=65456};
+enum {XK_KP_1=65457};
+enum {XK_KP_2=65458};
+enum {XK_KP_3=65459};
+enum {XK_KP_4=65460};
+enum {XK_KP_5=65461};
+enum {XK_KP_6=65462};
+enum {XK_KP_7=65463};
+enum {XK_KP_8=65464};
+enum {XK_KP_9=65465};
+enum {XK_KP_Add=65451};
+enum {XK_KP_Begin=65437};
+enum {XK_KP_Decimal=65454};
+enum {XK_KP_Delete=65439};
+enum {XK_KP_Divide=65455};
+enum {XK_KP_Down=65433};
+enum {XK_KP_End=65436};
+enum {XK_KP_Enter=65421};
+enum {XK_KP_Equal=65469};
+enum {XK_KP_F1=65425};
+enum {XK_KP_F2=65426};
+enum {XK_KP_F3=65427};
+enum {XK_KP_F4=65428};
+enum {XK_KP_Home=65429};
+enum {XK_KP_Insert=65438};
+enum {XK_KP_Left=65430};
+enum {XK_KP_Multiply=65450};
+enum {XK_KP_Next=65435};
+enum {XK_KP_Page_Down=65435};
+enum {XK_KP_Page_Up=65434};
+enum {XK_KP_Prior=65434};
+enum {XK_KP_Right=65432};
+enum {XK_KP_Separator=65452};
+enum {XK_KP_Space=65408};
+enum {XK_KP_Subtract=65453};
+enum {XK_KP_Tab=65417};
+enum {XK_KP_Up=65431};
+enum {XK_Kana_Lock=65325};
+enum {XK_Kana_Shift=65326};
+enum {XK_Kanji=65313};
+enum {XK_Kanji_Bangou=65335};
+enum {XK_Katakana=65318};
+enum {XK_Kcedilla=979};
+enum {XK_Korean_Won=3839};
+enum {XK_L=76};
+enum {XK_L1=65480};
+enum {XK_L10=65489};
+enum {XK_L2=65481};
+enum {XK_L3=65482};
+enum {XK_L4=65483};
+enum {XK_L5=65484};
+enum {XK_L6=65485};
+enum {XK_L7=65486};
+enum {XK_L8=65487};
+enum {XK_L9=65488};
+enum {XK_Lacute=453};
+enum {XK_Last_Virtual_Screen=65236};
+enum {XK_Lbelowdot=16784950};
+enum {XK_Lcaron=421};
+enum {XK_Lcedilla=934};
+enum {XK_Left=65361};
+enum {XK_Linefeed=65290};
 enum {XK_LiraSign=16785572};
+enum {XK_Lstroke=419};
+enum {XK_M=77};
+enum {XK_Mabovedot=16784960};
+enum {XK_Macedonia_DSE=1717};
+enum {XK_Macedonia_GJE=1714};
+enum {XK_Macedonia_KJE=1724};
+enum {XK_Macedonia_dse=1701};
+enum {XK_Macedonia_gje=1698};
+enum {XK_Macedonia_kje=1708};
+enum {XK_Mae_Koho=65342};
+enum {XK_Massyo=65324};
+enum {XK_Menu=65383};
+enum {XK_Meta_L=65511};
+enum {XK_Meta_R=65512};
 enum {XK_MillSign=16785573};
+enum {XK_Mode_switch=65406};
+enum {XK_MouseKeys_Accel_Enable=65143};
+enum {XK_MouseKeys_Enable=65142};
+enum {XK_Muhenkan=65314};
+enum {XK_Multi_key=65312};
+enum {XK_MultipleCandidate=65341};
+enum {XK_N=78};
+enum {XK_Nacute=465};
 enum {XK_NairaSign=16785574};
-enum {XK_PesetaSign=16785575};
-enum {XK_RupeeSign=16785576};
-enum {XK_WonSign=16785577};
+enum {XK_Ncaron=466};
+enum {XK_Ncedilla=977};
 enum {XK_NewSheqelSign=16785578};
-enum {XK_DongSign=16785579};
-enum {XK_EuroSign=8364};
-enum {XK_zerosuperior=16785520};
-enum {XK_foursuperior=16785524};
-enum {XK_fivesuperior=16785525};
-enum {XK_sixsuperior=16785526};
-enum {XK_sevensuperior=16785527};
-enum {XK_eightsuperior=16785528};
-enum {XK_ninesuperior=16785529};
-enum {XK_zerosubscript=16785536};
-enum {XK_onesubscript=16785537};
-enum {XK_twosubscript=16785538};
-enum {XK_threesubscript=16785539};
-enum {XK_foursubscript=16785540};
-enum {XK_fivesubscript=16785541};
-enum {XK_sixsubscript=16785542};
-enum {XK_sevensubscript=16785543};
-enum {XK_eightsubscript=16785544};
-enum {XK_ninesubscript=16785545};
-enum {XK_partdifferential=16785922};
-enum {XK_emptyset=16785925};
-enum {XK_elementof=16785928};
-enum {XK_notelementof=16785929};
-enum {XK_containsas=16785931};
-enum {XK_squareroot=16785946};
-enum {XK_cuberoot=16785947};
-enum {XK_fourthroot=16785948};
-enum {XK_dintegral=16785964};
-enum {XK_tintegral=16785965};
-enum {XK_because=16785973};
+enum {XK_Next=65366};
+enum {XK_Next_Virtual_Screen=65234};
+enum {XK_Ntilde=209};
+enum {XK_Num_Lock=65407};
+enum {XK_O=79};
+enum {XK_OE=5052};
+enum {XK_Oacute=211};
+enum {XK_Obarred=16777631};
+enum {XK_Obelowdot=16785100};
+enum {XK_Ocaron=16777681};
+enum {XK_Ocircumflex=212};
+enum {XK_Ocircumflexacute=16785104};
+enum {XK_Ocircumflexbelowdot=16785112};
+enum {XK_Ocircumflexgrave=16785106};
+enum {XK_Ocircumflexhook=16785108};
+enum {XK_Ocircumflextilde=16785110};
+enum {XK_Odiaeresis=214};
+enum {XK_Odoubleacute=469};
+enum {XK_Ograve=210};
+enum {XK_Ohook=16785102};
+enum {XK_Ohorn=16777632};
+enum {XK_Ohornacute=16785114};
+enum {XK_Ohornbelowdot=16785122};
+enum {XK_Ohorngrave=16785116};
+enum {XK_Ohornhook=16785118};
+enum {XK_Ohorntilde=16785120};
+enum {XK_Omacron=978};
+enum {XK_Ooblique=216};
+enum {XK_Oslash=216};
+enum {XK_Otilde=213};
+enum {XK_Overlay1_Enable=65144};
+enum {XK_Overlay2_Enable=65145};
+enum {XK_P=80};
+enum {XK_Pabovedot=16784982};
+enum {XK_Page_Down=65366};
+enum {XK_Page_Up=65365};
+enum {XK_Pause=65299};
+enum {XK_PesetaSign=16785575};
+enum {XK_Pointer_Accelerate=65274};
+enum {XK_Pointer_Button1=65257};
+enum {XK_Pointer_Button2=65258};
+enum {XK_Pointer_Button3=65259};
+enum {XK_Pointer_Button4=65260};
+enum {XK_Pointer_Button5=65261};
+enum {XK_Pointer_Button_Dflt=65256};
+enum {XK_Pointer_DblClick1=65263};
+enum {XK_Pointer_DblClick2=65264};
+enum {XK_Pointer_DblClick3=65265};
+enum {XK_Pointer_DblClick4=65266};
+enum {XK_Pointer_DblClick5=65267};
+enum {XK_Pointer_DblClick_Dflt=65262};
+enum {XK_Pointer_DfltBtnNext=65275};
+enum {XK_Pointer_DfltBtnPrev=65276};
+enum {XK_Pointer_Down=65251};
+enum {XK_Pointer_DownLeft=65254};
+enum {XK_Pointer_DownRight=65255};
+enum {XK_Pointer_Drag1=65269};
+enum {XK_Pointer_Drag2=65270};
+enum {XK_Pointer_Drag3=65271};
+enum {XK_Pointer_Drag4=65272};
+enum {XK_Pointer_Drag5=65277};
+enum {XK_Pointer_Drag_Dflt=65268};
+enum {XK_Pointer_EnableKeys=65273};
+enum {XK_Pointer_Left=65248};
+enum {XK_Pointer_Right=65249};
+enum {XK_Pointer_Up=65250};
+enum {XK_Pointer_UpLeft=65252};
+enum {XK_Pointer_UpRight=65253};
+enum {XK_Prev_Virtual_Screen=65233};
+enum {XK_PreviousCandidate=65342};
+enum {XK_Print=65377};
+enum {XK_Prior=65365};
+enum {XK_Q=81};
+enum {XK_R=82};
+enum {XK_R1=65490};
+enum {XK_R10=65499};
+enum {XK_R11=65500};
+enum {XK_R12=65501};
+enum {XK_R13=65502};
+enum {XK_R14=65503};
+enum {XK_R15=65504};
+enum {XK_R2=65491};
+enum {XK_R3=65492};
+enum {XK_R4=65493};
+enum {XK_R5=65494};
+enum {XK_R6=65495};
+enum {XK_R7=65496};
+enum {XK_R8=65497};
+enum {XK_R9=65498};
+enum {XK_Racute=448};
+enum {XK_Rcaron=472};
+enum {XK_Rcedilla=931};
+enum {XK_Redo=65382};
+enum {XK_RepeatKeys_Enable=65138};
+enum {XK_Return=65293};
+enum {XK_Right=65363};
+enum {XK_Romaji=65316};
+enum {XK_RupeeSign=16785576};
+enum {XK_S=83};
+enum {XK_SCHWA=16777615};
+enum {XK_Sabovedot=16784992};
+enum {XK_Sacute=422};
+enum {XK_Scaron=425};
+enum {XK_Scedilla=426};
+enum {XK_Scircumflex=734};
+enum {XK_Scroll_Lock=65300};
+enum {XK_Select=65376};
+enum {XK_Serbian_DJE=1713};
+enum {XK_Serbian_DZE=1727};
+enum {XK_Serbian_JE=1720};
+enum {XK_Serbian_LJE=1721};
+enum {XK_Serbian_NJE=1722};
+enum {XK_Serbian_TSHE=1723};
+enum {XK_Serbian_dje=1697};
+enum {XK_Serbian_dze=1711};
+enum {XK_Serbian_je=1704};
+enum {XK_Serbian_lje=1705};
+enum {XK_Serbian_nje=1706};
+enum {XK_Serbian_tshe=1707};
+enum {XK_Shift_L=65505};
+enum {XK_Shift_Lock=65510};
+enum {XK_Shift_R=65506};
+enum {XK_SingleCandidate=65340};
+enum {XK_Sinh_a=16780677};
+enum {XK_Sinh_aa=16780678};
+enum {XK_Sinh_aa2=16780751};
+enum {XK_Sinh_ae=16780679};
+enum {XK_Sinh_ae2=16780752};
+enum {XK_Sinh_aee=16780680};
+enum {XK_Sinh_aee2=16780753};
+enum {XK_Sinh_ai=16780691};
+enum {XK_Sinh_ai2=16780763};
+enum {XK_Sinh_al=16780746};
+enum {XK_Sinh_au=16780694};
+enum {XK_Sinh_au2=16780766};
+enum {XK_Sinh_ba=16780726};
+enum {XK_Sinh_bha=16780727};
+enum {XK_Sinh_ca=16780704};
+enum {XK_Sinh_cha=16780705};
+enum {XK_Sinh_dda=16780713};
+enum {XK_Sinh_ddha=16780714};
+enum {XK_Sinh_dha=16780719};
+enum {XK_Sinh_dhha=16780720};
+enum {XK_Sinh_e=16780689};
+enum {XK_Sinh_e2=16780761};
+enum {XK_Sinh_ee=16780690};
+enum {XK_Sinh_ee2=16780762};
+enum {XK_Sinh_fa=16780742};
+enum {XK_Sinh_ga=16780700};
+enum {XK_Sinh_gha=16780701};
+enum {XK_Sinh_h2=16780675};
+enum {XK_Sinh_ha=16780740};
+enum {XK_Sinh_i=16780681};
+enum {XK_Sinh_i2=16780754};
+enum {XK_Sinh_ii=16780682};
+enum {XK_Sinh_ii2=16780755};
+enum {XK_Sinh_ja=16780706};
+enum {XK_Sinh_jha=16780707};
+enum {XK_Sinh_jnya=16780709};
+enum {XK_Sinh_ka=16780698};
+enum {XK_Sinh_kha=16780699};
+enum {XK_Sinh_kunddaliya=16780788};
+enum {XK_Sinh_la=16780733};
+enum {XK_Sinh_lla=16780741};
+enum {XK_Sinh_lu=16780687};
+enum {XK_Sinh_lu2=16780767};
+enum {XK_Sinh_luu=16780688};
+enum {XK_Sinh_luu2=16780787};
+enum {XK_Sinh_ma=16780728};
+enum {XK_Sinh_mba=16780729};
+enum {XK_Sinh_na=16780721};
+enum {XK_Sinh_ndda=16780716};
+enum {XK_Sinh_ndha=16780723};
+enum {XK_Sinh_ng=16780674};
+enum {XK_Sinh_ng2=16780702};
+enum {XK_Sinh_nga=16780703};
+enum {XK_Sinh_nja=16780710};
+enum {XK_Sinh_nna=16780715};
+enum {XK_Sinh_nya=16780708};
+enum {XK_Sinh_o=16780692};
+enum {XK_Sinh_o2=16780764};
+enum {XK_Sinh_oo=16780693};
+enum {XK_Sinh_oo2=16780765};
+enum {XK_Sinh_pa=16780724};
+enum {XK_Sinh_pha=16780725};
+enum {XK_Sinh_ra=16780731};
+enum {XK_Sinh_ri=16780685};
+enum {XK_Sinh_rii=16780686};
+enum {XK_Sinh_ru2=16780760};
+enum {XK_Sinh_ruu2=16780786};
+enum {XK_Sinh_sa=16780739};
+enum {XK_Sinh_sha=16780737};
+enum {XK_Sinh_ssha=16780738};
+enum {XK_Sinh_tha=16780717};
+enum {XK_Sinh_thha=16780718};
+enum {XK_Sinh_tta=16780711};
+enum {XK_Sinh_ttha=16780712};
+enum {XK_Sinh_u=16780683};
+enum {XK_Sinh_u2=16780756};
+enum {XK_Sinh_uu=16780684};
+enum {XK_Sinh_uu2=16780758};
+enum {XK_Sinh_va=16780736};
+enum {XK_Sinh_ya=16780730};
+enum {XK_SlowKeys_Enable=65139};
+enum {XK_StickyKeys_Enable=65141};
+enum {XK_Super_L=65515};
+enum {XK_Super_R=65516};
+enum {XK_Sys_Req=65301};
+enum {XK_T=84};
+enum {XK_THORN=222};
+enum {XK_Tab=65289};
+enum {XK_Tabovedot=16785002};
+enum {XK_Tcaron=427};
+enum {XK_Tcedilla=478};
+enum {XK_Terminate_Server=65237};
+enum {XK_Thai_baht=3551};
+enum {XK_Thai_bobaimai=3514};
+enum {XK_Thai_chochan=3496};
+enum {XK_Thai_chochang=3498};
+enum {XK_Thai_choching=3497};
+enum {XK_Thai_chochoe=3500};
+enum {XK_Thai_dochada=3502};
+enum {XK_Thai_dodek=3508};
+enum {XK_Thai_fofa=3517};
+enum {XK_Thai_fofan=3519};
+enum {XK_Thai_hohip=3531};
+enum {XK_Thai_honokhuk=3534};
+enum {XK_Thai_khokhai=3490};
+enum {XK_Thai_khokhon=3493};
+enum {XK_Thai_khokhuat=3491};
+enum {XK_Thai_khokhwai=3492};
+enum {XK_Thai_khorakhang=3494};
+enum {XK_Thai_kokai=3489};
+enum {XK_Thai_lakkhangyao=3557};
+enum {XK_Thai_lekchet=3575};
+enum {XK_Thai_lekha=3573};
+enum {XK_Thai_lekhok=3574};
+enum {XK_Thai_lekkao=3577};
+enum {XK_Thai_leknung=3569};
+enum {XK_Thai_lekpaet=3576};
+enum {XK_Thai_leksam=3571};
+enum {XK_Thai_leksi=3572};
+enum {XK_Thai_leksong=3570};
+enum {XK_Thai_leksun=3568};
+enum {XK_Thai_lochula=3532};
+enum {XK_Thai_loling=3525};
+enum {XK_Thai_lu=3526};
+enum {XK_Thai_maichattawa=3563};
+enum {XK_Thai_maiek=3560};
+enum {XK_Thai_maihanakat=3537};
+enum {XK_Thai_maihanakat_maitho=3550};
+enum {XK_Thai_maitaikhu=3559};
+enum {XK_Thai_maitho=3561};
+enum {XK_Thai_maitri=3562};
+enum {XK_Thai_maiyamok=3558};
+enum {XK_Thai_moma=3521};
+enum {XK_Thai_ngongu=3495};
+enum {XK_Thai_nikhahit=3565};
+enum {XK_Thai_nonen=3507};
+enum {XK_Thai_nonu=3513};
+enum {XK_Thai_oang=3533};
+enum {XK_Thai_paiyannoi=3535};
+enum {XK_Thai_phinthu=3546};
+enum {XK_Thai_phophan=3518};
+enum {XK_Thai_phophung=3516};
+enum {XK_Thai_phosamphao=3520};
+enum {XK_Thai_popla=3515};
+enum {XK_Thai_rorua=3523};
+enum {XK_Thai_ru=3524};
+enum {XK_Thai_saraa=3536};
+enum {XK_Thai_saraaa=3538};
+enum {XK_Thai_saraae=3553};
+enum {XK_Thai_saraaimaimalai=3556};
+enum {XK_Thai_saraaimaimuan=3555};
+enum {XK_Thai_saraam=3539};
+enum {XK_Thai_sarae=3552};
+enum {XK_Thai_sarai=3540};
+enum {XK_Thai_saraii=3541};
+enum {XK_Thai_sarao=3554};
+enum {XK_Thai_sarau=3544};
+enum {XK_Thai_saraue=3542};
+enum {XK_Thai_sarauee=3543};
+enum {XK_Thai_sarauu=3545};
+enum {XK_Thai_sorusi=3529};
+enum {XK_Thai_sosala=3528};
+enum {XK_Thai_soso=3499};
+enum {XK_Thai_sosua=3530};
+enum {XK_Thai_thanthakhat=3564};
+enum {XK_Thai_thonangmontho=3505};
+enum {XK_Thai_thophuthao=3506};
+enum {XK_Thai_thothahan=3511};
+enum {XK_Thai_thothan=3504};
+enum {XK_Thai_thothong=3512};
+enum {XK_Thai_thothung=3510};
+enum {XK_Thai_topatak=3503};
+enum {XK_Thai_totao=3509};
+enum {XK_Thai_wowaen=3527};
+enum {XK_Thai_yoyak=3522};
+enum {XK_Thai_yoying=3501};
+enum {XK_Thorn=222};
+enum {XK_Touroku=65323};
+enum {XK_Tslash=940};
+enum {XK_U=85};
+enum {XK_Uacute=218};
+enum {XK_Ubelowdot=16785124};
+enum {XK_Ubreve=733};
+enum {XK_Ucircumflex=219};
+enum {XK_Udiaeresis=220};
+enum {XK_Udoubleacute=475};
+enum {XK_Ugrave=217};
+enum {XK_Uhook=16785126};
+enum {XK_Uhorn=16777647};
+enum {XK_Uhornacute=16785128};
+enum {XK_Uhornbelowdot=16785136};
+enum {XK_Uhorngrave=16785130};
+enum {XK_Uhornhook=16785132};
+enum {XK_Uhorntilde=16785134};
+enum {XK_Ukrainian_GHE_WITH_UPTURN=1725};
+enum {XK_Ukrainian_I=1718};
+enum {XK_Ukrainian_IE=1716};
+enum {XK_Ukrainian_YI=1719};
+enum {XK_Ukrainian_ghe_with_upturn=1709};
+enum {XK_Ukrainian_i=1702};
+enum {XK_Ukrainian_ie=1700};
+enum {XK_Ukrainian_yi=1703};
+enum {XK_Ukranian_I=1718};
+enum {XK_Ukranian_JE=1716};
+enum {XK_Ukranian_YI=1719};
+enum {XK_Ukranian_i=1702};
+enum {XK_Ukranian_je=1700};
+enum {XK_Ukranian_yi=1703};
+enum {XK_Umacron=990};
+enum {XK_Undo=65381};
+enum {XK_Uogonek=985};
+enum {XK_Up=65362};
+enum {XK_Uring=473};
+enum {XK_Utilde=989};
+enum {XK_V=86};
+enum {XK_VoidSymbol=16777215};
+enum {XK_W=87};
+enum {XK_Wacute=16785026};
+enum {XK_Wcircumflex=16777588};
+enum {XK_Wdiaeresis=16785028};
+enum {XK_Wgrave=16785024};
+enum {XK_WonSign=16785577};
+enum {XK_X=88};
+enum {XK_Xabovedot=16785034};
+enum {XK_Y=89};
+enum {XK_Yacute=221};
+enum {XK_Ybelowdot=16785140};
+enum {XK_Ycircumflex=16777590};
+enum {XK_Ydiaeresis=5054};
+enum {XK_Ygrave=16785138};
+enum {XK_Yhook=16785142};
+enum {XK_Ytilde=16785144};
+enum {XK_Z=90};
+enum {XK_Zabovedot=431};
+enum {XK_Zacute=428};
+enum {XK_Zcaron=430};
+enum {XK_Zen_Koho=65341};
+enum {XK_Zenkaku=65320};
+enum {XK_Zenkaku_Hankaku=65322};
+enum {XK_Zstroke=16777653};
+enum {XK_a=97};
+enum {XK_aacute=225};
+enum {XK_abelowdot=16785057};
+enum {XK_abovedot=511};
+enum {XK_abreve=483};
+enum {XK_abreveacute=16785071};
+enum {XK_abrevebelowdot=16785079};
+enum {XK_abrevegrave=16785073};
+enum {XK_abrevehook=16785075};
+enum {XK_abrevetilde=16785077};
+enum {XK_acircumflex=226};
+enum {XK_acircumflexacute=16785061};
+enum {XK_acircumflexbelowdot=16785069};
+enum {XK_acircumflexgrave=16785063};
+enum {XK_acircumflexhook=16785065};
+enum {XK_acircumflextilde=16785067};
+enum {XK_acute=180};
+enum {XK_adiaeresis=228};
+enum {XK_ae=230};
+enum {XK_agrave=224};
+enum {XK_ahook=16785059};
+enum {XK_amacron=992};
+enum {XK_ampersand=38};
+enum {XK_aogonek=433};
+enum {XK_apostrophe=39};
 enum {XK_approxeq=16785992};
-enum {XK_notapproxeq=16785991};
-enum {XK_notidentical=16786018};
-enum {XK_stricteq=16786019};
+enum {XK_approximate=2248};
+enum {XK_aring=229};
+enum {XK_asciicircum=94};
+enum {XK_asciitilde=126};
+enum {XK_asterisk=42};
+enum {XK_at=64};
+enum {XK_atilde=227};
+enum {XK_b=98};
+enum {XK_babovedot=16784899};
+enum {XK_backslash=92};
+enum {XK_ballotcross=2804};
+enum {XK_bar=124};
+enum {XK_because=16785973};
+enum {XK_blank=2527};
+enum {XK_botintegral=2213};
+enum {XK_botleftparens=2220};
+enum {XK_botleftsqbracket=2216};
+enum {XK_botleftsummation=2226};
+enum {XK_botrightparens=2222};
+enum {XK_botrightsqbracket=2218};
+enum {XK_botrightsummation=2230};
+enum {XK_bott=2550};
+enum {XK_botvertsummationconnector=2228};
+enum {XK_braceleft=123};
+enum {XK_braceright=125};
+enum {XK_bracketleft=91};
+enum {XK_bracketright=93};
+enum {XK_braille_blank=16787456};
 enum {XK_braille_dot_1=65521};
+enum {XK_braille_dot_10=65530};
 enum {XK_braille_dot_2=65522};
 enum {XK_braille_dot_3=65523};
 enum {XK_braille_dot_4=65524};
@@ -5711,350 +1405,844 @@ enum {XK_braille_dot_6=65526};
 enum {XK_braille_dot_7=65527};
 enum {XK_braille_dot_8=65528};
 enum {XK_braille_dot_9=65529};
-enum {XK_braille_dot_10=65530};
-enum {XK_braille_blank=16787456};
 enum {XK_braille_dots_1=16787457};
-enum {XK_braille_dots_2=16787458};
 enum {XK_braille_dots_12=16787459};
-enum {XK_braille_dots_3=16787460};
-enum {XK_braille_dots_13=16787461};
-enum {XK_braille_dots_23=16787462};
 enum {XK_braille_dots_123=16787463};
-enum {XK_braille_dots_4=16787464};
-enum {XK_braille_dots_14=16787465};
-enum {XK_braille_dots_24=16787466};
-enum {XK_braille_dots_124=16787467};
-enum {XK_braille_dots_34=16787468};
-enum {XK_braille_dots_134=16787469};
-enum {XK_braille_dots_234=16787470};
 enum {XK_braille_dots_1234=16787471};
-enum {XK_braille_dots_5=16787472};
-enum {XK_braille_dots_15=16787473};
-enum {XK_braille_dots_25=16787474};
-enum {XK_braille_dots_125=16787475};
-enum {XK_braille_dots_35=16787476};
-enum {XK_braille_dots_135=16787477};
-enum {XK_braille_dots_235=16787478};
-enum {XK_braille_dots_1235=16787479};
-enum {XK_braille_dots_45=16787480};
-enum {XK_braille_dots_145=16787481};
-enum {XK_braille_dots_245=16787482};
-enum {XK_braille_dots_1245=16787483};
-enum {XK_braille_dots_345=16787484};
-enum {XK_braille_dots_1345=16787485};
-enum {XK_braille_dots_2345=16787486};
 enum {XK_braille_dots_12345=16787487};
-enum {XK_braille_dots_6=16787488};
-enum {XK_braille_dots_16=16787489};
-enum {XK_braille_dots_26=16787490};
-enum {XK_braille_dots_126=16787491};
-enum {XK_braille_dots_36=16787492};
-enum {XK_braille_dots_136=16787493};
-enum {XK_braille_dots_236=16787494};
-enum {XK_braille_dots_1236=16787495};
-enum {XK_braille_dots_46=16787496};
-enum {XK_braille_dots_146=16787497};
-enum {XK_braille_dots_246=16787498};
-enum {XK_braille_dots_1246=16787499};
-enum {XK_braille_dots_346=16787500};
-enum {XK_braille_dots_1346=16787501};
-enum {XK_braille_dots_2346=16787502};
-enum {XK_braille_dots_12346=16787503};
-enum {XK_braille_dots_56=16787504};
-enum {XK_braille_dots_156=16787505};
-enum {XK_braille_dots_256=16787506};
-enum {XK_braille_dots_1256=16787507};
-enum {XK_braille_dots_356=16787508};
-enum {XK_braille_dots_1356=16787509};
-enum {XK_braille_dots_2356=16787510};
-enum {XK_braille_dots_12356=16787511};
-enum {XK_braille_dots_456=16787512};
-enum {XK_braille_dots_1456=16787513};
-enum {XK_braille_dots_2456=16787514};
-enum {XK_braille_dots_12456=16787515};
-enum {XK_braille_dots_3456=16787516};
-enum {XK_braille_dots_13456=16787517};
-enum {XK_braille_dots_23456=16787518};
 enum {XK_braille_dots_123456=16787519};
-enum {XK_braille_dots_7=16787520};
-enum {XK_braille_dots_17=16787521};
-enum {XK_braille_dots_27=16787522};
-enum {XK_braille_dots_127=16787523};
-enum {XK_braille_dots_37=16787524};
-enum {XK_braille_dots_137=16787525};
-enum {XK_braille_dots_237=16787526};
-enum {XK_braille_dots_1237=16787527};
-enum {XK_braille_dots_47=16787528};
-enum {XK_braille_dots_147=16787529};
-enum {XK_braille_dots_247=16787530};
-enum {XK_braille_dots_1247=16787531};
-enum {XK_braille_dots_347=16787532};
-enum {XK_braille_dots_1347=16787533};
-enum {XK_braille_dots_2347=16787534};
-enum {XK_braille_dots_12347=16787535};
-enum {XK_braille_dots_57=16787536};
-enum {XK_braille_dots_157=16787537};
-enum {XK_braille_dots_257=16787538};
-enum {XK_braille_dots_1257=16787539};
-enum {XK_braille_dots_357=16787540};
-enum {XK_braille_dots_1357=16787541};
-enum {XK_braille_dots_2357=16787542};
-enum {XK_braille_dots_12357=16787543};
-enum {XK_braille_dots_457=16787544};
-enum {XK_braille_dots_1457=16787545};
-enum {XK_braille_dots_2457=16787546};
-enum {XK_braille_dots_12457=16787547};
-enum {XK_braille_dots_3457=16787548};
-enum {XK_braille_dots_13457=16787549};
-enum {XK_braille_dots_23457=16787550};
-enum {XK_braille_dots_123457=16787551};
-enum {XK_braille_dots_67=16787552};
-enum {XK_braille_dots_167=16787553};
-enum {XK_braille_dots_267=16787554};
-enum {XK_braille_dots_1267=16787555};
-enum {XK_braille_dots_367=16787556};
-enum {XK_braille_dots_1367=16787557};
-enum {XK_braille_dots_2367=16787558};
-enum {XK_braille_dots_12367=16787559};
-enum {XK_braille_dots_467=16787560};
-enum {XK_braille_dots_1467=16787561};
-enum {XK_braille_dots_2467=16787562};
-enum {XK_braille_dots_12467=16787563};
-enum {XK_braille_dots_3467=16787564};
-enum {XK_braille_dots_13467=16787565};
-enum {XK_braille_dots_23467=16787566};
-enum {XK_braille_dots_123467=16787567};
-enum {XK_braille_dots_567=16787568};
-enum {XK_braille_dots_1567=16787569};
-enum {XK_braille_dots_2567=16787570};
-enum {XK_braille_dots_12567=16787571};
-enum {XK_braille_dots_3567=16787572};
-enum {XK_braille_dots_13567=16787573};
-enum {XK_braille_dots_23567=16787574};
-enum {XK_braille_dots_123567=16787575};
-enum {XK_braille_dots_4567=16787576};
-enum {XK_braille_dots_14567=16787577};
-enum {XK_braille_dots_24567=16787578};
-enum {XK_braille_dots_124567=16787579};
-enum {XK_braille_dots_34567=16787580};
-enum {XK_braille_dots_134567=16787581};
-enum {XK_braille_dots_234567=16787582};
 enum {XK_braille_dots_1234567=16787583};
-enum {XK_braille_dots_8=16787584};
-enum {XK_braille_dots_18=16787585};
-enum {XK_braille_dots_28=16787586};
-enum {XK_braille_dots_128=16787587};
-enum {XK_braille_dots_38=16787588};
-enum {XK_braille_dots_138=16787589};
-enum {XK_braille_dots_238=16787590};
-enum {XK_braille_dots_1238=16787591};
-enum {XK_braille_dots_48=16787592};
-enum {XK_braille_dots_148=16787593};
-enum {XK_braille_dots_248=16787594};
-enum {XK_braille_dots_1248=16787595};
-enum {XK_braille_dots_348=16787596};
-enum {XK_braille_dots_1348=16787597};
-enum {XK_braille_dots_2348=16787598};
-enum {XK_braille_dots_12348=16787599};
-enum {XK_braille_dots_58=16787600};
-enum {XK_braille_dots_158=16787601};
-enum {XK_braille_dots_258=16787602};
-enum {XK_braille_dots_1258=16787603};
-enum {XK_braille_dots_358=16787604};
-enum {XK_braille_dots_1358=16787605};
-enum {XK_braille_dots_2358=16787606};
-enum {XK_braille_dots_12358=16787607};
-enum {XK_braille_dots_458=16787608};
-enum {XK_braille_dots_1458=16787609};
-enum {XK_braille_dots_2458=16787610};
-enum {XK_braille_dots_12458=16787611};
-enum {XK_braille_dots_3458=16787612};
-enum {XK_braille_dots_13458=16787613};
-enum {XK_braille_dots_23458=16787614};
-enum {XK_braille_dots_123458=16787615};
-enum {XK_braille_dots_68=16787616};
-enum {XK_braille_dots_168=16787617};
-enum {XK_braille_dots_268=16787618};
-enum {XK_braille_dots_1268=16787619};
-enum {XK_braille_dots_368=16787620};
-enum {XK_braille_dots_1368=16787621};
-enum {XK_braille_dots_2368=16787622};
-enum {XK_braille_dots_12368=16787623};
-enum {XK_braille_dots_468=16787624};
-enum {XK_braille_dots_1468=16787625};
-enum {XK_braille_dots_2468=16787626};
-enum {XK_braille_dots_12468=16787627};
-enum {XK_braille_dots_3468=16787628};
-enum {XK_braille_dots_13468=16787629};
-enum {XK_braille_dots_23468=16787630};
-enum {XK_braille_dots_123468=16787631};
-enum {XK_braille_dots_568=16787632};
-enum {XK_braille_dots_1568=16787633};
-enum {XK_braille_dots_2568=16787634};
-enum {XK_braille_dots_12568=16787635};
-enum {XK_braille_dots_3568=16787636};
-enum {XK_braille_dots_13568=16787637};
-enum {XK_braille_dots_23568=16787638};
-enum {XK_braille_dots_123568=16787639};
-enum {XK_braille_dots_4568=16787640};
-enum {XK_braille_dots_14568=16787641};
-enum {XK_braille_dots_24568=16787642};
-enum {XK_braille_dots_124568=16787643};
-enum {XK_braille_dots_34568=16787644};
-enum {XK_braille_dots_134568=16787645};
-enum {XK_braille_dots_234568=16787646};
-enum {XK_braille_dots_1234568=16787647};
-enum {XK_braille_dots_78=16787648};
-enum {XK_braille_dots_178=16787649};
-enum {XK_braille_dots_278=16787650};
-enum {XK_braille_dots_1278=16787651};
-enum {XK_braille_dots_378=16787652};
-enum {XK_braille_dots_1378=16787653};
-enum {XK_braille_dots_2378=16787654};
-enum {XK_braille_dots_12378=16787655};
-enum {XK_braille_dots_478=16787656};
-enum {XK_braille_dots_1478=16787657};
-enum {XK_braille_dots_2478=16787658};
-enum {XK_braille_dots_12478=16787659};
-enum {XK_braille_dots_3478=16787660};
-enum {XK_braille_dots_13478=16787661};
-enum {XK_braille_dots_23478=16787662};
-enum {XK_braille_dots_123478=16787663};
-enum {XK_braille_dots_578=16787664};
-enum {XK_braille_dots_1578=16787665};
-enum {XK_braille_dots_2578=16787666};
-enum {XK_braille_dots_12578=16787667};
-enum {XK_braille_dots_3578=16787668};
-enum {XK_braille_dots_13578=16787669};
-enum {XK_braille_dots_23578=16787670};
-enum {XK_braille_dots_123578=16787671};
-enum {XK_braille_dots_4578=16787672};
-enum {XK_braille_dots_14578=16787673};
-enum {XK_braille_dots_24578=16787674};
-enum {XK_braille_dots_124578=16787675};
-enum {XK_braille_dots_34578=16787676};
-enum {XK_braille_dots_134578=16787677};
-enum {XK_braille_dots_234578=16787678};
-enum {XK_braille_dots_1234578=16787679};
-enum {XK_braille_dots_678=16787680};
-enum {XK_braille_dots_1678=16787681};
-enum {XK_braille_dots_2678=16787682};
-enum {XK_braille_dots_12678=16787683};
-enum {XK_braille_dots_3678=16787684};
-enum {XK_braille_dots_13678=16787685};
-enum {XK_braille_dots_23678=16787686};
-enum {XK_braille_dots_123678=16787687};
-enum {XK_braille_dots_4678=16787688};
-enum {XK_braille_dots_14678=16787689};
-enum {XK_braille_dots_24678=16787690};
-enum {XK_braille_dots_124678=16787691};
-enum {XK_braille_dots_34678=16787692};
-enum {XK_braille_dots_134678=16787693};
-enum {XK_braille_dots_234678=16787694};
-enum {XK_braille_dots_1234678=16787695};
-enum {XK_braille_dots_5678=16787696};
-enum {XK_braille_dots_15678=16787697};
-enum {XK_braille_dots_25678=16787698};
-enum {XK_braille_dots_125678=16787699};
-enum {XK_braille_dots_35678=16787700};
-enum {XK_braille_dots_135678=16787701};
-enum {XK_braille_dots_235678=16787702};
-enum {XK_braille_dots_1235678=16787703};
-enum {XK_braille_dots_45678=16787704};
-enum {XK_braille_dots_145678=16787705};
-enum {XK_braille_dots_245678=16787706};
-enum {XK_braille_dots_1245678=16787707};
-enum {XK_braille_dots_345678=16787708};
-enum {XK_braille_dots_1345678=16787709};
-enum {XK_braille_dots_2345678=16787710};
 enum {XK_braille_dots_12345678=16787711};
-enum {XK_Sinh_ng=16780674};
-enum {XK_Sinh_h2=16780675};
-enum {XK_Sinh_a=16780677};
-enum {XK_Sinh_aa=16780678};
-enum {XK_Sinh_ae=16780679};
-enum {XK_Sinh_aee=16780680};
-enum {XK_Sinh_i=16780681};
-enum {XK_Sinh_ii=16780682};
-enum {XK_Sinh_u=16780683};
-enum {XK_Sinh_uu=16780684};
-enum {XK_Sinh_ri=16780685};
-enum {XK_Sinh_rii=16780686};
-enum {XK_Sinh_lu=16780687};
-enum {XK_Sinh_luu=16780688};
-enum {XK_Sinh_e=16780689};
-enum {XK_Sinh_ee=16780690};
-enum {XK_Sinh_ai=16780691};
-enum {XK_Sinh_o=16780692};
-enum {XK_Sinh_oo=16780693};
-enum {XK_Sinh_au=16780694};
-enum {XK_Sinh_ka=16780698};
-enum {XK_Sinh_kha=16780699};
-enum {XK_Sinh_ga=16780700};
-enum {XK_Sinh_gha=16780701};
-enum {XK_Sinh_ng2=16780702};
-enum {XK_Sinh_nga=16780703};
-enum {XK_Sinh_ca=16780704};
-enum {XK_Sinh_cha=16780705};
-enum {XK_Sinh_ja=16780706};
-enum {XK_Sinh_jha=16780707};
-enum {XK_Sinh_nya=16780708};
-enum {XK_Sinh_jnya=16780709};
-enum {XK_Sinh_nja=16780710};
-enum {XK_Sinh_tta=16780711};
-enum {XK_Sinh_ttha=16780712};
-enum {XK_Sinh_dda=16780713};
-enum {XK_Sinh_ddha=16780714};
-enum {XK_Sinh_nna=16780715};
-enum {XK_Sinh_ndda=16780716};
-enum {XK_Sinh_tha=16780717};
-enum {XK_Sinh_thha=16780718};
-enum {XK_Sinh_dha=16780719};
-enum {XK_Sinh_dhha=16780720};
-enum {XK_Sinh_na=16780721};
-enum {XK_Sinh_ndha=16780723};
-enum {XK_Sinh_pa=16780724};
-enum {XK_Sinh_pha=16780725};
-enum {XK_Sinh_ba=16780726};
-enum {XK_Sinh_bha=16780727};
-enum {XK_Sinh_ma=16780728};
-enum {XK_Sinh_mba=16780729};
-enum {XK_Sinh_ya=16780730};
-enum {XK_Sinh_ra=16780731};
-enum {XK_Sinh_la=16780733};
-enum {XK_Sinh_va=16780736};
-enum {XK_Sinh_sha=16780737};
-enum {XK_Sinh_ssha=16780738};
-enum {XK_Sinh_sa=16780739};
-enum {XK_Sinh_ha=16780740};
-enum {XK_Sinh_lla=16780741};
-enum {XK_Sinh_fa=16780742};
-enum {XK_Sinh_al=16780746};
-enum {XK_Sinh_aa2=16780751};
-enum {XK_Sinh_ae2=16780752};
-enum {XK_Sinh_aee2=16780753};
-enum {XK_Sinh_i2=16780754};
-enum {XK_Sinh_ii2=16780755};
-enum {XK_Sinh_u2=16780756};
-enum {XK_Sinh_uu2=16780758};
-enum {XK_Sinh_ru2=16780760};
-enum {XK_Sinh_e2=16780761};
-enum {XK_Sinh_ee2=16780762};
-enum {XK_Sinh_ai2=16780763};
-enum {XK_Sinh_o2=16780764};
-enum {XK_Sinh_oo2=16780765};
-enum {XK_Sinh_au2=16780766};
-enum {XK_Sinh_lu2=16780767};
-enum {XK_Sinh_ruu2=16780786};
-enum {XK_Sinh_luu2=16780787};
-enum {XK_Sinh_kunddaliya=16780788};
+enum {XK_braille_dots_1234568=16787647};
+enum {XK_braille_dots_123457=16787551};
+enum {XK_braille_dots_1234578=16787679};
+enum {XK_braille_dots_123458=16787615};
+enum {XK_braille_dots_12346=16787503};
+enum {XK_braille_dots_123467=16787567};
+enum {XK_braille_dots_1234678=16787695};
+enum {XK_braille_dots_123468=16787631};
+enum {XK_braille_dots_12347=16787535};
+enum {XK_braille_dots_123478=16787663};
+enum {XK_braille_dots_12348=16787599};
+enum {XK_braille_dots_1235=16787479};
+enum {XK_braille_dots_12356=16787511};
+enum {XK_braille_dots_123567=16787575};
+enum {XK_braille_dots_1235678=16787703};
+enum {XK_braille_dots_123568=16787639};
+enum {XK_braille_dots_12357=16787543};
+enum {XK_braille_dots_123578=16787671};
+enum {XK_braille_dots_12358=16787607};
+enum {XK_braille_dots_1236=16787495};
+enum {XK_braille_dots_12367=16787559};
+enum {XK_braille_dots_123678=16787687};
+enum {XK_braille_dots_12368=16787623};
+enum {XK_braille_dots_1237=16787527};
+enum {XK_braille_dots_12378=16787655};
+enum {XK_braille_dots_1238=16787591};
+enum {XK_braille_dots_124=16787467};
+enum {XK_braille_dots_1245=16787483};
+enum {XK_braille_dots_12456=16787515};
+enum {XK_braille_dots_124567=16787579};
+enum {XK_braille_dots_1245678=16787707};
+enum {XK_braille_dots_124568=16787643};
+enum {XK_braille_dots_12457=16787547};
+enum {XK_braille_dots_124578=16787675};
+enum {XK_braille_dots_12458=16787611};
+enum {XK_braille_dots_1246=16787499};
+enum {XK_braille_dots_12467=16787563};
+enum {XK_braille_dots_124678=16787691};
+enum {XK_braille_dots_12468=16787627};
+enum {XK_braille_dots_1247=16787531};
+enum {XK_braille_dots_12478=16787659};
+enum {XK_braille_dots_1248=16787595};
+enum {XK_braille_dots_125=16787475};
+enum {XK_braille_dots_1256=16787507};
+enum {XK_braille_dots_12567=16787571};
+enum {XK_braille_dots_125678=16787699};
+enum {XK_braille_dots_12568=16787635};
+enum {XK_braille_dots_1257=16787539};
+enum {XK_braille_dots_12578=16787667};
+enum {XK_braille_dots_1258=16787603};
+enum {XK_braille_dots_126=16787491};
+enum {XK_braille_dots_1267=16787555};
+enum {XK_braille_dots_12678=16787683};
+enum {XK_braille_dots_1268=16787619};
+enum {XK_braille_dots_127=16787523};
+enum {XK_braille_dots_1278=16787651};
+enum {XK_braille_dots_128=16787587};
+enum {XK_braille_dots_13=16787461};
+enum {XK_braille_dots_134=16787469};
+enum {XK_braille_dots_1345=16787485};
+enum {XK_braille_dots_13456=16787517};
+enum {XK_braille_dots_134567=16787581};
+enum {XK_braille_dots_1345678=16787709};
+enum {XK_braille_dots_134568=16787645};
+enum {XK_braille_dots_13457=16787549};
+enum {XK_braille_dots_134578=16787677};
+enum {XK_braille_dots_13458=16787613};
+enum {XK_braille_dots_1346=16787501};
+enum {XK_braille_dots_13467=16787565};
+enum {XK_braille_dots_134678=16787693};
+enum {XK_braille_dots_13468=16787629};
+enum {XK_braille_dots_1347=16787533};
+enum {XK_braille_dots_13478=16787661};
+enum {XK_braille_dots_1348=16787597};
+enum {XK_braille_dots_135=16787477};
+enum {XK_braille_dots_1356=16787509};
+enum {XK_braille_dots_13567=16787573};
+enum {XK_braille_dots_135678=16787701};
+enum {XK_braille_dots_13568=16787637};
+enum {XK_braille_dots_1357=16787541};
+enum {XK_braille_dots_13578=16787669};
+enum {XK_braille_dots_1358=16787605};
+enum {XK_braille_dots_136=16787493};
+enum {XK_braille_dots_1367=16787557};
+enum {XK_braille_dots_13678=16787685};
+enum {XK_braille_dots_1368=16787621};
+enum {XK_braille_dots_137=16787525};
+enum {XK_braille_dots_1378=16787653};
+enum {XK_braille_dots_138=16787589};
+enum {XK_braille_dots_14=16787465};
+enum {XK_braille_dots_145=16787481};
+enum {XK_braille_dots_1456=16787513};
+enum {XK_braille_dots_14567=16787577};
+enum {XK_braille_dots_145678=16787705};
+enum {XK_braille_dots_14568=16787641};
+enum {XK_braille_dots_1457=16787545};
+enum {XK_braille_dots_14578=16787673};
+enum {XK_braille_dots_1458=16787609};
+enum {XK_braille_dots_146=16787497};
+enum {XK_braille_dots_1467=16787561};
+enum {XK_braille_dots_14678=16787689};
+enum {XK_braille_dots_1468=16787625};
+enum {XK_braille_dots_147=16787529};
+enum {XK_braille_dots_1478=16787657};
+enum {XK_braille_dots_148=16787593};
+enum {XK_braille_dots_15=16787473};
+enum {XK_braille_dots_156=16787505};
+enum {XK_braille_dots_1567=16787569};
+enum {XK_braille_dots_15678=16787697};
+enum {XK_braille_dots_1568=16787633};
+enum {XK_braille_dots_157=16787537};
+enum {XK_braille_dots_1578=16787665};
+enum {XK_braille_dots_158=16787601};
+enum {XK_braille_dots_16=16787489};
+enum {XK_braille_dots_167=16787553};
+enum {XK_braille_dots_1678=16787681};
+enum {XK_braille_dots_168=16787617};
+enum {XK_braille_dots_17=16787521};
+enum {XK_braille_dots_178=16787649};
+enum {XK_braille_dots_18=16787585};
+enum {XK_braille_dots_2=16787458};
+enum {XK_braille_dots_23=16787462};
+enum {XK_braille_dots_234=16787470};
+enum {XK_braille_dots_2345=16787486};
+enum {XK_braille_dots_23456=16787518};
+enum {XK_braille_dots_234567=16787582};
+enum {XK_braille_dots_2345678=16787710};
+enum {XK_braille_dots_234568=16787646};
+enum {XK_braille_dots_23457=16787550};
+enum {XK_braille_dots_234578=16787678};
+enum {XK_braille_dots_23458=16787614};
+enum {XK_braille_dots_2346=16787502};
+enum {XK_braille_dots_23467=16787566};
+enum {XK_braille_dots_234678=16787694};
+enum {XK_braille_dots_23468=16787630};
+enum {XK_braille_dots_2347=16787534};
+enum {XK_braille_dots_23478=16787662};
+enum {XK_braille_dots_2348=16787598};
+enum {XK_braille_dots_235=16787478};
+enum {XK_braille_dots_2356=16787510};
+enum {XK_braille_dots_23567=16787574};
+enum {XK_braille_dots_235678=16787702};
+enum {XK_braille_dots_23568=16787638};
+enum {XK_braille_dots_2357=16787542};
+enum {XK_braille_dots_23578=16787670};
+enum {XK_braille_dots_2358=16787606};
+enum {XK_braille_dots_236=16787494};
+enum {XK_braille_dots_2367=16787558};
+enum {XK_braille_dots_23678=16787686};
+enum {XK_braille_dots_2368=16787622};
+enum {XK_braille_dots_237=16787526};
+enum {XK_braille_dots_2378=16787654};
+enum {XK_braille_dots_238=16787590};
+enum {XK_braille_dots_24=16787466};
+enum {XK_braille_dots_245=16787482};
+enum {XK_braille_dots_2456=16787514};
+enum {XK_braille_dots_24567=16787578};
+enum {XK_braille_dots_245678=16787706};
+enum {XK_braille_dots_24568=16787642};
+enum {XK_braille_dots_2457=16787546};
+enum {XK_braille_dots_24578=16787674};
+enum {XK_braille_dots_2458=16787610};
+enum {XK_braille_dots_246=16787498};
+enum {XK_braille_dots_2467=16787562};
+enum {XK_braille_dots_24678=16787690};
+enum {XK_braille_dots_2468=16787626};
+enum {XK_braille_dots_247=16787530};
+enum {XK_braille_dots_2478=16787658};
+enum {XK_braille_dots_248=16787594};
+enum {XK_braille_dots_25=16787474};
+enum {XK_braille_dots_256=16787506};
+enum {XK_braille_dots_2567=16787570};
+enum {XK_braille_dots_25678=16787698};
+enum {XK_braille_dots_2568=16787634};
+enum {XK_braille_dots_257=16787538};
+enum {XK_braille_dots_2578=16787666};
+enum {XK_braille_dots_258=16787602};
+enum {XK_braille_dots_26=16787490};
+enum {XK_braille_dots_267=16787554};
+enum {XK_braille_dots_2678=16787682};
+enum {XK_braille_dots_268=16787618};
+enum {XK_braille_dots_27=16787522};
+enum {XK_braille_dots_278=16787650};
+enum {XK_braille_dots_28=16787586};
+enum {XK_braille_dots_3=16787460};
+enum {XK_braille_dots_34=16787468};
+enum {XK_braille_dots_345=16787484};
+enum {XK_braille_dots_3456=16787516};
+enum {XK_braille_dots_34567=16787580};
+enum {XK_braille_dots_345678=16787708};
+enum {XK_braille_dots_34568=16787644};
+enum {XK_braille_dots_3457=16787548};
+enum {XK_braille_dots_34578=16787676};
+enum {XK_braille_dots_3458=16787612};
+enum {XK_braille_dots_346=16787500};
+enum {XK_braille_dots_3467=16787564};
+enum {XK_braille_dots_34678=16787692};
+enum {XK_braille_dots_3468=16787628};
+enum {XK_braille_dots_347=16787532};
+enum {XK_braille_dots_3478=16787660};
+enum {XK_braille_dots_348=16787596};
+enum {XK_braille_dots_35=16787476};
+enum {XK_braille_dots_356=16787508};
+enum {XK_braille_dots_3567=16787572};
+enum {XK_braille_dots_35678=16787700};
+enum {XK_braille_dots_3568=16787636};
+enum {XK_braille_dots_357=16787540};
+enum {XK_braille_dots_3578=16787668};
+enum {XK_braille_dots_358=16787604};
+enum {XK_braille_dots_36=16787492};
+enum {XK_braille_dots_367=16787556};
+enum {XK_braille_dots_3678=16787684};
+enum {XK_braille_dots_368=16787620};
+enum {XK_braille_dots_37=16787524};
+enum {XK_braille_dots_378=16787652};
+enum {XK_braille_dots_38=16787588};
+enum {XK_braille_dots_4=16787464};
+enum {XK_braille_dots_45=16787480};
+enum {XK_braille_dots_456=16787512};
+enum {XK_braille_dots_4567=16787576};
+enum {XK_braille_dots_45678=16787704};
+enum {XK_braille_dots_4568=16787640};
+enum {XK_braille_dots_457=16787544};
+enum {XK_braille_dots_4578=16787672};
+enum {XK_braille_dots_458=16787608};
+enum {XK_braille_dots_46=16787496};
+enum {XK_braille_dots_467=16787560};
+enum {XK_braille_dots_4678=16787688};
+enum {XK_braille_dots_468=16787624};
+enum {XK_braille_dots_47=16787528};
+enum {XK_braille_dots_478=16787656};
+enum {XK_braille_dots_48=16787592};
+enum {XK_braille_dots_5=16787472};
+enum {XK_braille_dots_56=16787504};
+enum {XK_braille_dots_567=16787568};
+enum {XK_braille_dots_5678=16787696};
+enum {XK_braille_dots_568=16787632};
+enum {XK_braille_dots_57=16787536};
+enum {XK_braille_dots_578=16787664};
+enum {XK_braille_dots_58=16787600};
+enum {XK_braille_dots_6=16787488};
+enum {XK_braille_dots_67=16787552};
+enum {XK_braille_dots_678=16787680};
+enum {XK_braille_dots_68=16787616};
+enum {XK_braille_dots_7=16787520};
+enum {XK_braille_dots_78=16787648};
+enum {XK_braille_dots_8=16787584};
+enum {XK_breve=418};
+enum {XK_brokenbar=166};
+enum {XK_c=99};
+enum {XK_c_h=65187};
+enum {XK_cabovedot=741};
+enum {XK_cacute=486};
+enum {XK_careof=2744};
+enum {XK_caret=2812};
+enum {XK_caron=439};
+enum {XK_ccaron=488};
+enum {XK_ccedilla=231};
+enum {XK_ccircumflex=742};
+enum {XK_cedilla=184};
+enum {XK_cent=162};
+enum {XK_ch=65184};
+enum {XK_checkerboard=2529};
+enum {XK_checkmark=2803};
+enum {XK_circle=3023};
+enum {XK_club=2796};
+enum {XK_colon=58};
+enum {XK_combining_acute=16777985};
+enum {XK_combining_belowdot=16778019};
+enum {XK_combining_grave=16777984};
+enum {XK_combining_hook=16777993};
+enum {XK_combining_tilde=16777987};
+enum {XK_comma=44};
+enum {XK_containsas=16785931};
+enum {XK_copyright=169};
+enum {XK_cr=2532};
+enum {XK_crossinglines=2542};
+enum {XK_cuberoot=16785947};
+enum {XK_currency=164};
+enum {XK_cursor=2815};
+enum {XK_d=100};
+enum {XK_dabovedot=16784907};
+enum {XK_dagger=2801};
+enum {XK_dcaron=495};
+enum {XK_dead_A=65153};
+enum {XK_dead_E=65155};
+enum {XK_dead_I=65157};
+enum {XK_dead_O=65159};
+enum {XK_dead_SCHWA=65163};
+enum {XK_dead_U=65161};
+enum {XK_dead_a=65152};
+enum {XK_dead_abovecomma=65124};
+enum {XK_dead_abovedot=65110};
+enum {XK_dead_abovereversedcomma=65125};
+enum {XK_dead_abovering=65112};
+enum {XK_dead_acute=65105};
+enum {XK_dead_belowbreve=65131};
+enum {XK_dead_belowcircumflex=65129};
+enum {XK_dead_belowcomma=65134};
+enum {XK_dead_belowdiaeresis=65132};
+enum {XK_dead_belowdot=65120};
+enum {XK_dead_belowmacron=65128};
+enum {XK_dead_belowring=65127};
+enum {XK_dead_belowtilde=65130};
+enum {XK_dead_breve=65109};
+enum {XK_dead_capital_schwa=65163};
+enum {XK_dead_caron=65114};
+enum {XK_dead_cedilla=65115};
+enum {XK_dead_circumflex=65106};
+enum {XK_dead_currency=65135};
+enum {XK_dead_dasia=65125};
+enum {XK_dead_diaeresis=65111};
+enum {XK_dead_doubleacute=65113};
+enum {XK_dead_doublegrave=65126};
+enum {XK_dead_e=65154};
+enum {XK_dead_grave=65104};
+enum {XK_dead_greek=65164};
+enum {XK_dead_hook=65121};
+enum {XK_dead_horn=65122};
+enum {XK_dead_i=65156};
+enum {XK_dead_invertedbreve=65133};
+enum {XK_dead_iota=65117};
+enum {XK_dead_macron=65108};
+enum {XK_dead_o=65158};
+enum {XK_dead_ogonek=65116};
+enum {XK_dead_perispomeni=65107};
+enum {XK_dead_psili=65124};
+enum {XK_dead_schwa=65162};
+enum {XK_dead_semivoiced_sound=65119};
+enum {XK_dead_small_schwa=65162};
+enum {XK_dead_stroke=65123};
+enum {XK_dead_tilde=65107};
+enum {XK_dead_u=65160};
+enum {XK_dead_voiced_sound=65118};
+enum {XK_decimalpoint=2749};
+enum {XK_degree=176};
+enum {XK_diaeresis=168};
+enum {XK_diamond=2797};
+enum {XK_digitspace=2725};
+enum {XK_dintegral=16785964};
+enum {XK_division=247};
+enum {XK_dollar=36};
+enum {XK_doubbaselinedot=2735};
+enum {XK_doubleacute=445};
+enum {XK_doubledagger=2802};
+enum {XK_doublelowquotemark=2814};
+enum {XK_downarrow=2302};
+enum {XK_downcaret=2984};
+enum {XK_downshoe=3030};
+enum {XK_downstile=3012};
+enum {XK_downtack=3010};
+enum {XK_dstroke=496};
+enum {XK_e=101};
+enum {XK_eabovedot=1004};
+enum {XK_eacute=233};
+enum {XK_ebelowdot=16785081};
+enum {XK_ecaron=492};
+enum {XK_ecircumflex=234};
+enum {XK_ecircumflexacute=16785087};
+enum {XK_ecircumflexbelowdot=16785095};
+enum {XK_ecircumflexgrave=16785089};
+enum {XK_ecircumflexhook=16785091};
+enum {XK_ecircumflextilde=16785093};
+enum {XK_ediaeresis=235};
+enum {XK_egrave=232};
+enum {XK_ehook=16785083};
+enum {XK_eightsubscript=16785544};
+enum {XK_eightsuperior=16785528};
+enum {XK_elementof=16785928};
+enum {XK_ellipsis=2734};
+enum {XK_em3space=2723};
+enum {XK_em4space=2724};
+enum {XK_emacron=954};
+enum {XK_emdash=2729};
+enum {XK_emfilledcircle=2782};
+enum {XK_emfilledrect=2783};
+enum {XK_emopencircle=2766};
+enum {XK_emopenrectangle=2767};
+enum {XK_emptyset=16785925};
+enum {XK_emspace=2721};
+enum {XK_endash=2730};
+enum {XK_enfilledcircbullet=2790};
+enum {XK_enfilledsqbullet=2791};
+enum {XK_eng=959};
+enum {XK_enopencircbullet=2784};
+enum {XK_enopensquarebullet=2785};
+enum {XK_enspace=2722};
+enum {XK_eogonek=490};
+enum {XK_equal=61};
+enum {XK_eth=240};
+enum {XK_etilde=16785085};
+enum {XK_exclam=33};
+enum {XK_exclamdown=161};
+enum {XK_ezh=16777874};
+enum {XK_f=102};
+enum {XK_fabovedot=16784927};
+enum {XK_femalesymbol=2808};
+enum {XK_ff=2531};
+enum {XK_figdash=2747};
+enum {XK_filledlefttribullet=2780};
+enum {XK_filledrectbullet=2779};
+enum {XK_filledrighttribullet=2781};
+enum {XK_filledtribulletdown=2793};
+enum {XK_filledtribulletup=2792};
+enum {XK_fiveeighths=2757};
+enum {XK_fivesixths=2743};
+enum {XK_fivesubscript=16785541};
+enum {XK_fivesuperior=16785525};
+enum {XK_fourfifths=2741};
+enum {XK_foursubscript=16785540};
+enum {XK_foursuperior=16785524};
+enum {XK_fourthroot=16785948};
+enum {XK_function=2294};
+enum {XK_g=103};
+enum {XK_gabovedot=757};
+enum {XK_gbreve=699};
+enum {XK_gcaron=16777703};
+enum {XK_gcedilla=955};
+enum {XK_gcircumflex=760};
+enum {XK_grave=96};
+enum {XK_greater=62};
+enum {XK_greaterthanequal=2238};
+enum {XK_guillemetleft=171};
+enum {XK_guillemetright=187};
+enum {XK_guillemotleft=171};
+enum {XK_guillemotright=187};
+enum {XK_h=104};
+enum {XK_hairspace=2728};
+enum {XK_hcircumflex=694};
+enum {XK_heart=2798};
+enum {XK_hebrew_aleph=3296};
+enum {XK_hebrew_ayin=3314};
+enum {XK_hebrew_bet=3297};
+enum {XK_hebrew_beth=3297};
+enum {XK_hebrew_chet=3303};
+enum {XK_hebrew_dalet=3299};
+enum {XK_hebrew_daleth=3299};
+enum {XK_hebrew_doublelowline=3295};
+enum {XK_hebrew_finalkaph=3306};
+enum {XK_hebrew_finalmem=3309};
+enum {XK_hebrew_finalnun=3311};
+enum {XK_hebrew_finalpe=3315};
+enum {XK_hebrew_finalzade=3317};
+enum {XK_hebrew_finalzadi=3317};
+enum {XK_hebrew_gimel=3298};
+enum {XK_hebrew_gimmel=3298};
+enum {XK_hebrew_he=3300};
+enum {XK_hebrew_het=3303};
+enum {XK_hebrew_kaph=3307};
+enum {XK_hebrew_kuf=3319};
+enum {XK_hebrew_lamed=3308};
+enum {XK_hebrew_mem=3310};
+enum {XK_hebrew_nun=3312};
+enum {XK_hebrew_pe=3316};
+enum {XK_hebrew_qoph=3319};
+enum {XK_hebrew_resh=3320};
+enum {XK_hebrew_samech=3313};
+enum {XK_hebrew_samekh=3313};
+enum {XK_hebrew_shin=3321};
+enum {XK_hebrew_taf=3322};
+enum {XK_hebrew_taw=3322};
+enum {XK_hebrew_tet=3304};
+enum {XK_hebrew_teth=3304};
+enum {XK_hebrew_waw=3301};
+enum {XK_hebrew_yod=3305};
+enum {XK_hebrew_zade=3318};
+enum {XK_hebrew_zadi=3318};
+enum {XK_hebrew_zain=3302};
+enum {XK_hebrew_zayin=3302};
+enum {XK_hexagram=2778};
+enum {XK_horizconnector=2211};
+enum {XK_horizlinescan1=2543};
+enum {XK_horizlinescan3=2544};
+enum {XK_horizlinescan5=2545};
+enum {XK_horizlinescan7=2546};
+enum {XK_horizlinescan9=2547};
+enum {XK_hstroke=689};
+enum {XK_ht=2530};
+enum {XK_hyphen=173};
+enum {XK_i=105};
+enum {XK_iacute=237};
+enum {XK_ibelowdot=16785099};
+enum {XK_ibreve=16777517};
+enum {XK_icircumflex=238};
+enum {XK_identical=2255};
+enum {XK_idiaeresis=239};
+enum {XK_idotless=697};
+enum {XK_ifonlyif=2253};
+enum {XK_igrave=236};
+enum {XK_ihook=16785097};
+enum {XK_imacron=1007};
+enum {XK_implies=2254};
+enum {XK_includedin=2266};
+enum {XK_includes=2267};
+enum {XK_infinity=2242};
+enum {XK_integral=2239};
+enum {XK_intersection=2268};
+enum {XK_iogonek=999};
+enum {XK_itilde=949};
+enum {XK_j=106};
+enum {XK_jcircumflex=700};
+enum {XK_jot=3018};
+enum {XK_k=107};
+enum {XK_kana_A=1201};
+enum {XK_kana_CHI=1217};
+enum {XK_kana_E=1204};
+enum {XK_kana_FU=1228};
+enum {XK_kana_HA=1226};
+enum {XK_kana_HE=1229};
+enum {XK_kana_HI=1227};
+enum {XK_kana_HO=1230};
+enum {XK_kana_HU=1228};
+enum {XK_kana_I=1202};
+enum {XK_kana_KA=1206};
+enum {XK_kana_KE=1209};
+enum {XK_kana_KI=1207};
+enum {XK_kana_KO=1210};
+enum {XK_kana_KU=1208};
+enum {XK_kana_MA=1231};
+enum {XK_kana_ME=1234};
+enum {XK_kana_MI=1232};
+enum {XK_kana_MO=1235};
+enum {XK_kana_MU=1233};
+enum {XK_kana_N=1245};
+enum {XK_kana_NA=1221};
+enum {XK_kana_NE=1224};
+enum {XK_kana_NI=1222};
+enum {XK_kana_NO=1225};
+enum {XK_kana_NU=1223};
+enum {XK_kana_O=1205};
+enum {XK_kana_RA=1239};
+enum {XK_kana_RE=1242};
+enum {XK_kana_RI=1240};
+enum {XK_kana_RO=1243};
+enum {XK_kana_RU=1241};
+enum {XK_kana_SA=1211};
+enum {XK_kana_SE=1214};
+enum {XK_kana_SHI=1212};
+enum {XK_kana_SO=1215};
+enum {XK_kana_SU=1213};
+enum {XK_kana_TA=1216};
+enum {XK_kana_TE=1219};
+enum {XK_kana_TI=1217};
+enum {XK_kana_TO=1220};
+enum {XK_kana_TSU=1218};
+enum {XK_kana_TU=1218};
+enum {XK_kana_U=1203};
+enum {XK_kana_WA=1244};
+enum {XK_kana_WO=1190};
+enum {XK_kana_YA=1236};
+enum {XK_kana_YO=1238};
+enum {XK_kana_YU=1237};
+enum {XK_kana_a=1191};
+enum {XK_kana_closingbracket=1187};
+enum {XK_kana_comma=1188};
+enum {XK_kana_conjunctive=1189};
+enum {XK_kana_e=1194};
+enum {XK_kana_fullstop=1185};
+enum {XK_kana_i=1192};
+enum {XK_kana_middledot=1189};
+enum {XK_kana_o=1195};
+enum {XK_kana_openingbracket=1186};
+enum {XK_kana_switch=65406};
+enum {XK_kana_tsu=1199};
+enum {XK_kana_tu=1199};
+enum {XK_kana_u=1193};
+enum {XK_kana_ya=1196};
+enum {XK_kana_yo=1198};
+enum {XK_kana_yu=1197};
+enum {XK_kappa=930};
+enum {XK_kcedilla=1011};
+enum {XK_kra=930};
+enum {XK_l=108};
+enum {XK_lacute=485};
+enum {XK_latincross=2777};
+enum {XK_lbelowdot=16784951};
+enum {XK_lcaron=437};
+enum {XK_lcedilla=950};
+enum {XK_leftanglebracket=2748};
+enum {XK_leftarrow=2299};
+enum {XK_leftcaret=2979};
+enum {XK_leftdoublequotemark=2770};
+enum {XK_leftmiddlecurlybrace=2223};
+enum {XK_leftopentriangle=2764};
+enum {XK_leftpointer=2794};
+enum {XK_leftradical=2209};
+enum {XK_leftshoe=3034};
+enum {XK_leftsinglequotemark=2768};
+enum {XK_leftt=2548};
+enum {XK_lefttack=3036};
+enum {XK_less=60};
+enum {XK_lessthanequal=2236};
+enum {XK_lf=2533};
+enum {XK_logicaland=2270};
+enum {XK_logicalor=2271};
+enum {XK_lowleftcorner=2541};
+enum {XK_lowrightcorner=2538};
+enum {XK_lstroke=435};
+enum {XK_m=109};
+enum {XK_mabovedot=16784961};
+enum {XK_macron=175};
+enum {XK_malesymbol=2807};
+enum {XK_maltesecross=2800};
+enum {XK_marker=2751};
+enum {XK_masculine=186};
+enum {XK_minus=45};
+enum {XK_minutes=2774};
+enum {XK_mu=181};
+enum {XK_multiply=215};
+enum {XK_musicalflat=2806};
+enum {XK_musicalsharp=2805};
+enum {XK_n=110};
+enum {XK_nabla=2245};
+enum {XK_nacute=497};
+enum {XK_ncaron=498};
+enum {XK_ncedilla=1009};
+enum {XK_ninesubscript=16785545};
+enum {XK_ninesuperior=16785529};
+enum {XK_nl=2536};
+enum {XK_nobreakspace=160};
+enum {XK_notapproxeq=16785991};
+enum {XK_notelementof=16785929};
+enum {XK_notequal=2237};
+enum {XK_notidentical=16786018};
+enum {XK_notsign=172};
+enum {XK_ntilde=241};
+enum {XK_numbersign=35};
+enum {XK_numerosign=1712};
+enum {XK_o=111};
+enum {XK_oacute=243};
+enum {XK_obarred=16777845};
+enum {XK_obelowdot=16785101};
+enum {XK_ocaron=16777682};
+enum {XK_ocircumflex=244};
+enum {XK_ocircumflexacute=16785105};
+enum {XK_ocircumflexbelowdot=16785113};
+enum {XK_ocircumflexgrave=16785107};
+enum {XK_ocircumflexhook=16785109};
+enum {XK_ocircumflextilde=16785111};
+enum {XK_odiaeresis=246};
+enum {XK_odoubleacute=501};
+enum {XK_oe=5053};
+enum {XK_ogonek=434};
+enum {XK_ograve=242};
+enum {XK_ohook=16785103};
+enum {XK_ohorn=16777633};
+enum {XK_ohornacute=16785115};
+enum {XK_ohornbelowdot=16785123};
+enum {XK_ohorngrave=16785117};
+enum {XK_ohornhook=16785119};
+enum {XK_ohorntilde=16785121};
+enum {XK_omacron=1010};
+enum {XK_oneeighth=2755};
+enum {XK_onefifth=2738};
+enum {XK_onehalf=189};
+enum {XK_onequarter=188};
+enum {XK_onesixth=2742};
+enum {XK_onesubscript=16785537};
+enum {XK_onesuperior=185};
+enum {XK_onethird=2736};
+enum {XK_ooblique=248};
+enum {XK_openrectbullet=2786};
+enum {XK_openstar=2789};
+enum {XK_opentribulletdown=2788};
+enum {XK_opentribulletup=2787};
+enum {XK_ordfeminine=170};
+enum {XK_ordmasculine=186};
+enum {XK_oslash=248};
+enum {XK_otilde=245};
+enum {XK_overbar=3008};
+enum {XK_overline=1150};
+enum {XK_p=112};
+enum {XK_pabovedot=16784983};
+enum {XK_paragraph=182};
+enum {XK_parenleft=40};
+enum {XK_parenright=41};
+enum {XK_partdifferential=16785922};
+enum {XK_partialderivative=2287};
+enum {XK_percent=37};
+enum {XK_period=46};
+enum {XK_periodcentered=183};
+enum {XK_permille=2773};
+enum {XK_phonographcopyright=2811};
+enum {XK_plus=43};
+enum {XK_plusminus=177};
+enum {XK_prescription=2772};
+enum {XK_prolongedsound=1200};
+enum {XK_punctspace=2726};
+enum {XK_q=113};
+enum {XK_quad=3020};
+enum {XK_question=63};
+enum {XK_questiondown=191};
+enum {XK_quotedbl=34};
+enum {XK_quoteleft=96};
+enum {XK_quoteright=39};
+enum {XK_r=114};
+enum {XK_racute=480};
+enum {XK_radical=2262};
+enum {XK_rcaron=504};
+enum {XK_rcedilla=947};
+enum {XK_registered=174};
+enum {XK_rightanglebracket=2750};
+enum {XK_rightarrow=2301};
+enum {XK_rightcaret=2982};
+enum {XK_rightdoublequotemark=2771};
+enum {XK_rightmiddlecurlybrace=2224};
+enum {XK_rightmiddlesummation=2231};
+enum {XK_rightopentriangle=2765};
+enum {XK_rightpointer=2795};
+enum {XK_rightshoe=3032};
+enum {XK_rightsinglequotemark=2769};
+enum {XK_rightt=2549};
+enum {XK_righttack=3068};
+enum {XK_s=115};
+enum {XK_sabovedot=16784993};
+enum {XK_sacute=438};
+enum {XK_scaron=441};
+enum {XK_scedilla=442};
+enum {XK_schwa=16777817};
+enum {XK_scircumflex=766};
+enum {XK_script_switch=65406};
+enum {XK_seconds=2775};
+enum {XK_section=167};
+enum {XK_semicolon=59};
+enum {XK_semivoicedsound=1247};
+enum {XK_seveneighths=2758};
+enum {XK_sevensubscript=16785543};
+enum {XK_sevensuperior=16785527};
+enum {XK_signaturemark=2762};
+enum {XK_signifblank=2732};
+enum {XK_similarequal=2249};
+enum {XK_singlelowquotemark=2813};
+enum {XK_sixsubscript=16785542};
+enum {XK_sixsuperior=16785526};
+enum {XK_slash=47};
+enum {XK_soliddiamond=2528};
+enum {XK_space=32};
+enum {XK_squareroot=16785946};
+enum {XK_ssharp=223};
+enum {XK_sterling=163};
+enum {XK_stricteq=16786019};
+enum {XK_t=116};
+enum {XK_tabovedot=16785003};
+enum {XK_tcaron=443};
+enum {XK_tcedilla=510};
+enum {XK_telephone=2809};
+enum {XK_telephonerecorder=2810};
+enum {XK_therefore=2240};
+enum {XK_thinspace=2727};
+enum {XK_thorn=254};
+enum {XK_threeeighths=2756};
+enum {XK_threefifths=2740};
+enum {XK_threequarters=190};
+enum {XK_threesubscript=16785539};
+enum {XK_threesuperior=179};
+enum {XK_tintegral=16785965};
+enum {XK_topintegral=2212};
+enum {XK_topleftparens=2219};
+enum {XK_topleftradical=2210};
+enum {XK_topleftsqbracket=2215};
+enum {XK_topleftsummation=2225};
+enum {XK_toprightparens=2221};
+enum {XK_toprightsqbracket=2217};
+enum {XK_toprightsummation=2229};
+enum {XK_topt=2551};
+enum {XK_topvertsummationconnector=2227};
+enum {XK_trademark=2761};
+enum {XK_trademarkincircle=2763};
+enum {XK_tslash=956};
+enum {XK_twofifths=2739};
+enum {XK_twosubscript=16785538};
+enum {XK_twosuperior=178};
+enum {XK_twothirds=2737};
+enum {XK_u=117};
+enum {XK_uacute=250};
+enum {XK_ubelowdot=16785125};
+enum {XK_ubreve=765};
+enum {XK_ucircumflex=251};
+enum {XK_udiaeresis=252};
+enum {XK_udoubleacute=507};
+enum {XK_ugrave=249};
+enum {XK_uhook=16785127};
+enum {XK_uhorn=16777648};
+enum {XK_uhornacute=16785129};
+enum {XK_uhornbelowdot=16785137};
+enum {XK_uhorngrave=16785131};
+enum {XK_uhornhook=16785133};
+enum {XK_uhorntilde=16785135};
+enum {XK_umacron=1022};
+enum {XK_underbar=3014};
+enum {XK_underscore=95};
+enum {XK_union=2269};
+enum {XK_uogonek=1017};
+enum {XK_uparrow=2300};
+enum {XK_upcaret=2985};
+enum {XK_upleftcorner=2540};
+enum {XK_uprightcorner=2539};
+enum {XK_upshoe=3011};
+enum {XK_upstile=3027};
+enum {XK_uptack=3022};
+enum {XK_uring=505};
+enum {XK_utilde=1021};
+enum {XK_v=118};
+enum {XK_variation=2241};
+enum {XK_vertbar=2552};
+enum {XK_vertconnector=2214};
+enum {XK_voicedsound=1246};
+enum {XK_vt=2537};
+enum {XK_w=119};
+enum {XK_wacute=16785027};
+enum {XK_wcircumflex=16777589};
+enum {XK_wdiaeresis=16785029};
+enum {XK_wgrave=16785025};
+enum {XK_x=120};
+enum {XK_xabovedot=16785035};
+enum {XK_y=121};
+enum {XK_yacute=253};
+enum {XK_ybelowdot=16785141};
+enum {XK_ycircumflex=16777591};
+enum {XK_ydiaeresis=255};
+enum {XK_yen=165};
+enum {XK_ygrave=16785139};
+enum {XK_yhook=16785143};
+enum {XK_ytilde=16785145};
+enum {XK_z=122};
+enum {XK_zabovedot=447};
+enum {XK_zacute=444};
+enum {XK_zcaron=446};
+enum {XK_zerosubscript=16785536};
+enum {XK_zerosuperior=16785520};
+enum {XK_zstroke=16777654};
 ]=]
---[lazy.nvim](https://github.com/folke/lazy.nvim) may define `timespec`
-pcall(function() ffi.cdef[=[
-struct timespec
-{
-  __time_t tv_sec;
-  __syscall_slong_t tv_nsec;
-};
-]=] end)
 return ffi.load"X11" --[[@as table]]
