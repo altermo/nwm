@@ -2,7 +2,7 @@ if not vim then error('needs to be run with neovim') end
 if not pcall(vim.treesitter.language.inspect,'c') then error('treesitter-c parser not found') end
 
 local queries={
-    type_definition=[[
+    type_definition=[[;; query
     (type_definition
       declarator:[(type_identifier) (primitive_type)] @name)
     (pointer_declarator
@@ -38,7 +38,7 @@ local queries={
           (field_declaration
             type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)))
     ]],
-    declaration=[[
+    declaration=[[;; query
     (declaration
       declarator:
       [
@@ -66,7 +66,7 @@ local queries={
     (parameter_declaration
       type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)
     ]],
-    struct_specifier=[[
+    struct_specifier=[[;; query
     (struct_specifier
       "struct"
       name:(type_identifier) @name (#set! pre "struct"))
@@ -76,7 +76,7 @@ local queries={
         (field_declaration
           type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)))
     ]],
-    union_specifier=[[
+    union_specifier=[[;; query
     (union_specifier
       "union"
       name:(type_identifier) @name (#set! pre "union"))
@@ -198,7 +198,6 @@ To regenerate this file, run `nvim -l gen_lib.lua`
     table.insert(source,('return ffi.load"%s" --[[@as table]]'):format(libname))
     vim.fn.writefile(source,outfile)
 end
-vim.lgclear()
 gen_lib('xlib.lua',{
     '/usr/include/X11/Xlib.h',
     '/usr/include/X11/X.h',
