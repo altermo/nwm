@@ -37,10 +37,12 @@ Using `require("nxwm").setup({})` is **not required**, it is only there if you w
     --Whether to be more verbose
     verbal=false,
     --Map to unfocus a window
-    unfocus_map={mods={'mod1'},key='F4'},
+    unfocus_map='<A-F4>',
     --Create your own mappings
     --IMPORTANT: the x-window needs to be focused for such mappings to work
     maps={
+        --{'<C-A-del>',function () vim.cmd'quitall!' end},
+        --Or you could also have lhs as a table
         --{{mods={'control','mod1'},key='Delete'},function () vim.cmd'quitall!' end},
     },
     --Window-opt: auto focus x-window when entering x-window-buffer

@@ -23,10 +23,8 @@ M.default_config={
         end
     end,
     verbose=false,
-    unfocus_map={mods={'mod1'},key='F4'},
-    maps={
-        --{{mods={'control','mod1'},key='Delete'},function () vim.cmd'quitall!' end},
-    },
+    unfocus_map='<A-F4>',
+    maps={},
     autofocus=false,
     delhidden=true,
     clickgoto=true,
@@ -93,7 +91,6 @@ function M.win_update(hash,event)
     local row,col=unpack(vim.api.nvim_win_get_position(vwin))
     x11.win_position(win,col*xpx,row*ypx,width*xpx,height*ypx)
     if vim.api.nvim_get_current_buf()==opt.buf then
-        ---@diagnostic disable-next-line: redundant-parameter
         if opt.conf.autofocus and event=='enter'  then
             opt.focus=true
         end
@@ -125,9 +122,12 @@ function M.win_init(win,conf)
     conf.on_win_open(opt.buf,win)
 end
 function M.win_set_keys(win,conf)
-    x11.win_set_key(win,conf.unfocus_map.key,conf.unfocus_map.mods)
-    for _,map in ipairs(conf.maps) do
-        x11.win_set_key(win,map[1].key,map[1].mods)
+    for _,map in ipairs({{conf.unfocus_map},unpack(conf.maps)}) do
+        map=map[1]
+        if type(map)~='table' then
+            map=M.key_convert(map)
+        end
+        x11.win_set_key(win,map.key,map.mods)
     end
 end
 function M.win_set_button(win,conf)
@@ -169,18 +169,83 @@ end
 
 function M.key_handle(win,key,mod)
     local conf=M.windows[tostring(win)].conf
-    if mod==x11.key_get_mods(conf.unfocus_map.mods) and key==x11.key_get_key(conf.unfocus_map.key) then
-        M.win_unfocus(win) return
-        M.win_update(win)
-    end
-    for _,map in ipairs(conf.maps) do
-        if mod==x11.key_get_mods(map[1].mods) and key==x11.key_get_key(map[1].key) then
-            map[2]() return
+    local function run(map,callback)
+        if type(map)~='table' then
+            map=M.key_convert(map)
         end
+        local key_=map.key
+        local mod_=map.mods
+        if mod==x11.key_get_mods(mod_) and key==x11.key_get_key(key_) then
+            callback()
+            return true
+        end
+    end
+    if run(conf.unfocus_map,function ()
+        M.win_unfocus(win)
+    end) then return end
+    for _,map in ipairs(conf.maps) do
+        if run(map[1],map[2]) then return end
     end
     if M.conf.verbose then
         vim.notify('key not handled '..key..' '..mod)
     end
+end
+function M.key_convert(keymap)
+    local l=vim.lpeg
+    local key_parser=l.P{
+        l.Ct((l.Ct(l.C(l.P(1)-l.P('<')))+l.V'spec')^1),
+        spec=l.Ct(l.P'<'*((l.C(l.P(1))*l.P'-')^0*l.C((l.P(1)-l.P'>')^0))*l.P'>'),
+    }
+    if vim.api.nvim_strwidth(keymap)~=#keymap then
+        error('Doesn\'t support utf8 keymap')
+    end
+    keymap=vim.fn.keytrans(vim.api.nvim_replace_termcodes(keymap,true,true,true))
+    local match=assert(key_parser:match(keymap),'invalid keymap: '..keymap) --[[@as (string[][])]]
+    if #match>1 then
+        error('More than one key based keymaps are not supported yet')
+    end
+    match=match[1]
+    local function isupper(c)
+        return #c==1 and c:upper()==c and c:lower()~=c or nil
+    end
+    local key=table.remove(match)
+    local mods={}
+    for _,mod in ipairs(match) do
+        mods[mod]=true
+    end
+    if not mods.C then mods.S=mods.S or isupper(key) end
+    local vim_mod_to_mod={
+        S='shift',
+        C='control',
+        M='mod1',
+        T='mod1',
+        D='mod4',
+    }
+    local vim_key_to_key={
+        [' ']='space',['!']='exclam',['"']='quotedbl',['#']='numbersign',
+        ['$']='dollar',['%']='percent',['&']='ampersand',["'"]='apostrophe',
+        ['(']='parenleft',[')']='parenright',['*']='asterisk',['+']='plus',
+        [',']='comma',['-']='minus',['.']='period',['/']='slash',[':']='colon',
+        [';']='semicolon',['lt']='less',['=']='equal',['>']='greater',
+        ['?']='question',['@']='at',['[']='bracketleft',['Bslash']='backslash',
+        [']']='bracketright',['^']='asciicircum',['_']='underscore',['`']='grave',
+        ['{']='braceleft',['Bar']='bar',['}']='braceright',['~']='asciitilde',
+        BS='BackSpace',NL='Linefeed',CR='Return',Esc='Escape',Space='space',
+        Del='Delete',PageUp='Page_Up',PageDown='Page_Down',
+        kUp='KP_Up',kDown='KP_Down',kLeft='KP_Left',kRight='KP_Right',
+        kHome='KP_Home',kEnd='KP_End',kOrigin='KP_Begin',kPageUp='KP_Page_Up',
+        kPageDown='KP_Page_Down',kDel='KP_Delete',kPlus='KP_Add',kMinus='KP_Subtract',
+        kMultiply='KP_Multiply',kDivide='KP_Divide',
+        kPoint='KP_Decimal', --May be wrong
+        kComma='KP_Separator',kEqual='KP_Equal',kEnter='KP_Enter',
+        k0='KP_0',k1='KP_1',k2='KP_2',k3='KP_3',k4='KP_4',k5='KP_5',
+        k6='KP_6',k7='KP_7',k8='KP_8',k9='KP_9',
+    }
+    local ret={mods={},key=assert(vim_key_to_key[key] or #key==1 and key:upper() or key)}
+    for i in pairs(mods) do
+        table.insert(ret.mods,vim_mod_to_mod[i])
+    end
+    return ret
 end
 
 function M.step()
