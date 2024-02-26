@@ -191,20 +191,32 @@ function M.key_handle(win,key,mod)
     end
 end
 function M.key_convert(keymap)
-    local l=vim.lpeg
-    local key_parser=l.P{
-        l.Ct((l.Ct(l.C(l.P(1)-l.P('<')))+l.V'spec')^1),
-        spec=l.Ct(l.P'<'*((l.C(l.P(1))*l.P'-')^0*l.C((l.P(1)-l.P'>')^0))*l.P'>'),
-    }
     if vim.api.nvim_strwidth(keymap)~=#keymap then
         error('Doesn\'t support utf8 keymap')
     end
     keymap=vim.fn.keytrans(vim.api.nvim_replace_termcodes(keymap,true,true,true))
-    local match=assert(key_parser:match(keymap),'invalid keymap: '..keymap) --[[@as (string[][])]]
-    if #match>1 then
-        error('More than one key based keymaps are not supported yet')
+    local match
+    if keymap:sub(1,1)=='<' then
+        local spec_end=keymap:find('>',1,true)
+        if not spec_end then
+            error('Invalid keymap: '..keymap)
+        elseif #keymap>spec_end then
+            error('More than one key based keymaps are not supported yet')
+        end
+        match={''}
+        for i in keymap:gmatch('[^<>]') do
+            if i=='-' and match[#match]~='' then
+                table.insert(match,'')
+            else
+                match[#match]=match[#match]..i
+            end
+        end
+    else
+        if #keymap>1 then
+            error('More than one key based keymaps are not supported yet')
+        end
+        match={keymap}
     end
-    match=match[1]
     local function isupper(c)
         return #c==1 and c:upper()==c and c:lower()~=c or nil
     end
