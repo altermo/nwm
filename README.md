@@ -16,11 +16,11 @@ It is recommended to lock/pin the plugin to one version because of API changes.
 ### you can intall by 
 - lazy
 ```lua
-{"altermo/nxwm", tag = "0.0.1",}, 
+{"altermo/nxwm",}, 
 ```
 - packer
 ```lua
-use {"altermo/nxwm", "0.0.1", tag = true }, 
+use {"altermo/nxwm" }, 
 ```
 **:exclamation: please note that this will install version 0.0.1, as previsly setated that this is a work in progress**
 
