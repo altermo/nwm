@@ -1,4 +1,5 @@
-**:exclamation: NXWM is currently in *alpha* status, expect crashes/hangs and constant API change**
+**:exclamation: NXWM is currently in *alpha* status, expect crashes/hangs and constant API change** \
+**:exclamation: NXWM is currently being rewritten to wayland, which when merged will break everything**
 # NXWM 0.0.1
 Neovim X11 Window Manager allows you to use x11 windows as if they were buffers.
 When entering a x-window-buffer, you'll need to start insert-mode to focus the x-window (unless some configurations are set to do this automatically).
