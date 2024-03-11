@@ -12,6 +12,18 @@ When entering a x-window-buffer, you'll need to start insert-mode to focus the x
 ## Installation
 Use whichever package manager you like.\
 It is recommended to lock/pin the plugin to one version because of API changes.
+
+### you can intall by 
+- lazy
+```lua
+{"altermo/nxwm",}, 
+```
+- packer
+```lua
+use {"altermo/nxwm" }, 
+```
+**:exclamation: please note that this will install version 0.0.1, as previsly setated that this is a work in progress**
+
 ## Configuration
 Using `require("nxwm").setup({})` is **not required**, it is only there if you want to change the default config.
 ```lua
