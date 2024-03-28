@@ -14,14 +14,14 @@ When entering a x-window-buffer, you'll need to start insert-mode to focus the x
 Use whichever package manager you like.\
 It is recommended to lock/pin the plugin to one version because of API changes.
 
-### you can intall by 
+### you can install by
 - lazy
 ```lua
-{"altermo/nxwm",}, 
+{"altermo/nxwm",},
 ```
 - packer
 ```lua
-use {"altermo/nxwm" }, 
+use {"altermo/nxwm" },
 ```
 **:exclamation: please note that this will install version 0.0.1, as previsly setated that this is a work in progress**
 
@@ -66,15 +66,25 @@ Using `require("nxwm").setup({})` is **not required**, it is only there if you w
     clickgoto=true,
 }
 ```
-## Usage (simple)
-### Start
+## Usage
+### Start (from wayland window manager)
+1. Install Xwayland.
+2. Run `Xwayland :99`.
+3. Run `DISPLAY=:99 WAYLAND_DISPLAY= {NXWM}` in a **terminal** where `{NXWM}` is path to a terminal which runs Neovim and starts NXWM. \
+NOTE: the terminal should have it's start in the top left, have zero padding, have no title bar...\
+NOTE2: some applications (like `kitty` with default config) tries (and fails) to spawn in wayland even when `WAYLAND_DISPLAY` is empty...\
+Examples of how to start for specific terminals:
+    + kitty: `DISPLAY=:99 WAYLAND_DISPLAY=  kitty -c NONE -o placement_strategy=top-left -o linux_display_server=x11 -e nvim -c 'lua require("nxwm").start()'`
+    + alacritty: `DISPLAY=:99 WAYLAND_DISPLAY= alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'`
+    + wezterm: `DISPLAY=:99 WAYLAND_DISPLAY= wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
+### Start (from tty)
 1. Install [sx](https://github.com/Earnestly/sx).
 2. Run `sx {NXWM}` in a **tty** where `{NXWM}` is path to a terminal which runs Neovim and starts NXWM.\
 NOTE: the terminal should have it's start in the top left, have zero padding, have no title bar...\
-Examples of what `{NXWM}` could be:
-    + kitty: `kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").start()'`
-    + alacritty: `alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'`
-    + wezterm: `wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
+Examples of how to start for specific terminals:
+    + kitty: `sx kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").start()'`
+    + alacritty: `sx alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'`
+    + wezterm: `sx wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
     <!--+ neovim-qt: `nvim-qt --nofork -- -c 'lua require("nxwm").start()'`-->
 ### Use
 Open up a terminal (with `:term`) and run your wanted GUI.
