@@ -239,7 +239,8 @@ function M.key_convert(keymap)
         ['(']='parenleft',[')']='parenright',['*']='asterisk',['+']='plus',
         [',']='comma',['-']='minus',['.']='period',['/']='slash',[':']='colon',
         [';']='semicolon',['lt']='less',['=']='equal',['>']='greater',
-        ['?']='question',['@']='at',['[']='bracketleft',['Bslash']='backslash',
+        ['?']='question',['@']='at',['[']='bracketleft',
+        ['\\']='backslash',['Bslash']='backslash', -- It's <C-\> but <M-Bslash>
         [']']='bracketright',['^']='asciicircum',['_']='underscore',['`']='grave',
         ['{']='braceleft',['Bar']='bar',['}']='braceright',['~']='asciitilde',
         BS='BackSpace',NL='Linefeed',CR='Return',Esc='Escape',Space='space',
