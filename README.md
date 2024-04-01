@@ -1,7 +1,6 @@
-**:exclamation: NXWM is currently in *alpha* status, expect crashes/hangs and constant API change** \
-**:exclamation: NXWM is currently being rewritten to wayland, which when merged will break everything**
-# NXWM 0.0.1
-Neovim X11 Window Manager allows you to use x11 windows as if they were buffers.
+:exclamation: NXWM is currently being rewritten to **wayland**, which when merged will change most things
+# NXWM
+**N**eovim **X**11 **W**indow **M**anager allows you to use x11 windows as if they were buffers.
 When entering a x-window-buffer, you'll need to start insert-mode to focus the x-window (unless some configurations are set to do this automatically).
 ## Requirements
 + `libx11`
@@ -12,18 +11,16 @@ When entering a x-window-buffer, you'll need to start insert-mode to focus the x
         + NOTE: some terminals may support `TIOCGWINSZ` while still not working (like `neovim-qt`)
 ## Installation
 Use whichever package manager you like.\
-It is recommended to lock/pin the plugin to one version because of API changes.
+It is recommended to lock/pin the plugin to one version/branch because of changes.
 
-### you can install by
 - lazy
 ```lua
-{"altermo/nxwm",},
+{'altermo/nxwm',branch='x11'},
 ```
 - packer
 ```lua
-use {"altermo/nxwm" },
+use {'altermo/nxwm',branch='x11'},
 ```
-**:exclamation: please note that this will install version 0.0.1, as previsly setated that this is a work in progress**
 
 ## Configuration
 Using `require("nxwm").setup({})` is **not required**, it is only there if you want to change the default config.
@@ -49,7 +46,7 @@ Using `require("nxwm").setup({})` is **not required**, it is only there if you w
     end,
     --Whether to be more verbose
     verbal=false,
-    --Map to unfocus a window
+    --Map to unfocus a window (multiple key mappings is not (yet) supported)
     unfocus_map='<A-F4>',
     --Create your own mappings
     --IMPORTANT: the x-window needs to be focused for such mappings to work
