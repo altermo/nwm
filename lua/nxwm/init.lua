@@ -28,6 +28,8 @@ M.default_config={
     autofocus=false,
     delhidden=true,
     clickgoto=true,
+    xoffset=0,
+    yoffset=0,
 }
 M.conf=vim.deepcopy(M.default_config)
 function M.setup(conf)
@@ -89,7 +91,7 @@ function M.win_update(hash,event)
     local height=vim.api.nvim_win_get_height(vwin)
     local width=vim.api.nvim_win_get_width(vwin)
     local row,col=unpack(vim.api.nvim_win_get_position(vwin))
-    x11.win_position(win,col*xpx,row*ypx,width*xpx,height*ypx)
+    x11.win_position(win,col*xpx+opt.conf.xoffset,row*ypx+opt.conf.yoffset,width*xpx,height*ypx)
     if vim.api.nvim_get_current_buf()==opt.buf then
         if opt.conf.autofocus and event=='enter'  then
             opt.focus=true

@@ -61,6 +61,10 @@ Using `require("nxwm").setup({})` is **not required**, it is only there if you w
     delhidden=true,
     --Window-opt: when click on x-window, goto that buffer (may not focus x-window)
     clickgoto=true,
+    --Window-opt: offset the window this many x pixels (useful if terminal has padding)
+    xoffset=0,
+    --Window-opt: offset the window this many y pixels (useful if terminal has padding)
+    yoffset=0,
 }
 ```
 ## Usage
