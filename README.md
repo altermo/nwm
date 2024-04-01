@@ -74,6 +74,13 @@ Examples of how to start for specific terminals:
     + kitty: `DISPLAY=:99 WAYLAND_DISPLAY=  kitty -c NONE -o placement_strategy=top-left -o linux_display_server=x11 -e nvim -c 'lua require("nxwm").start()'`
     + alacritty: `DISPLAY=:99 WAYLAND_DISPLAY= alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'`
     + wezterm: `DISPLAY=:99 WAYLAND_DISPLAY= wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
+
+### Start (from Xephyr in x11)
+  * Install `Xephyr`.
+  * Run `Xephyr -ac -br -noreset :99`.
+    * You may add `-screen 800x600` to set the Xephyr window size.
+  * Start your terminal emulator, passing `DISPLAY=:99` to start it in the Xephyr session.
+    * Wezterm example: `DISPLAY=:99 wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
 ### Start (from tty)
 1. Install [sx](https://github.com/Earnestly/sx).
 2. Run `sx {NXWM}` in a **tty** where `{NXWM}` is path to a terminal which runs Neovim and starts NXWM.\
