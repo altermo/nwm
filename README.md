@@ -1,4 +1,3 @@
-:exclamation: NXWM is currently being rewritten to **wayland**, which when merged will change most things
 # NXWM
 **N**eovim **X**11 **W**indow **M**anager allows you to use x11 windows as if they were buffers.
 When entering a x-window-buffer, you'll need to start insert-mode to focus the x-window (unless some configurations are set to do this automatically).
