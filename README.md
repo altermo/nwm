@@ -14,11 +14,11 @@ It is recommended to lock/pin the plugin to one version/branch because of change
 
 - lazy
 ```lua
-{'altermo/nxwm',branch='x11'},
+{'altermo/nwm',branch='x11'},
 ```
 - packer
 ```lua
-use {'altermo/nxwm',branch='x11'},
+use {'altermo/nwm',branch='x11'},
 ```
 
 ## Configuration
