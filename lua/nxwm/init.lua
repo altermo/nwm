@@ -30,6 +30,7 @@ M.default_config={
     clickgoto=true,
     xoffset=0,
     yoffset=0,
+    floatover=true,
 }
 M.conf=vim.deepcopy(M.default_config)
 function M.setup(conf)
@@ -48,6 +49,9 @@ function M.win_update_all(event)
     if event=='enter' then x11.term_focus() end
     for win,_ in pairs(M.windows) do
         M.win_update(win,event)
+    end
+    if M.conf.floatover then
+        M.hide_overlayered_windows()
     end
 end
 function M.win_update(hash,event)
@@ -77,7 +81,7 @@ function M.win_update(hash,event)
         opt.conf.on_multiple_win_open(vwins,opt.buf,win)
         vwins={}
         _repeat=_repeat+1
-        if _repeat>100 then error() end
+        if _repeat>100 then error'' end
     end
     if #vwins==0 then
         x11.win_unmap(win)
@@ -140,7 +144,9 @@ function M.win_unfocus(win)
     local opt=M.windows[tostring(win)]
     opt.focus=false
     if vim.api.nvim_get_current_buf()==M.windows[tostring(win)].buf then
-        vim.cmd.stopinsert()
+        if vim.fn.mode()=='t' then
+            vim.cmd.stopinsert()
+        end
         x11.term_focus()
     end
 end
@@ -166,6 +172,40 @@ function M.win_goto(win)
             vim.api.nvim_set_current_win(vwin)
             break
         end
+    end
+end
+
+function M.hide_overlayered_windows()
+    local terminfo=x11.term_get_info()
+    local xpx=math.floor(terminfo.xpixel/vim.o.columns)
+    local ypx=math.floor(terminfo.ypixel/vim.o.lines)
+    local regions={}
+    for _,vwin in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if vim.api.nvim_win_get_config(vwin).relative~='' and not vim.api.nvim_win_get_config(vwin).hide then
+            local row,col=unpack(vim.api.nvim_win_get_position(vwin))
+            local height=vim.api.nvim_win_get_height(vwin)
+            local width=vim.api.nvim_win_get_width(vwin)
+            local zindex=vim.api.nvim_win_get_config(vwin).zindex
+            table.insert(regions,{col*xpx,row*ypx,width*xpx,height*ypx,zindex})
+        end
+    end
+    table.sort(regions,function (a,b) return a[5]<b[5] end)
+    local tabpage=vim.api.nvim_get_current_tabpage()
+    local windows={}
+    for _,opt in pairs(M.windows) do
+        for _,vwin in ipairs(vim.fn.win_findbuf(opt.buf)) do
+            if vim.api.nvim_win_get_tabpage(vwin)==tabpage then
+                table.insert(windows,{opt,vim.api.nvim_win_get_config(vwin).zindex or 0})
+            end
+        end
+    end
+    table.sort(windows,function (a,b) return a[2]<b[2] end)
+    for _,winfo in ipairs(windows) do
+        while #regions>0 and winfo[2]>=regions[1][5] do
+            table.remove(regions,1)
+            if #regions==0 then break end
+        end
+        x11.hide_regions_in_window(winfo[1].win,regions)
     end
 end
 
@@ -286,16 +326,24 @@ function M.step()
             vim.notify('event not handled '..x11.code_to_name[ev.type_id],vim.log.levels.INFO)
         end
     else
-        error()
+        error''
     end
 end
 
 function M.start()
     x11.start()
     vim.api.nvim_create_autocmd('VimLeave',{callback=M.stop,group=M.augroup})
-    vim.api.nvim_create_autocmd({'WinResized','WinNew','TermOpen','BufDelete'},{callback=function ()
+    vim.api.nvim_create_autocmd({'WinResized','WinNew','TermOpen','BufDelete','WinClosed'},{callback=function ()
         vim.schedule(M.win_update_all)
     end,group=M.augroup})
+    if M.conf.floatover then
+        local function t()
+            if not x11.display then return end
+            M.hide_overlayered_windows()
+            vim.defer_fn(t,50)
+        end
+        t()
+    end
     vim.api.nvim_create_autocmd({'WinEnter','BufWinEnter','TabEnter'},{callback=function ()
         vim.schedule_wrap(M.win_update_all)('enter')
     end,group=M.augroup})

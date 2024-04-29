@@ -127,7 +127,7 @@ local function get_symbols(libpath)
         elseif vim.tbl_contains({';','function_definition'},node:type()) then
             goto continue
         else
-            error()
+            error''
         end
         local names={}
         local types={}
@@ -164,6 +164,7 @@ To regenerate this file, run `nvim -l gen_lib.lua`
         short={},
         void={},
         ['unsigned long']={},
+        ['unsigned short']={},
         ['unsigned short int']={},
         ['unsigned long int']={},
         ['unsigned int']={},
@@ -278,6 +279,7 @@ gen_lib('xlib.lua',{
         'XOpenDisplay',
         'XPending',
         'XQueryTree',
+        'XRectangle',
         'XRootWindow',
         'XSelectInput',
         'XSendEvent',
@@ -295,4 +297,15 @@ gen_lib('clib.lua',{
         'struct winsize',
         'TIOCGWINSZ',
         'ioctl',
+    })
+gen_lib('xfixlib.lua',{
+    '/usr/include/X11/extensions/Xfixes.h',
+    '/usr/include/X11/extensions/shapeconst.h',
+},'Xfixes',{
+        'ShapeInput',
+        'ShapeBounding',
+        'XFixesCreateRegion',
+        'XFixesDestroyRegion',
+        'XFixesSetWindowShapeRegion',
+        'XFixesInvertRegion',
     })

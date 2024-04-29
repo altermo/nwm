@@ -6,7 +6,6 @@
     + When `:bdelete` is run on the x-window-buffer, then don't delete the buffer, but send a delete-x-window request to the x-window
     + When `:bdelete!` is run on the x-window-buffer, then xkill the x-window (or first try sending a request, and if that doesn't work, then xkill the x-window (or prompt the user whether to xkill the x-window))
 # FEATURES
-+ Using neovim's UI protocol make it so that floating windows and pop-up menus appear above x-windows (or below depending on z-indices).
 + Display(mirror) the x-window in multiple vim-windows at once.
 + Instead of using config to create mappings, create a function which can create mappings.
 + Be able to create global mappings.

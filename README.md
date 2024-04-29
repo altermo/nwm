@@ -45,6 +45,8 @@ Using `require("nxwm").setup({})` is **not required**, it is only there if you w
     end,
     --Whether to be more verbose
     verbal=false,
+    --Whether to show float windows above x-windows (depending on z-index)
+    floatover=true,
     --Map to unfocus a window (multiple key mappings is not (yet) supported)
     unfocus_map='<A-F4>',
     --Create your own mappings

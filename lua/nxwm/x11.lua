@@ -1,6 +1,7 @@
 local bit=require'bit'
 local ffi=require'ffi'
 local xlib=require'nxwm.c.xlib'
+local xfixlib=require'nxwm.c.xfixlib'
 local clib=require'nxwm.c.clib'
 local M={}
 
@@ -79,7 +80,7 @@ function M._term_get_id()
     local children=ffi.new'Window*[1]'
     local nchildren=ffi.new'unsigned int[1]'
     if xlib.XQueryTree(M.display,M.true_root,ffi.new'Window[1]',ffi.new'Window[1]',children,nchildren)==0 then
-        error()
+        error''
     end
     for i=0,nchildren[0]-1 do
         local attr=ffi.new'XWindowAttributes[1]'
@@ -153,6 +154,30 @@ function M.win_grab_all_button(win)
         ffi.new('long',0),
         ffi.new('long',0)
     )
+end
+
+function M.hide_regions_in_window(win,regions)
+    local attr=ffi.new'XWindowAttributes[1]'
+    xlib.XGetWindowAttributes(M.display,win,attr)
+    local rect=ffi.new('XRectangle[1]')
+    rect[0].x=0
+    rect[0].y=0
+    rect[0].width=attr[0].width
+    rect[0].height=attr[0].height
+    local region2=xfixlib.XFixesCreateRegion(M.display,rect,1)
+    local rects=ffi.new('XRectangle[?]',#regions)
+    for i,v in ipairs(regions) do
+        rects[i-1].x=v[1]-attr[0].x
+        rects[i-1].y=v[2]-attr[0].y
+        rects[i-1].width=v[3]
+        rects[i-1].height=v[4]
+    end
+    local region=xfixlib.XFixesCreateRegion(M.display,rects,#regions)
+    xfixlib.XFixesInvertRegion(M.display,region2,rect,region)
+    xfixlib.XFixesSetWindowShapeRegion(M.display,win,xfixlib.ShapeInput,0,0,region2)
+    xfixlib.XFixesSetWindowShapeRegion(M.display,win,xfixlib.ShapeBounding,0,0,region2)
+    xfixlib.XFixesDestroyRegion(M.display,region)
+    xfixlib.XFixesDestroyRegion(M.display,region2)
 end
 
 function M.start()
