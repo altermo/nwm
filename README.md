@@ -3,6 +3,7 @@
 When entering a x-window-buffer, you'll need to start insert-mode to focus the x-window (unless some configurations are set to do this automatically).
 ## Requirements
 + `libx11`
++ `libxfixes` (almost always installed if libx11 is installed)
 + `glibc` (or most other standard C libraries)
 + Terminal supporting `TIOCGWINSZ`
     + Recommended terminal is `kitty`
