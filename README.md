@@ -70,32 +70,154 @@ Using `require("nxwm").setup({})` is **not required**, it is only there if you w
 }
 ```
 ## Usage
-### Start (from wayland window manager)
-1. Install Xwayland.
-2. Run `Xwayland :99`.
-3. Run `DISPLAY=:99 WAYLAND_DISPLAY= {NXWM}` in a **terminal** where `{NXWM}` is path to a terminal which runs Neovim and starts NXWM. \
-NOTE: the terminal should have it's start in the top left, have zero padding, have no title bar...\
-NOTE2: some applications (like `kitty` with default config) tries (and fails) to spawn in wayland even when `WAYLAND_DISPLAY` is empty...\
-Examples of how to start for specific terminals:
-    + kitty: `DISPLAY=:99 WAYLAND_DISPLAY=  kitty -c NONE -o placement_strategy=top-left -o linux_display_server=x11 -e nvim -c 'lua require("nxwm").start()'`
-    + alacritty: `DISPLAY=:99 WAYLAND_DISPLAY= alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'`
-    + wezterm: `DISPLAY=:99 WAYLAND_DISPLAY= wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
+<!--
+local terminals={
+    kitty=[[kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").start()']],
+    alacritty=[[alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()']],
+    wezterm=[[wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()']]
+}
+local clients={
+    wayland={
+        'From <b>wayland</b> window manager using Xwayland',
+        'Install Xwayland (may have the package name `xwayland`, `xorg-xwayland` or `xorg-x11-server-Xwayland`)',
+        'Xwayland :99 -noreset&\nenv -u WAYLAND_DISPLAY DISPLAY=:99 %s\njobs -p | xargs kill',
+    },
+    x11={
+        'From <b>X11</b> window manager using Xephyr',
+        'Install Xephyr (may be installed together with `xorg-sever` or have the package name `xorg-server-xephyr`)',
+        'Xephyr -ac -br -noreset :99&\nenv DISPLAY=:99 %s\njobs -p | xargs kill',
+    },
+    tty={
+        'From <b>tty</b> using sx',
+        'Install sx (most distros don\'t have it as a package so you may need to install from [source](https://github.com/Earnestly/sx))',
+        'sx %s',
+    }
+}
+local out={}
+for _,i in vim.spairs(clients) do
+    table.insert(out,('<details><summary>%s</summary>'):format(i[1]))
+    table.insert(out,'')
+    table.insert(out,i[2])
+    for k,v in vim.spairs(terminals) do
+        table.insert(out,('<details><summary>Using <i>%s</i></summary>'):format(k))
+        table.insert(out,'')
+        table.insert(out,'```bash')
+        table.insert(out,'#!/bin/bash')
+        vim.list_extend(out,vim.split(i[3]:format(v),'\n'))
+        table.insert(out,'```')
+        table.insert(out,'</details>')
+    end
+    table.insert(out,'')
+    table.insert(out,'---')
+    table.insert(out,'')
+    table.insert(out,'</details>')
 
-### Start (from Xephyr in x11)
-  * Install `Xephyr`.
-  * Run `Xephyr -ac -br -noreset :99`.
-    * You may add `-screen 800x600` to set the Xephyr window size.
-  * Start your terminal emulator, passing `DISPLAY=:99` to start it in the Xephyr session.
-    * Wezterm example: `DISPLAY=:99 wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
-### Start (from tty)
-1. Install [sx](https://github.com/Earnestly/sx).
-2. Run `sx {NXWM}` in a **tty** where `{NXWM}` is path to a terminal which runs Neovim and starts NXWM.\
-NOTE: the terminal should have it's start in the top left, have zero padding, have no title bar...\
-Examples of how to start for specific terminals:
-    + kitty: `sx kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").start()'`
-    + alacritty: `sx alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'`
-    + wezterm: `sx wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'`
-    <!--+ neovim-qt: `nvim-qt --nofork -- -c 'lua require("nxwm").start()'`-->
+end
+vim.fn.writefile(out,'/tmp/out.md')
+-->
+### Start
+Create an executable file with the following contents (or run directly in bash):\
+(click triangle to expand)
+
+<!--tag:auto-generated-->
+<details><summary>From <b>tty</b> using sx</summary>
+
+Install sx (most distros don't have it as a package so you may need to install from [source](https://github.com/Earnestly/sx))
+<details><summary>Using <i>alacritty</i></summary>
+
+```bash
+#!/bin/bash
+sx alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'
+```
+</details>
+<details><summary>Using <i>kitty</i></summary>
+
+```bash
+#!/bin/bash
+sx kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").start()'
+```
+</details>
+<details><summary>Using <i>wezterm</i></summary>
+
+```bash
+#!/bin/bash
+sx wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'
+```
+</details>
+
+---
+
+</details>
+<details><summary>From <b>wayland</b> window manager using Xwayland</summary>
+
+Install Xwayland (may have the package name `xwayland`, `xorg-xwayland` or `xorg-x11-server-Xwayland`)
+<details><summary>Using <i>alacritty</i></summary>
+
+```bash
+#!/bin/bash
+Xwayland :99 -noreset&
+env -u WAYLAND_DISPLAY DISPLAY=:99 alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'
+jobs -p | xargs kill
+```
+</details>
+<details><summary>Using <i>kitty</i></summary>
+
+```bash
+#!/bin/bash
+Xwayland :99 -noreset&
+env -u WAYLAND_DISPLAY DISPLAY=:99 kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").start()'
+jobs -p | xargs kill
+```
+</details>
+<details><summary>Using <i>wezterm</i></summary>
+
+```bash
+#!/bin/bash
+Xwayland :99 -noreset&
+env -u WAYLAND_DISPLAY DISPLAY=:99 wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'
+jobs -p | xargs kill
+```
+</details>
+
+---
+
+</details>
+<details><summary>From <b>X11</b> window manager using Xephyr</summary>
+
+Install Xephyr (may be installed together with `xorg-sever` or have the package name `xorg-server-xephyr`)
+<details><summary>Using <i>alacritty</i></summary>
+
+```bash
+#!/bin/bash
+Xephyr -ac -br -noreset :99&
+env DISPLAY=:99 alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'
+jobs -p | xargs kill
+```
+</details>
+<details><summary>Using <i>kitty</i></summary>
+
+```bash
+#!/bin/bash
+Xephyr -ac -br -noreset :99&
+env DISPLAY=:99 kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").start()'
+jobs -p | xargs kill
+```
+</details>
+<details><summary>Using <i>wezterm</i></summary>
+
+```bash
+#!/bin/bash
+Xephyr -ac -br -noreset :99&
+env DISPLAY=:99 wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'
+jobs -p | xargs kill
+```
+</details>
+
+---
+
+</details>
+<!--tag_end:auto-generated-->
+
 ### Use
 Open up a terminal (with `:term`) and run your wanted GUI.
 NOTE: x-windows aren't auto focused by default, so start insert (by pressing `i` or similar) and then you'll focus the window.
