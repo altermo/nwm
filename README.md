@@ -94,13 +94,16 @@ local clients={
     }
 }
 local out={}
-for _,i in vim.spairs(clients) do
+for c,i in vim.spairs(clients) do
     table.insert(out,('<details><summary>%s</summary>'):format(i[1]))
     table.insert(out,'')
     table.insert(out,i[2])
     for k,v in vim.spairs(terminals) do
         table.insert(out,('<details><summary>Using <i>%s</i></summary>'):format(k))
         table.insert(out,'')
+        if c=='tty' and k=='wezterm' then --HACK
+            table.insert(out,"**IMPORTANT:** Running NXWM in Wezterm started with sx sometimes doesn't work")
+        end
         table.insert(out,'```bash')
         table.insert(out,'#!/bin/bash')
         vim.list_extend(out,vim.split(i[3]:format(v),'\n'))
@@ -111,8 +114,9 @@ for _,i in vim.spairs(clients) do
     table.insert(out,'---')
     table.insert(out,'')
     table.insert(out,'</details>')
-
 end
+table.insert(out,38,'sleep 0.05 # HACK to make alacritty work with Xwayland') --HACK
+table.insert(out,73,'sleep 0.05 # HACK to make alacritty work with Xephyr') --HACK
 vim.fn.writefile(out,'/tmp/out.md')
 -->
 ### Start
@@ -139,6 +143,7 @@ sx kitty -c NONE -o placement_strategy=top-left -e nvim -c 'lua require("nxwm").
 </details>
 <details><summary>Using <i>wezterm</i></summary>
 
+**IMPORTANT:** Running NXWM in Wezterm started with sx sometimes doesn't work
 ```bash
 #!/bin/bash
 sx wezterm -n --config enable_tab_bar=false --config window_padding='{left=0,right=0,top=0,bottom=0}' start nvim -c 'lua require"nxwm".start()'
@@ -156,6 +161,7 @@ Install Xwayland (may have the package name `xwayland`, `xorg-xwayland` or `xorg
 ```bash
 #!/bin/bash
 Xwayland :99 -noreset&
+sleep 0.05 # HACK to make alacritty work with Xwayland
 env -u WAYLAND_DISPLAY DISPLAY=:99 alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'
 jobs -p | xargs kill
 ```
@@ -190,6 +196,7 @@ Install Xephyr (may be installed together with `xorg-sever` or have the package 
 ```bash
 #!/bin/bash
 Xephyr -ac -br -noreset :99&
+sleep 0.05 # HACK to make alacritty work with Xephyr
 env DISPLAY=:99 alacritty --config-file /dev/null -e nvim -c 'lua require("nxwm").start()'
 jobs -p | xargs kill
 ```
