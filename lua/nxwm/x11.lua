@@ -107,7 +107,7 @@ function M.key_get_mods(mod)
     return ret
 end
 function M.key_get_key(key)
-    return xlib.XKeysymToKeycode(M.display,xlib['XK_'..key])
+    return xlib.XKeysymToKeycode(M.display,xlib.XStringToKeysym(key))
 end
 
 function M.win_position(win,col,row,width,height)

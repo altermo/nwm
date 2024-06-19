@@ -187,13 +187,7 @@ To regenerate this file, run `nvim -l gen_lib.lua`
         if s.source then table.insert(source,s.source..';') end
     end
     for _,i in ipairs(symbols) do
-        if type(i)=='table' then
-            for k,_ in vim.spairs(symbol) do
-                if k:match(unpack(i)) then simplify(k) end
-            end
-        else
-            simplify(i)
-        end
+        simplify(i)
     end
     table.insert(source,']=]')
     table.insert(source,('return ffi.load"%s" --[[@as table]]'):format(libname))
@@ -284,11 +278,11 @@ gen_lib('xlib.lua',{
         'XSelectInput',
         'XSendEvent',
         'XSetInputFocus',
+        'XStringToKeysym',
         'XSync',
         'XUnmapWindow',
         'XWindowAttributes',
         'XWindowChanges',
-        {'^XK_'}
     })
 gen_lib('clib.lua',{
 '/usr/include/sys/ioctl.h',
