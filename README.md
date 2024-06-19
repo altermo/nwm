@@ -229,6 +229,16 @@ jobs -p | xargs kill
 Open up a terminal (with `:term`) and run your wanted GUI.
 NOTE: x-windows aren't auto focused by default, so start insert (by pressing `i` or similar) and then you'll focus the window.
 To unfocus an x-window, either click into another buffer, or press `alt-F4`(unless the default config has been changed).
+## Q&A
+#### Is multiple displays supported?
+No, and not likely until something like [neovim#2161](https://github.com/neovim/neovim/issues/2161) is implemented.
+#### Will there be a wayland version?
+Maybe, though wlroots is 10 times more complicated than X11 and much more unstable (e.g. most fails results in crash).
+#### How do I exit a focused x-window?
+Press `alt-F4` (I know this is an unusual keymap, if someone has a better idea, please let me know).
+#### What are some future plans?
+See [TODO.md](./TODO.md) (it may be outdated).
+
 #### Donate
 If you want to donate then you need to find the correct link (hint: No Break Here):
 * [10]() [11]() [12]() [13]() [14]() [15]() [16]() [17]() [18]()
