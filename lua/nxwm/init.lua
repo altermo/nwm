@@ -337,12 +337,17 @@ function M.start()
         vim.schedule(M.win_update_all)
     end,group=M.augroup})
     if M.conf.floatover then
-        local function t()
-            if not x11.display then return end
-            M.hide_overlayered_windows()
-            vim.defer_fn(t,50)
-        end
-        t()
+        local fn
+        vim.api.nvim_set_decoration_provider(vim.api.nvim_create_namespace('nxwm'),{on_start=function ()
+            if not x11.display then
+                vim.api.nvim_set_decoration_provider(vim.api.nvim_create_namespace('nxwm'),{})
+                return
+            end
+            if fn then fn:stop() end
+            fn=vim.defer_fn(function ()
+                M.hide_overlayered_windows()
+            end,10)
+        end})
     end
     vim.api.nvim_create_autocmd({'WinEnter','BufWinEnter','TabEnter'},{callback=function ()
         vim.schedule_wrap(M.win_update_all)('enter')
@@ -358,6 +363,7 @@ function M.start()
 end
 function M.stop()
     vim.api.nvim_create_augroup('nxwm',{clear=true})
+    vim.api.nvim_set_decoration_provider(vim.api.nvim_create_namespace('nxwm'),{})
     x11.stop()
 end
 return M
