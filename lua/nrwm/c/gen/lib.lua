@@ -1,0 +1,198 @@
+if not vim then error('needs to be run with neovim') end
+if not pcall(vim.treesitter.language.inspect,'c') then error('treesitter-c parser not found') end
+
+local queries={
+    type_definition=[[;; query
+    (type_definition
+      declarator:[(type_identifier) (primitive_type)] @name)
+    (pointer_declarator
+      declarator:[(type_identifier) (primitive_type)] @name)
+    (type_definition
+      type: [(type_identifier) (primitive_type) (sized_type_specifier)] @type)
+    (struct_specifier
+      !body) @type
+    (type_definition
+      (struct_specifier
+        "struct"
+        name:(type_identifier) @name (#set! pre "struct")
+        body:(_)
+        ))
+    (type_definition
+      (union_specifier
+        "union"
+        name:(type_identifier) @name (#set! pre "union")
+        body:(_)
+        ))
+      (struct_specifier
+        body:
+        (field_declaration_list
+          (field_declaration
+            type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)))
+    (enumerator
+      name:(identifier) @type)
+    (parameter_declaration
+      type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)
+    (union_specifier
+      body:
+        (field_declaration_list
+          (field_declaration
+            type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)))
+    ]],
+    declaration=[[;; query
+    (declaration
+      declarator:
+      [
+       (function_declarator
+         declarator:(identifier) @name)
+       (pointer_declarator
+         (function_declarator
+           declarator:(identifier) @name))
+       (pointer_declarator
+         (pointer_declarator
+           (function_declarator
+             declarator:(identifier) @name)))
+       (function_declarator
+         (parenthesized_declarator
+           (pointer_declarator
+             (function_declarator
+               declarator:(identifier) @name))))
+       (identifier) @name
+       ])
+
+    (declaration
+      type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)
+    (struct_specifier
+      !body) @type
+    (parameter_declaration
+      type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)
+    ]],
+    struct_specifier=[[;; query
+    (struct_specifier
+      "struct"
+      name:(type_identifier) @name (#set! pre "struct"))
+    (struct_specifier
+      body:
+      (field_declaration_list
+        (field_declaration
+          type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)))
+    ]],
+    union_specifier=[[;; query
+    (union_specifier
+      "union"
+      name:(type_identifier) @name (#set! pre "union"))
+
+    (union_specifier
+      body:
+      (field_declaration_list
+        (field_declaration
+          type:[(type_identifier) (primitive_type) (sized_type_specifier)] @type)))
+    ]],
+    enum_specifier=[[;; query
+    (enum_specifier
+      name: (type_identifier) @name (#set! pre "enum"))
+    (enumerator
+      name: (identifier) @name)
+    ]]
+}
+
+local function get_symbols(libpath)
+    local systemlist=vim.fn.systemlist({'gcc','-E',libpath})
+    local str=require'string.buffer'.new(#systemlist*5)
+    local ret={}
+    for _,line in ipairs(systemlist) do
+        if vim.startswith(line,'#') then goto continue end
+        if vim.trim(line)=='' then goto continue end
+        str:put(vim.trim(line)..' ')
+        ::continue::
+    end
+    for line in io.lines(libpath) do
+        for _,pattern in ipairs{
+            {'^#define%s+([%w_]+)%s+0x(%x+)',16},
+            {'^#define%s+([%w_]+)%s+(%d+)'},
+            {'^#define%s+([%w_]+)%s+%((%d)L?<<(%d+)%)'},
+        } do
+            local name,number,expr=string.match(line,pattern[1])
+            if name then
+                ret[name]={const=tonumber(number,pattern[2])*(2^(expr or 0))}
+                break
+            end
+        end
+    end
+    local buf=str:tostring()
+    local parser=vim.treesitter.get_string_parser(buf,'c')
+    local root=parser:parse()[1]:root()
+    local text=function (node)
+        return vim.treesitter.get_node_text(node,buf)
+    end
+    for node in root:iter_children() do
+        local query
+        if queries[node:type()] then
+            query=vim.treesitter.query.parse('c',queries[node:type()])
+        elseif vim.tbl_contains({';','function_definition'},node:type()) then
+            goto continue
+        else
+            error''
+        end
+        local names={}
+        local types={}
+        for id,n,metadata in query:iter_captures(node,buf,0,-1) do
+            if query.captures[id]=='name' then
+                table.insert(names,(metadata.pre and metadata.pre..' ' or '')..text(n))
+            elseif query.captures[id]=='type' then
+                table.insert(types,text(n))
+            end
+        end
+        assert(#names>0)
+        ret[names[1]]={req=types,source=text(node)}
+        ::continue::
+    end
+    return ret
+end
+local function gen_lib(outfile,libpaths,libname,symbols)
+    local source=vim.split([=[
+--[[
+DO NOT EDIT
+This file is autogenerated from gen_lib.lua
+To regenerate this file, run `nvim -l gen/lib.lua`
+--]]
+]=],'\n')
+    table.insert(source,'local ffi=require"ffi"')
+    table.insert(source,'ffi.cdef[=[')
+    local symbol={
+        int={},
+        char={},
+        long={},
+        short={},
+        void={},
+        ['unsigned long']={},
+        ['unsigned short']={},
+        ['unsigned short int']={},
+        ['unsigned long int']={},
+        ['unsigned int']={},
+        ['unsigned char']={},
+        ['struct _XGC']={},
+    }
+    for _,lib in ipairs(libpaths) do
+        symbol=vim.tbl_extend('force',symbol,get_symbols(lib))
+    end
+    local function simplify(i)
+        local s=assert(symbol[i],i)
+        if s.const then
+            table.insert(source,('enum {%s=%s};'):format(i,s.const))
+            return
+        elseif s.done then return end
+        s.done=true
+        for _,v in ipairs(s.req or {}) do
+            simplify(v)
+        end
+        if s.source then table.insert(source,s.source..';') end
+    end
+    for _,i in ipairs(symbols) do
+        simplify(i)
+    end
+    table.insert(source,']=]')
+    if libname then
+      table.insert(source,('return ffi.load"%s" --[[@as table]]'):format(libname))
+    end
+    vim.fn.writefile(source,outfile)
+end
