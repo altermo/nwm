@@ -433,4 +433,6 @@ function gen_protocol(protocol)
   vim.fn.writefile(out,protocol..'.lua')
 end
 
+gen_protocol('river-window-management-v1')
+
 return M
