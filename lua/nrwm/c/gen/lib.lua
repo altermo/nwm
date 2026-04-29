@@ -109,7 +109,7 @@ local function get_symbols(libpath)
         for _,pattern in ipairs{
             {'^#define%s+([%w_]+)%s+0x(%x+)',16},
             {'^#define%s+([%w_]+)%s+(%d+)'},
-            {'^#define%s+([%w_]+)%s+%((%d)L?<<(%d+)%)'},
+            {'^#define%s+([%w_]+)%s+%(%s*(%d)L?%s*<<%s*(%d+)%s*%)'},
         } do
             local name,number,expr=string.match(line,pattern[1])
             if name then
@@ -164,12 +164,14 @@ To regenerate this file, run `nvim -l gen/lib.lua`
         long={},
         short={},
         void={},
+        ['signed int']={},
         ['unsigned long']={},
         ['unsigned short']={},
         ['unsigned short int']={},
         ['unsigned long int']={},
         ['unsigned int']={},
         ['unsigned char']={},
+        ['long unsigned int']={},
         ['struct _XGC']={},
     }
     for _,lib in ipairs(libpaths) do
@@ -191,8 +193,20 @@ To regenerate this file, run `nvim -l gen/lib.lua`
         simplify(i)
     end
     table.insert(source,']=]')
-    if libname then
-      table.insert(source,('return ffi.load"%s" --[[@as table]]'):format(libname))
-    end
+    table.insert(source,('return ffi.load"%s" --[[@as table]]'):format(libname))
     vim.fn.writefile(source,outfile)
 end
+gen_lib('wayland.lua',{
+    '/usr/include/wayland-client-core.h'
+},'wayland-client',{
+      'struct wl_message',
+      'struct wl_interface',
+      'struct wl_array',
+      'wl_fixed_t',
+      'wl_proxy_set_user_data',
+      'wl_proxy_get_user_data',
+      'wl_proxy_get_version',
+      'wl_proxy_destroy',
+      'wl_proxy_marshal_flags',
+      'WL_MARSHAL_FLAG_DESTROY',
+})
