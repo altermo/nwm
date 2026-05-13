@@ -1114,16 +1114,16 @@ extern const struct wl_interface wl_surface_interface;
 local external={
 wl_surface=ptr_reference_hack(wayland.wl_surface_interface),
 }
-local args_types_river_seat_v1_window_interaction=ffi.new("const struct wl_interface*[1]",{
-M.river_window_v1.interface_ptr,
+local args_types_river_node_v1_place_above=ffi.new("const struct wl_interface*[1]",{
+M.river_node_v1.interface_ptr,
+})
+local args_types_river_node_v1_place_below=ffi.new("const struct wl_interface*[1]",{
+M.river_node_v1.interface_ptr,
 })
 local args_types_river_seat_v1_focus_shell_surface=ffi.new("const struct wl_interface*[1]",{
 M.river_shell_surface_v1.interface_ptr,
 })
-local args_types_river_seat_v1_shell_surface_interaction=ffi.new("const struct wl_interface*[1]",{
-M.river_shell_surface_v1.interface_ptr,
-})
-local args_types_river_seat_v1_pointer_enter=ffi.new("const struct wl_interface*[1]",{
+local args_types_river_seat_v1_focus_window=ffi.new("const struct wl_interface*[1]",{
 M.river_window_v1.interface_ptr,
 })
 local args_types_river_seat_v1_get_pointer_binding=ffi.new("const struct wl_interface*[3]",{
@@ -1131,22 +1131,50 @@ M.river_pointer_binding_v1.interface_ptr,
 nil,
 nil,
 })
-local args_types_river_seat_v1_focus_window=ffi.new("const struct wl_interface*[1]",{
+local args_types_river_seat_v1_pointer_enter=ffi.new("const struct wl_interface*[1]",{
 M.river_window_v1.interface_ptr,
 })
-local args_types_river_window_v1_get_node=ffi.new("const struct wl_interface*[1]",{
+local args_types_river_seat_v1_shell_surface_interaction=ffi.new("const struct wl_interface*[1]",{
+M.river_shell_surface_v1.interface_ptr,
+})
+local args_types_river_seat_v1_window_interaction=ffi.new("const struct wl_interface*[1]",{
+M.river_window_v1.interface_ptr,
+})
+local args_types_river_shell_surface_v1_get_node=ffi.new("const struct wl_interface*[1]",{
 M.river_node_v1.interface_ptr,
+})
+local args_types_river_window_manager_v1_get_shell_surface=ffi.new("const struct wl_interface*[2]",{
+M.river_shell_surface_v1.interface_ptr,
+external.wl_surface,
+})
+local args_types_river_window_manager_v1_output=ffi.new("const struct wl_interface*[1]",{
+M.river_output_v1.interface_ptr,
+})
+local args_types_river_window_manager_v1_seat=ffi.new("const struct wl_interface*[1]",{
+M.river_seat_v1.interface_ptr,
+})
+local args_types_river_window_manager_v1_window=ffi.new("const struct wl_interface*[1]",{
+M.river_window_v1.interface_ptr,
+})
+local args_types_river_window_v1_fullscreen=ffi.new("const struct wl_interface*[1]",{
+M.river_output_v1.interface_ptr,
+})
+local args_types_river_window_v1_fullscreen_requested=ffi.new("const struct wl_interface*[1]",{
+M.river_output_v1.interface_ptr,
 })
 local args_types_river_window_v1_get_decoration_above=ffi.new("const struct wl_interface*[2]",{
 M.river_decoration_v1.interface_ptr,
 external.wl_surface,
 })
-local args_types_river_window_v1_fullscreen_requested=ffi.new("const struct wl_interface*[1]",{
-M.river_output_v1.interface_ptr,
-})
 local args_types_river_window_v1_get_decoration_below=ffi.new("const struct wl_interface*[2]",{
 M.river_decoration_v1.interface_ptr,
 external.wl_surface,
+})
+local args_types_river_window_v1_get_node=ffi.new("const struct wl_interface*[1]",{
+M.river_node_v1.interface_ptr,
+})
+local args_types_river_window_v1_parent=ffi.new("const struct wl_interface*[1]",{
+M.river_window_v1.interface_ptr,
 })
 local args_types_river_window_v1_pointer_move_requested=ffi.new("const struct wl_interface*[1]",{
 M.river_seat_v1.interface_ptr,
@@ -1154,34 +1182,6 @@ M.river_seat_v1.interface_ptr,
 local args_types_river_window_v1_pointer_resize_requested=ffi.new("const struct wl_interface*[2]",{
 M.river_seat_v1.interface_ptr,
 nil,
-})
-local args_types_river_window_v1_fullscreen=ffi.new("const struct wl_interface*[1]",{
-M.river_output_v1.interface_ptr,
-})
-local args_types_river_window_v1_parent=ffi.new("const struct wl_interface*[1]",{
-M.river_window_v1.interface_ptr,
-})
-local args_types_river_window_manager_v1_window=ffi.new("const struct wl_interface*[1]",{
-M.river_window_v1.interface_ptr,
-})
-local args_types_river_window_manager_v1_output=ffi.new("const struct wl_interface*[1]",{
-M.river_output_v1.interface_ptr,
-})
-local args_types_river_window_manager_v1_get_shell_surface=ffi.new("const struct wl_interface*[2]",{
-M.river_shell_surface_v1.interface_ptr,
-external.wl_surface,
-})
-local args_types_river_window_manager_v1_seat=ffi.new("const struct wl_interface*[1]",{
-M.river_seat_v1.interface_ptr,
-})
-local args_types_river_shell_surface_v1_get_node=ffi.new("const struct wl_interface*[1]",{
-M.river_node_v1.interface_ptr,
-})
-local args_types_river_node_v1_place_above=ffi.new("const struct wl_interface*[1]",{
-M.river_node_v1.interface_ptr,
-})
-local args_types_river_node_v1_place_below=ffi.new("const struct wl_interface*[1]",{
-M.river_node_v1.interface_ptr,
 })
 local args_types_nil=ffi.new("const struct wl_interface*[6]",{
 nil,

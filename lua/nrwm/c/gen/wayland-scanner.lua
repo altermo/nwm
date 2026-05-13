@@ -330,18 +330,18 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
     table.insert(out,'return ffi.cast("struct wl_interface*",n)')
     table.insert(out,'end')
     table.insert(out,'ffi.cdef[[')
-    for e in pairs(external) do
+    for e in vim.spairs(external) do
       table.insert(out,('extern const struct wl_interface %s_interface;'):format(e))
     end
     table.insert(out,']]')
     table.insert(out,'local external={')
-    for e in pairs(external) do
+    for e in vim.spairs(external) do
       table.insert(out,('%s=ptr_reference_hack(wayland.%s_interface),'):format(e,e))
     end
     table.insert(out,'}')
   end
-  for iname,arg_types2 in pairs(arg_types) do
-    for mname,arg_type in pairs(arg_types2) do
+  for iname,arg_types2 in vim.spairs(arg_types) do
+    for mname,arg_type in vim.spairs(arg_types2) do
       if arg_type~=true then
         local types,len=unpack(arg_type)
         table.insert(out,('local args_types_%s_%s=ffi.new("const struct wl_interface*[%d]",{')
