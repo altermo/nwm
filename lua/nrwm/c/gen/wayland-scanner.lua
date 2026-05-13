@@ -35,6 +35,10 @@ local function parse(source)
     assert(str and str:find('^[a-zA-Z_][a-zA-Z0-9_]*$'))
     return str
   end
+  local function ename(str)
+    assert(str and str:find('^[a-zA-Z0-9_]*$'))
+    return str
+  end
   tbl={
     protocol=function(node)
       local out={}
@@ -71,7 +75,7 @@ local function parse(source)
       out.destructor=node.attr.type=='destructor'
       out.since=tonat(node.attr.since) or 1
       out.deprecated_since=tonat(node.attr['deprecated-since'])
-      assert(not out.deprecated_since or out.deprecated_since>out.sice)
+      assert(not out.deprecated_since or out.deprecated_since>out.since)
       out.description=pop1cif(node,'description')
       formatchc(node,{'arg'},out)
       return out
@@ -107,7 +111,7 @@ local function parse(source)
     end,
     enum=function(node)
       local out={}
-      out.name=aname(node.attr.name)
+      out.name=ename(node.attr.name)
       out.since=tonat(node.attr.since) or 1
       out.bitfield=node.attr.bitfield=='true'
       out.description=pop1cif(node,'description')
@@ -116,7 +120,7 @@ local function parse(source)
     end,
     entry=function(node)
       local out={}
-      out.name=aname(node.attr.name)
+      out.name=ename(node.attr.name)
       out.value=assert(tonumber(assert(node.attr.value)))
       out.summary=node.attr.summary
       out.since=tonat(node.attr.since) or 1
@@ -136,6 +140,12 @@ local function parse(source)
 end
 
 local function generate(source)
+  local function keyfy(name)
+    if name:find('^[0-9]') then
+      return ('[%q]'):format(name)
+    end
+    return name
+  end
   local protocol=parse(source)
   local out=vim.split([=[
 --[[
@@ -181,10 +191,10 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       table.insert(out,'end,')
     end
     for _,enum in ipairs(i.enum) do
-      table.insert(out,('%s={'):format(enum.name))
+      table.insert(out,('%s={'):format(keyfy(enum.name)))
       for _,e in ipairs(enum.entry) do
         table.insert(out,('%s = %d,')
-        :format(e.name,e.value))
+        :format(keyfy(e.name),e.value))
       end
       table.insert(out,'},')
     end
@@ -427,12 +437,13 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
   return out
 end
 
-function gen_protocol(protocol)
+function gen_protocol(protocol,name)
   local source=vim.fn.readblob('./gen/protocol/'..protocol..'.xml')
   local out=generate(source)
-  vim.fn.writefile(out,protocol..'.lua')
+  vim.fn.writefile(out,(name or protocol)..'.lua')
 end
 
 gen_protocol('river-window-management-v1')
+gen_protocol('wayland','wayland-client-protocol')
 
 return M

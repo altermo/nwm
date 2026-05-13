@@ -11,13 +11,31 @@ local M={}
 ---@param type_ string|string[]
 ---@return TSNode
 local function get_child_assert_type(node,nth,type_)
-  local cnode=assert(node:named_child(nth-1))
+  local cnode
+  local count=0
+  while count<nth do
+    cnode=assert(node:named_child(count))
+    if cnode:type()=='Comment' then
+      nth=nth+1
+    end
+    count=count+1
+  end
   if type(type_)=='table' then
     assert(vim.list_contains(type_,cnode:type()))
   else
     assert(type_==cnode:type())
   end
   return cnode
+end
+
+local function named_child_count_no_comment(node)
+  local count=0
+  for i=0,node:named_child_count()-1 do
+    if node:named_child(i):type()~='Comment' then
+      count=count+1
+    end
+  end
+  return count
 end
 
 ---@param node TSNode
@@ -30,7 +48,7 @@ local function parse(node,source)
   local tag_node=get_child_assert_type(node,1,{'STag','EmptyElemTag'})
   local tag_name=text(get_child_assert_type(tag_node,1,'Name'))
   local attrs={}
-  for i=2,tag_node:named_child_count() do
+  for i=2,named_child_count_no_comment(tag_node) do
     local attr_node=get_child_assert_type(tag_node,i,'Attribute')
     local key=text(get_child_assert_type(attr_node,1,'Name'))
     local val=text(get_child_assert_type(attr_node,2,'AttValue'))
@@ -42,7 +60,7 @@ local function parse(node,source)
   local content_node=get_child_assert_type(node,2,'content')
   local content=''
   local children={}
-  for i=1,content_node:named_child_count() do
+  for i=1,named_child_count_no_comment(content_node) do
     local cnode=get_child_assert_type(content_node,i,{'CharData','element'})
     if cnode:type()=='element' then
       table.insert(children,parse(cnode,source))
