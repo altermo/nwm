@@ -53,10 +53,10 @@ return ffi.cast("struct wl_callback *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_display)
 ,0
-,M.wl_callback.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_display))
+,M.wl_callback.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_display))
 , 0
-, callback
+, ffi.cast("void*",nil)
 )
 )
 end,
@@ -66,16 +66,16 @@ return ffi.cast("struct wl_registry *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_display)
 ,1
-,M.wl_registry.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_display))
+,M.wl_registry.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_display))
 , 0
-, registry
+, ffi.cast("void*",nil)
 )
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_display.interface)
+M.wl_display.interface=M.wl_display.interface_ptr[0]
 ffi.cdef[=[
 struct wl_registry_listener {
 void (*global)(
@@ -125,14 +125,15 @@ ffi.cast("struct wl_proxy *", wl_registry)
 ,interface
 , version
 , 0
-, name
-, id
+, ffi.cast("uint32_t",name)
+, ffi.cast("const char*",interface[0].name),ffi.cast("uint32_t",version)
+, ffi.cast("void*",nil)
 )
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_registry.interface)
+M.wl_registry.interface=M.wl_registry.interface_ptr[0]
 ffi.cdef[=[
 struct wl_callback_listener {
 void (*done)(
@@ -164,9 +165,9 @@ destroy=function(wl_callback)
 return wayland.wl_proxy_destroy(
 ffi.cast("struct wl_proxy *", wl_callback))
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_callback.interface)
+M.wl_callback.interface=M.wl_callback.interface_ptr[0]
 M.wl_compositor={
 set_user_data=function(wl_compositor,user_data)
 wayland.wl_proxy_set_user_data(
@@ -186,10 +187,10 @@ return ffi.cast("struct wl_surface *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_compositor)
 ,0
-,M.wl_surface.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_compositor))
+,M.wl_surface.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_compositor))
 , 0
-, id
+, ffi.cast("void*",nil)
 )
 )
 end,
@@ -199,10 +200,10 @@ return ffi.cast("struct wl_region *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_compositor)
 ,1
-,M.wl_region.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_compositor))
+,M.wl_region.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_compositor))
 , 0
-, id
+, ffi.cast("void*",nil)
 )
 )
 end,
@@ -212,13 +213,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_compositor)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_compositor))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_compositor))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_compositor.interface)
+M.wl_compositor.interface=M.wl_compositor.interface_ptr[0]
 M.wl_shm_pool={
 set_user_data=function(wl_shm_pool,user_data)
 wayland.wl_proxy_set_user_data(
@@ -243,15 +244,15 @@ return ffi.cast("struct wl_buffer *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shm_pool)
 ,0
-,M.wl_buffer.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm_pool))
+,M.wl_buffer.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm_pool))
 , 0
-, id
-, offset
-, width
-, height
-, stride
-, format
+, ffi.cast("void*",nil)
+, ffi.cast("int32_t",offset)
+, ffi.cast("int32_t",width)
+, ffi.cast("int32_t",height)
+, ffi.cast("int32_t",stride)
+, ffi.cast("uint32_t",format)
 )
 )
 end,
@@ -261,7 +262,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shm_pool)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm_pool))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm_pool))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
@@ -272,14 +273,14 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shm_pool)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm_pool))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm_pool))
 , 0
-, size
+, ffi.cast("int32_t",size)
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_shm_pool.interface)
+M.wl_shm_pool.interface=M.wl_shm_pool.interface_ptr[0]
 ffi.cdef[=[
 struct wl_shm_listener {
 void (*format)(
@@ -465,12 +466,12 @@ return ffi.cast("struct wl_shm_pool *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shm)
 ,0
-,M.wl_shm_pool.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm))
+,M.wl_shm_pool.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm))
 , 0
-, id
-, fd
-, size
+, ffi.cast("void*",nil)
+, ffi.cast("int32_t",fd)
+, ffi.cast("int32_t",size)
 )
 )
 end,
@@ -480,13 +481,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shm)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shm))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_shm.interface)
+M.wl_shm.interface=M.wl_shm.interface_ptr[0]
 ffi.cdef[=[
 struct wl_buffer_listener {
 void (*release)(
@@ -519,13 +520,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_buffer)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_buffer))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_buffer))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_buffer.interface)
+M.wl_buffer.interface=M.wl_buffer.interface_ptr[0]
 ffi.cdef[=[
 struct wl_data_offer_listener {
 void (*offer)(
@@ -577,10 +578,10 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_offer)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
 , 0
-, serial
-, mime_type
+, ffi.cast("uint32_t",serial)
+, ffi.cast("const char*",mime_type)
 )
 end,
 receive=function(wl_data_offer
@@ -591,10 +592,10 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_offer)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
 , 0
-, mime_type
-, fd
+, ffi.cast("const char*",mime_type)
+, ffi.cast("int32_t",fd)
 )
 end,
 destroy=function(wl_data_offer
@@ -603,7 +604,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_offer)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
@@ -613,7 +614,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_offer)
 ,3
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
 , 0
 )
 end,
@@ -625,15 +626,15 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_offer)
 ,4
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_offer))
 , 0
-, dnd_actions
-, preferred_action
+, ffi.cast("uint32_t",dnd_actions)
+, ffi.cast("uint32_t",preferred_action)
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_data_offer.interface)
+M.wl_data_offer.interface=M.wl_data_offer.interface_ptr[0]
 ffi.cdef[=[
 struct wl_data_source_listener {
 void (*target)(
@@ -695,9 +696,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_source)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_source))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_source))
 , 0
-, mime_type
+, ffi.cast("const char*",mime_type)
 )
 end,
 destroy=function(wl_data_source
@@ -706,7 +707,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_source)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_source))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_source))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
@@ -717,14 +718,14 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_source)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_source))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_source))
 , 0
-, dnd_actions
+, ffi.cast("uint32_t",dnd_actions)
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_data_source.interface)
+M.wl_data_source.interface=M.wl_data_source.interface_ptr[0]
 ffi.cdef[=[
 struct wl_data_device_listener {
 void (*data_offer)(
@@ -795,12 +796,12 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_device)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device))
 , 0
-, source
-, origin
-, icon
-, serial
+, ffi.cast("struct wl_data_source *",source)
+, ffi.cast("struct wl_surface *",origin)
+, ffi.cast("struct wl_surface *",icon)
+, ffi.cast("uint32_t",serial)
 )
 end,
 set_selection=function(wl_data_device
@@ -811,10 +812,10 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_device)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device))
 , 0
-, source
-, serial
+, ffi.cast("struct wl_data_source *",source)
+, ffi.cast("uint32_t",serial)
 )
 end,
 release=function(wl_data_device
@@ -823,13 +824,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_device)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_data_device.interface)
+M.wl_data_device.interface=M.wl_data_device.interface_ptr[0]
 M.wl_data_device_manager={
 dnd_action={
 none = 0,
@@ -855,10 +856,10 @@ return ffi.cast("struct wl_data_source *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_device_manager)
 ,0
-,M.wl_data_source.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device_manager))
+,M.wl_data_source.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device_manager))
 , 0
-, id
+, ffi.cast("void*",nil)
 )
 )
 end,
@@ -869,11 +870,11 @@ return ffi.cast("struct wl_data_device *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_device_manager)
 ,1
-,M.wl_data_device.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device_manager))
+,M.wl_data_device.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device_manager))
 , 0
-, id
-, seat
+, ffi.cast("void*",nil)
+, ffi.cast("struct wl_seat *",seat)
 )
 )
 end,
@@ -883,13 +884,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_data_device_manager)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device_manager))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_data_device_manager))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_data_device_manager.interface)
+M.wl_data_device_manager.interface=M.wl_data_device_manager.interface_ptr[0]
 M.wl_shell={
 error={
 role = 0,
@@ -917,17 +918,17 @@ return ffi.cast("struct wl_shell_surface *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell)
 ,0
-,M.wl_shell_surface.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell))
+,M.wl_shell_surface.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell))
 , 0
-, id
-, surface
+, ffi.cast("void*",nil)
+, ffi.cast("struct wl_surface *",surface)
 )
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_shell.interface)
+M.wl_shell.interface=M.wl_shell.interface_ptr[0]
 ffi.cdef[=[
 struct wl_shell_surface_listener {
 void (*ping)(
@@ -997,9 +998,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, serial
+, ffi.cast("uint32_t",serial)
 )
 end,
 move=function(wl_shell_surface
@@ -1010,10 +1011,10 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, seat
-, serial
+, ffi.cast("struct wl_seat *",seat)
+, ffi.cast("uint32_t",serial)
 )
 end,
 resize=function(wl_shell_surface
@@ -1025,11 +1026,11 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, seat
-, serial
-, edges
+, ffi.cast("struct wl_seat *",seat)
+, ffi.cast("uint32_t",serial)
+, ffi.cast("uint32_t",edges)
 )
 end,
 set_toplevel=function(wl_shell_surface
@@ -1038,7 +1039,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,3
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
 )
 end,
@@ -1052,12 +1053,12 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,4
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, parent
-, x
-, y
-, flags
+, ffi.cast("struct wl_surface *",parent)
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
+, ffi.cast("uint32_t",flags)
 )
 end,
 set_fullscreen=function(wl_shell_surface
@@ -1069,11 +1070,11 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,5
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, method
-, framerate
-, output
+, ffi.cast("uint32_t",method)
+, ffi.cast("uint32_t",framerate)
+, ffi.cast("struct wl_output *",output)
 )
 end,
 set_popup=function(wl_shell_surface
@@ -1088,14 +1089,14 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,6
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, seat
-, serial
-, parent
-, x
-, y
-, flags
+, ffi.cast("struct wl_seat *",seat)
+, ffi.cast("uint32_t",serial)
+, ffi.cast("struct wl_surface *",parent)
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
+, ffi.cast("uint32_t",flags)
 )
 end,
 set_maximized=function(wl_shell_surface
@@ -1105,9 +1106,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,7
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, output
+, ffi.cast("struct wl_output *",output)
 )
 end,
 set_title=function(wl_shell_surface
@@ -1117,9 +1118,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,8
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, title
+, ffi.cast("const char*",title)
 )
 end,
 set_class=function(wl_shell_surface
@@ -1129,14 +1130,14 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_shell_surface)
 ,9
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_shell_surface))
 , 0
-, class_
+, ffi.cast("const char*",class_)
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_shell_surface.interface)
+M.wl_shell_surface.interface=M.wl_shell_surface.interface_ptr[0]
 ffi.cdef[=[
 struct wl_surface_listener {
 void (*enter)(
@@ -1193,7 +1194,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
@@ -1206,11 +1207,11 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, buffer
-, x
-, y
+, ffi.cast("struct wl_buffer *",buffer)
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
 )
 end,
 damage=function(wl_surface
@@ -1223,12 +1224,12 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, x
-, y
-, width
-, height
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
+, ffi.cast("int32_t",width)
+, ffi.cast("int32_t",height)
 )
 end,
 frame=function(wl_surface
@@ -1237,10 +1238,10 @@ return ffi.cast("struct wl_callback *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,3
-,M.wl_callback.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+,M.wl_callback.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, callback
+, ffi.cast("void*",nil)
 )
 )
 end,
@@ -1251,9 +1252,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,4
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, region
+, ffi.cast("struct wl_region *",region)
 )
 end,
 set_input_region=function(wl_surface
@@ -1263,9 +1264,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,5
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, region
+, ffi.cast("struct wl_region *",region)
 )
 end,
 commit=function(wl_surface
@@ -1274,7 +1275,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,6
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
 )
 end,
@@ -1285,9 +1286,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,7
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, transform
+, ffi.cast("int32_t",transform)
 )
 end,
 set_buffer_scale=function(wl_surface
@@ -1297,9 +1298,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,8
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, scale
+, ffi.cast("int32_t",scale)
 )
 end,
 damage_buffer=function(wl_surface
@@ -1312,12 +1313,12 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,9
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, x
-, y
-, width
-, height
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
+, ffi.cast("int32_t",width)
+, ffi.cast("int32_t",height)
 )
 end,
 offset=function(wl_surface
@@ -1328,10 +1329,10 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,10
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, x
-, y
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
 )
 end,
 get_release=function(wl_surface
@@ -1340,16 +1341,16 @@ return ffi.cast("struct wl_callback *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_surface)
 ,11
-,M.wl_callback.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
+,M.wl_callback.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_surface))
 , 0
-, callback
+, ffi.cast("void*",nil)
 )
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_surface.interface)
+M.wl_surface.interface=M.wl_surface.interface_ptr[0]
 ffi.cdef[=[
 struct wl_seat_listener {
 void (*capabilities)(
@@ -1396,10 +1397,10 @@ return ffi.cast("struct wl_pointer *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_seat)
 ,0
-,M.wl_pointer.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_seat))
+,M.wl_pointer.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_seat))
 , 0
-, id
+, ffi.cast("void*",nil)
 )
 )
 end,
@@ -1409,10 +1410,10 @@ return ffi.cast("struct wl_keyboard *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_seat)
 ,1
-,M.wl_keyboard.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_seat))
+,M.wl_keyboard.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_seat))
 , 0
-, id
+, ffi.cast("void*",nil)
 )
 )
 end,
@@ -1422,10 +1423,10 @@ return ffi.cast("struct wl_touch *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_seat)
 ,2
-,M.wl_touch.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_seat))
+,M.wl_touch.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_seat))
 , 0
-, id
+, ffi.cast("void*",nil)
 )
 )
 end,
@@ -1435,13 +1436,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_seat)
 ,3
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_seat))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_seat))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_seat.interface)
+M.wl_seat.interface=M.wl_seat.interface_ptr[0]
 ffi.cdef[=[
 struct wl_pointer_listener {
 void (*enter)(
@@ -1564,12 +1565,12 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_pointer)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_pointer))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_pointer))
 , 0
-, serial
-, surface
-, hotspot_x
-, hotspot_y
+, ffi.cast("uint32_t",serial)
+, ffi.cast("struct wl_surface *",surface)
+, ffi.cast("int32_t",hotspot_x)
+, ffi.cast("int32_t",hotspot_y)
 )
 end,
 release=function(wl_pointer
@@ -1578,13 +1579,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_pointer)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_pointer))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_pointer))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_pointer.interface)
+M.wl_pointer.interface=M.wl_pointer.interface_ptr[0]
 ffi.cdef[=[
 struct wl_keyboard_listener {
 void (*keymap)(
@@ -1665,13 +1666,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_keyboard)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_keyboard))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_keyboard))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_keyboard.interface)
+M.wl_keyboard.interface=M.wl_keyboard.interface_ptr[0]
 ffi.cdef[=[
 struct wl_touch_listener {
 void (*down)(
@@ -1746,13 +1747,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_touch)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_touch))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_touch))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_touch.interface)
+M.wl_touch.interface=M.wl_touch.interface_ptr[0]
 ffi.cdef[=[
 struct wl_output_listener {
 void (*geometry)(
@@ -1842,13 +1843,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_output)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_output))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_output))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_output.interface)
+M.wl_output.interface=M.wl_output.interface_ptr[0]
 M.wl_region={
 set_user_data=function(wl_region,user_data)
 wayland.wl_proxy_set_user_data(
@@ -1868,7 +1869,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_region)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_region))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_region))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
@@ -1882,12 +1883,12 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_region)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_region))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_region))
 , 0
-, x
-, y
-, width
-, height
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
+, ffi.cast("int32_t",width)
+, ffi.cast("int32_t",height)
 )
 end,
 subtract=function(wl_region
@@ -1900,17 +1901,17 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_region)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_region))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_region))
 , 0
-, x
-, y
-, width
-, height
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
+, ffi.cast("int32_t",width)
+, ffi.cast("int32_t",height)
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_region.interface)
+M.wl_region.interface=M.wl_region.interface_ptr[0]
 M.wl_subcompositor={
 error={
 bad_surface = 0,
@@ -1934,7 +1935,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_subcompositor)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subcompositor))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subcompositor))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
@@ -1946,18 +1947,18 @@ return ffi.cast("struct wl_subsurface *",
 wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_subcompositor)
 ,1
-,M.wl_subsurface.interface
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subcompositor))
+,M.wl_subsurface.interface_ptr
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subcompositor))
 , 0
-, id
-, surface
-, parent
+, ffi.cast("void*",nil)
+, ffi.cast("struct wl_surface *",surface)
+, ffi.cast("struct wl_surface *",parent)
 )
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_subcompositor.interface)
+M.wl_subcompositor.interface=M.wl_subcompositor.interface_ptr[0]
 M.wl_subsurface={
 error={
 bad_surface = 0,
@@ -1980,7 +1981,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_subsurface)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
@@ -1992,10 +1993,10 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_subsurface)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
 , 0
-, x
-, y
+, ffi.cast("int32_t",x)
+, ffi.cast("int32_t",y)
 )
 end,
 place_above=function(wl_subsurface
@@ -2005,9 +2006,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_subsurface)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
 , 0
-, sibling
+, ffi.cast("struct wl_surface *",sibling)
 )
 end,
 place_below=function(wl_subsurface
@@ -2017,9 +2018,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_subsurface)
 ,3
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
 , 0
-, sibling
+, ffi.cast("struct wl_surface *",sibling)
 )
 end,
 set_sync=function(wl_subsurface
@@ -2028,7 +2029,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_subsurface)
 ,4
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
 , 0
 )
 end,
@@ -2038,13 +2039,13 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_subsurface)
 ,5
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_subsurface))
 , 0
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_subsurface.interface)
+M.wl_subsurface.interface=M.wl_subsurface.interface_ptr[0]
 M.wl_fixes={
 error={
 invalid_ack_remove = 0,
@@ -2067,7 +2068,7 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_fixes)
 ,0
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_fixes))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_fixes))
 , wayland.WL_MARSHAL_FLAG_DESTROY
 )
 end,
@@ -2078,9 +2079,9 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_fixes)
 ,1
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_fixes))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_fixes))
 , 0
-, registry
+, ffi.cast("struct wl_registry *",registry)
 )
 end,
 ack_global_remove=function(wl_fixes
@@ -2091,15 +2092,15 @@ wayland.wl_proxy_marshal_flags(
 ffi.cast("struct wl_proxy *", wl_fixes)
 ,2
 ,nil
-, wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_fixes))
+, wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", wl_fixes))
 , 0
-, registry
-, name
+, ffi.cast("struct wl_registry *",registry)
+, ffi.cast("uint32_t",name)
 )
 end,
-interface=ffi.new("struct wl_interface[1]")
+interface_ptr=ffi.new("struct wl_interface[1]")
 }
-M.interface_ptr=ffi.cast("struct wl_interface*",M.wl_fixes.interface)
+M.wl_fixes.interface=M.wl_fixes.interface_ptr[0]
 local args_types_wl_compositor_create_region=ffi.new("const struct wl_interface*[1]",{
 M.wl_region.interface_ptr,
 })
@@ -2303,12 +2304,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_display.interface[0].name=wl_display
-M.wl_display.interface[0].version=1
-M.wl_display.interface[0].method_count=2
-M.wl_display.interface[0].methods=wl_display_requests
-M.wl_display.interface[0].event_count=2
-M.wl_display.interface[0].events=wl_display_events
+M.wl_display.interface.name="wl_display"
+M.wl_display.interface.version=1
+M.wl_display.interface.method_count=2
+M.wl_display.interface.methods=wl_display_requests
+M.wl_display.interface.event_count=2
+M.wl_display.interface.events=wl_display_events
 local wl_registry_requests=ffi.new("struct wl_message[1]",{
 {"bind",
 "usun",
@@ -2325,24 +2326,24 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_registry.interface[0].name=wl_registry
-M.wl_registry.interface[0].version=1
-M.wl_registry.interface[0].method_count=1
-M.wl_registry.interface[0].methods=wl_registry_requests
-M.wl_registry.interface[0].event_count=2
-M.wl_registry.interface[0].events=wl_registry_events
+M.wl_registry.interface.name="wl_registry"
+M.wl_registry.interface.version=1
+M.wl_registry.interface.method_count=1
+M.wl_registry.interface.methods=wl_registry_requests
+M.wl_registry.interface.event_count=2
+M.wl_registry.interface.events=wl_registry_events
 local wl_callback_events=ffi.new("struct wl_message[1]",{
 {"done",
 "u",
 args_types_nil
 },
 })
-M.wl_callback.interface[0].name=wl_callback
-M.wl_callback.interface[0].version=1
-M.wl_callback.interface[0].method_count=0
-M.wl_callback.interface[0].methods=nil
-M.wl_callback.interface[0].event_count=1
-M.wl_callback.interface[0].events=nil
+M.wl_callback.interface.name="wl_callback"
+M.wl_callback.interface.version=1
+M.wl_callback.interface.method_count=0
+M.wl_callback.interface.methods=nil
+M.wl_callback.interface.event_count=1
+M.wl_callback.interface.events=wl_callback_events
 local wl_compositor_requests=ffi.new("struct wl_message[3]",{
 {"create_surface",
 "n",
@@ -2357,12 +2358,12 @@ args_types_wl_compositor_create_region
 args_types_nil
 },
 })
-M.wl_compositor.interface[0].name=wl_compositor
-M.wl_compositor.interface[0].version=7
-M.wl_compositor.interface[0].method_count=3
-M.wl_compositor.interface[0].methods=wl_compositor_requests
-M.wl_compositor.interface[0].event_count=0
-M.wl_compositor.interface[0].events=wl_compositor_events
+M.wl_compositor.interface.name="wl_compositor"
+M.wl_compositor.interface.version=7
+M.wl_compositor.interface.method_count=3
+M.wl_compositor.interface.methods=wl_compositor_requests
+M.wl_compositor.interface.event_count=0
+M.wl_compositor.interface.events=nil
 local wl_shm_pool_requests=ffi.new("struct wl_message[3]",{
 {"create_buffer",
 "niiiiu",
@@ -2377,12 +2378,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_shm_pool.interface[0].name=wl_shm_pool
-M.wl_shm_pool.interface[0].version=2
-M.wl_shm_pool.interface[0].method_count=3
-M.wl_shm_pool.interface[0].methods=wl_shm_pool_requests
-M.wl_shm_pool.interface[0].event_count=0
-M.wl_shm_pool.interface[0].events=wl_shm_pool_events
+M.wl_shm_pool.interface.name="wl_shm_pool"
+M.wl_shm_pool.interface.version=2
+M.wl_shm_pool.interface.method_count=3
+M.wl_shm_pool.interface.methods=wl_shm_pool_requests
+M.wl_shm_pool.interface.event_count=0
+M.wl_shm_pool.interface.events=nil
 local wl_shm_requests=ffi.new("struct wl_message[2]",{
 {"create_pool",
 "nhi",
@@ -2399,12 +2400,12 @@ local wl_shm_events=ffi.new("struct wl_message[1]",{
 args_types_nil
 },
 })
-M.wl_shm.interface[0].name=wl_shm
-M.wl_shm.interface[0].version=2
-M.wl_shm.interface[0].method_count=2
-M.wl_shm.interface[0].methods=wl_shm_requests
-M.wl_shm.interface[0].event_count=1
-M.wl_shm.interface[0].events=wl_shm_events
+M.wl_shm.interface.name="wl_shm"
+M.wl_shm.interface.version=2
+M.wl_shm.interface.method_count=2
+M.wl_shm.interface.methods=wl_shm_requests
+M.wl_shm.interface.event_count=1
+M.wl_shm.interface.events=wl_shm_events
 local wl_buffer_requests=ffi.new("struct wl_message[1]",{
 {"destroy",
 "",
@@ -2417,12 +2418,12 @@ local wl_buffer_events=ffi.new("struct wl_message[1]",{
 args_types_nil
 },
 })
-M.wl_buffer.interface[0].name=wl_buffer
-M.wl_buffer.interface[0].version=1
-M.wl_buffer.interface[0].method_count=1
-M.wl_buffer.interface[0].methods=wl_buffer_requests
-M.wl_buffer.interface[0].event_count=1
-M.wl_buffer.interface[0].events=wl_buffer_events
+M.wl_buffer.interface.name="wl_buffer"
+M.wl_buffer.interface.version=1
+M.wl_buffer.interface.method_count=1
+M.wl_buffer.interface.methods=wl_buffer_requests
+M.wl_buffer.interface.event_count=1
+M.wl_buffer.interface.events=wl_buffer_events
 local wl_data_offer_requests=ffi.new("struct wl_message[5]",{
 {"accept",
 "u?s",
@@ -2459,12 +2460,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_data_offer.interface[0].name=wl_data_offer
-M.wl_data_offer.interface[0].version=4
-M.wl_data_offer.interface[0].method_count=5
-M.wl_data_offer.interface[0].methods=wl_data_offer_requests
-M.wl_data_offer.interface[0].event_count=3
-M.wl_data_offer.interface[0].events=wl_data_offer_events
+M.wl_data_offer.interface.name="wl_data_offer"
+M.wl_data_offer.interface.version=4
+M.wl_data_offer.interface.method_count=5
+M.wl_data_offer.interface.methods=wl_data_offer_requests
+M.wl_data_offer.interface.event_count=3
+M.wl_data_offer.interface.events=wl_data_offer_events
 local wl_data_source_requests=ffi.new("struct wl_message[3]",{
 {"offer",
 "s",
@@ -2505,12 +2506,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_data_source.interface[0].name=wl_data_source
-M.wl_data_source.interface[0].version=4
-M.wl_data_source.interface[0].method_count=3
-M.wl_data_source.interface[0].methods=wl_data_source_requests
-M.wl_data_source.interface[0].event_count=6
-M.wl_data_source.interface[0].events=wl_data_source_events
+M.wl_data_source.interface.name="wl_data_source"
+M.wl_data_source.interface.version=4
+M.wl_data_source.interface.method_count=3
+M.wl_data_source.interface.methods=wl_data_source_requests
+M.wl_data_source.interface.event_count=6
+M.wl_data_source.interface.events=wl_data_source_events
 local wl_data_device_requests=ffi.new("struct wl_message[3]",{
 {"start_drag",
 "?oo?ou",
@@ -2551,12 +2552,12 @@ args_types_nil
 args_types_wl_data_device_selection
 },
 })
-M.wl_data_device.interface[0].name=wl_data_device
-M.wl_data_device.interface[0].version=4
-M.wl_data_device.interface[0].method_count=3
-M.wl_data_device.interface[0].methods=wl_data_device_requests
-M.wl_data_device.interface[0].event_count=6
-M.wl_data_device.interface[0].events=wl_data_device_events
+M.wl_data_device.interface.name="wl_data_device"
+M.wl_data_device.interface.version=4
+M.wl_data_device.interface.method_count=3
+M.wl_data_device.interface.methods=wl_data_device_requests
+M.wl_data_device.interface.event_count=6
+M.wl_data_device.interface.events=wl_data_device_events
 local wl_data_device_manager_requests=ffi.new("struct wl_message[3]",{
 {"create_data_source",
 "n",
@@ -2571,24 +2572,24 @@ args_types_wl_data_device_manager_get_data_device
 args_types_nil
 },
 })
-M.wl_data_device_manager.interface[0].name=wl_data_device_manager
-M.wl_data_device_manager.interface[0].version=4
-M.wl_data_device_manager.interface[0].method_count=3
-M.wl_data_device_manager.interface[0].methods=wl_data_device_manager_requests
-M.wl_data_device_manager.interface[0].event_count=0
-M.wl_data_device_manager.interface[0].events=wl_data_device_manager_events
+M.wl_data_device_manager.interface.name="wl_data_device_manager"
+M.wl_data_device_manager.interface.version=4
+M.wl_data_device_manager.interface.method_count=3
+M.wl_data_device_manager.interface.methods=wl_data_device_manager_requests
+M.wl_data_device_manager.interface.event_count=0
+M.wl_data_device_manager.interface.events=nil
 local wl_shell_requests=ffi.new("struct wl_message[1]",{
 {"get_shell_surface",
 "no",
 args_types_wl_shell_get_shell_surface
 },
 })
-M.wl_shell.interface[0].name=wl_shell
-M.wl_shell.interface[0].version=1
-M.wl_shell.interface[0].method_count=1
-M.wl_shell.interface[0].methods=wl_shell_requests
-M.wl_shell.interface[0].event_count=0
-M.wl_shell.interface[0].events=wl_shell_events
+M.wl_shell.interface.name="wl_shell"
+M.wl_shell.interface.version=1
+M.wl_shell.interface.method_count=1
+M.wl_shell.interface.methods=wl_shell_requests
+M.wl_shell.interface.event_count=0
+M.wl_shell.interface.events=nil
 local wl_shell_surface_requests=ffi.new("struct wl_message[10]",{
 {"pong",
 "u",
@@ -2645,12 +2646,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_shell_surface.interface[0].name=wl_shell_surface
-M.wl_shell_surface.interface[0].version=1
-M.wl_shell_surface.interface[0].method_count=10
-M.wl_shell_surface.interface[0].methods=wl_shell_surface_requests
-M.wl_shell_surface.interface[0].event_count=3
-M.wl_shell_surface.interface[0].events=wl_shell_surface_events
+M.wl_shell_surface.interface.name="wl_shell_surface"
+M.wl_shell_surface.interface.version=1
+M.wl_shell_surface.interface.method_count=10
+M.wl_shell_surface.interface.methods=wl_shell_surface_requests
+M.wl_shell_surface.interface.event_count=3
+M.wl_shell_surface.interface.events=wl_shell_surface_events
 local wl_surface_requests=ffi.new("struct wl_message[12]",{
 {"destroy",
 "",
@@ -2719,12 +2720,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_surface.interface[0].name=wl_surface
-M.wl_surface.interface[0].version=7
-M.wl_surface.interface[0].method_count=12
-M.wl_surface.interface[0].methods=wl_surface_requests
-M.wl_surface.interface[0].event_count=4
-M.wl_surface.interface[0].events=wl_surface_events
+M.wl_surface.interface.name="wl_surface"
+M.wl_surface.interface.version=7
+M.wl_surface.interface.method_count=12
+M.wl_surface.interface.methods=wl_surface_requests
+M.wl_surface.interface.event_count=4
+M.wl_surface.interface.events=wl_surface_events
 local wl_seat_requests=ffi.new("struct wl_message[4]",{
 {"get_pointer",
 "n",
@@ -2753,12 +2754,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_seat.interface[0].name=wl_seat
-M.wl_seat.interface[0].version=10
-M.wl_seat.interface[0].method_count=4
-M.wl_seat.interface[0].methods=wl_seat_requests
-M.wl_seat.interface[0].event_count=2
-M.wl_seat.interface[0].events=wl_seat_events
+M.wl_seat.interface.name="wl_seat"
+M.wl_seat.interface.version=10
+M.wl_seat.interface.method_count=4
+M.wl_seat.interface.methods=wl_seat_requests
+M.wl_seat.interface.event_count=2
+M.wl_seat.interface.events=wl_seat_events
 local wl_pointer_requests=ffi.new("struct wl_message[2]",{
 {"set_cursor",
 "u?oii",
@@ -2815,12 +2816,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_pointer.interface[0].name=wl_pointer
-M.wl_pointer.interface[0].version=10
-M.wl_pointer.interface[0].method_count=2
-M.wl_pointer.interface[0].methods=wl_pointer_requests
-M.wl_pointer.interface[0].event_count=11
-M.wl_pointer.interface[0].events=wl_pointer_events
+M.wl_pointer.interface.name="wl_pointer"
+M.wl_pointer.interface.version=10
+M.wl_pointer.interface.method_count=2
+M.wl_pointer.interface.methods=wl_pointer_requests
+M.wl_pointer.interface.event_count=11
+M.wl_pointer.interface.events=wl_pointer_events
 local wl_keyboard_requests=ffi.new("struct wl_message[1]",{
 {"release",
 "3",
@@ -2853,12 +2854,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_keyboard.interface[0].name=wl_keyboard
-M.wl_keyboard.interface[0].version=10
-M.wl_keyboard.interface[0].method_count=1
-M.wl_keyboard.interface[0].methods=wl_keyboard_requests
-M.wl_keyboard.interface[0].event_count=6
-M.wl_keyboard.interface[0].events=wl_keyboard_events
+M.wl_keyboard.interface.name="wl_keyboard"
+M.wl_keyboard.interface.version=10
+M.wl_keyboard.interface.method_count=1
+M.wl_keyboard.interface.methods=wl_keyboard_requests
+M.wl_keyboard.interface.event_count=6
+M.wl_keyboard.interface.events=wl_keyboard_events
 local wl_touch_requests=ffi.new("struct wl_message[1]",{
 {"release",
 "3",
@@ -2895,12 +2896,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_touch.interface[0].name=wl_touch
-M.wl_touch.interface[0].version=10
-M.wl_touch.interface[0].method_count=1
-M.wl_touch.interface[0].methods=wl_touch_requests
-M.wl_touch.interface[0].event_count=7
-M.wl_touch.interface[0].events=wl_touch_events
+M.wl_touch.interface.name="wl_touch"
+M.wl_touch.interface.version=10
+M.wl_touch.interface.method_count=1
+M.wl_touch.interface.methods=wl_touch_requests
+M.wl_touch.interface.event_count=7
+M.wl_touch.interface.events=wl_touch_events
 local wl_output_requests=ffi.new("struct wl_message[1]",{
 {"release",
 "3",
@@ -2933,12 +2934,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_output.interface[0].name=wl_output
-M.wl_output.interface[0].version=4
-M.wl_output.interface[0].method_count=1
-M.wl_output.interface[0].methods=wl_output_requests
-M.wl_output.interface[0].event_count=6
-M.wl_output.interface[0].events=wl_output_events
+M.wl_output.interface.name="wl_output"
+M.wl_output.interface.version=4
+M.wl_output.interface.method_count=1
+M.wl_output.interface.methods=wl_output_requests
+M.wl_output.interface.event_count=6
+M.wl_output.interface.events=wl_output_events
 local wl_region_requests=ffi.new("struct wl_message[3]",{
 {"destroy",
 "",
@@ -2953,12 +2954,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_region.interface[0].name=wl_region
-M.wl_region.interface[0].version=7
-M.wl_region.interface[0].method_count=3
-M.wl_region.interface[0].methods=wl_region_requests
-M.wl_region.interface[0].event_count=0
-M.wl_region.interface[0].events=wl_region_events
+M.wl_region.interface.name="wl_region"
+M.wl_region.interface.version=7
+M.wl_region.interface.method_count=3
+M.wl_region.interface.methods=wl_region_requests
+M.wl_region.interface.event_count=0
+M.wl_region.interface.events=nil
 local wl_subcompositor_requests=ffi.new("struct wl_message[2]",{
 {"destroy",
 "",
@@ -2969,12 +2970,12 @@ args_types_nil
 args_types_wl_subcompositor_get_subsurface
 },
 })
-M.wl_subcompositor.interface[0].name=wl_subcompositor
-M.wl_subcompositor.interface[0].version=1
-M.wl_subcompositor.interface[0].method_count=2
-M.wl_subcompositor.interface[0].methods=wl_subcompositor_requests
-M.wl_subcompositor.interface[0].event_count=0
-M.wl_subcompositor.interface[0].events=wl_subcompositor_events
+M.wl_subcompositor.interface.name="wl_subcompositor"
+M.wl_subcompositor.interface.version=1
+M.wl_subcompositor.interface.method_count=2
+M.wl_subcompositor.interface.methods=wl_subcompositor_requests
+M.wl_subcompositor.interface.event_count=0
+M.wl_subcompositor.interface.events=nil
 local wl_subsurface_requests=ffi.new("struct wl_message[6]",{
 {"destroy",
 "",
@@ -3001,12 +3002,12 @@ args_types_nil
 args_types_nil
 },
 })
-M.wl_subsurface.interface[0].name=wl_subsurface
-M.wl_subsurface.interface[0].version=1
-M.wl_subsurface.interface[0].method_count=6
-M.wl_subsurface.interface[0].methods=wl_subsurface_requests
-M.wl_subsurface.interface[0].event_count=0
-M.wl_subsurface.interface[0].events=wl_subsurface_events
+M.wl_subsurface.interface.name="wl_subsurface"
+M.wl_subsurface.interface.version=1
+M.wl_subsurface.interface.method_count=6
+M.wl_subsurface.interface.methods=wl_subsurface_requests
+M.wl_subsurface.interface.event_count=0
+M.wl_subsurface.interface.events=nil
 local wl_fixes_requests=ffi.new("struct wl_message[3]",{
 {"destroy",
 "",
@@ -3021,10 +3022,10 @@ args_types_wl_fixes_destroy_registry
 args_types_wl_fixes_ack_global_remove
 },
 })
-M.wl_fixes.interface[0].name=wl_fixes
-M.wl_fixes.interface[0].version=2
-M.wl_fixes.interface[0].method_count=3
-M.wl_fixes.interface[0].methods=wl_fixes_requests
-M.wl_fixes.interface[0].event_count=0
-M.wl_fixes.interface[0].events=wl_fixes_events
+M.wl_fixes.interface.name="wl_fixes"
+M.wl_fixes.interface.version=2
+M.wl_fixes.interface.method_count=3
+M.wl_fixes.interface.methods=wl_fixes_requests
+M.wl_fixes.interface.event_count=0
+M.wl_fixes.interface.events=nil
 return M
