@@ -249,7 +249,7 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       table.insert(out,(',%d'):format(r_id_plus_1-1))
       if ret then
         if ret.interface then
-          table.insert(out,(',M.%s.interface'):format(ret.interface))
+          table.insert(out,(',M.%s.interface_ptr'):format(ret.interface))
         else
           table.insert(out,',interface')
         end
@@ -259,7 +259,7 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       if ret and not ret.interface then
         table.insert(out,', version')
       else
-        table.insert(out,(', wl_proxy_get_version(ffi.cast("struct wl_proxy *", %s))')
+        table.insert(out,(', wayland.wl_proxy_get_version(ffi.cast("struct wl_proxy *", %s))')
         :format(i.name))
       end
       if r.destructor then
@@ -268,13 +268,21 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
         table.insert(out,', 0')
       end
       for _,a in ipairs(r.arg) do
-        if a.type=='NEW_ID' then
+        if a.type=='new_id' then
           if not a.interface then
-            table.insert(out,', interface->name, version')
+            table.insert(out,', ffi.cast("const char*",interface[0].name),ffi.cast("uint32_t",version)')
           end
-          table.insert(out,', nil')
+          table.insert(out,', ffi.cast("void*",nil)')
         else
-          table.insert(out,(', %s'):format(a.name))
+          table.insert(out,(', ffi.cast(%q,%s)'):format(({
+            int='int32_t',
+            fd='int32_t',
+            uint='uint32_t',
+            fixed='wl_fixed_t',
+            string='const char*',
+            object=('struct %s *'):format(a.interface or ''),
+            array='struct wl_array *',
+          })[a.type],a.name))
         end
       end
       table.insert(out,')')
@@ -283,10 +291,10 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       end
       table.insert(out,'end,')
     end
-    table.insert(out,'interface=ffi.new("struct wl_interface[1]")')
+    table.insert(out,'interface_ptr=ffi.new("struct wl_interface[1]")')
     table.insert(out,'}')
-    table.insert(out,('M.interface_ptr=ffi.cast("struct wl_interface*",M.%s.interface)')
-    :format(i.name))
+    table.insert(out,('M.%s.interface=M.%s.interface_ptr[0]')
+    :format(i.name,i.name))
   end
   local interfaces={}
   for _, i in ipairs(protocol.interface) do
@@ -423,14 +431,14 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       end
       table.insert(out,'},')
     end
-    table.insert(out,('M.%s.interface[0].name=%s'):format(i.name,i.name))
-    table.insert(out,('M.%s.interface[0].version=%s'):format(i.name,i.version))
-    table.insert(out,('M.%s.interface[0].method_count=%d'):format(i.name,#i.request))
-    table.insert(out,('M.%s.interface[0].methods=%s')
+    table.insert(out,('M.%s.interface.name=%q'):format(i.name,i.name))
+    table.insert(out,('M.%s.interface.version=%d'):format(i.name,i.version))
+    table.insert(out,('M.%s.interface.method_count=%d'):format(i.name,#i.request))
+    table.insert(out,('M.%s.interface.methods=%s')
     :format(i.name,#i.request>0 and i.name..'_requests' or 'nil'))
-    table.insert(out,('M.%s.interface[0].event_count=%d'):format(i.name,#i.event))
-    table.insert(out,('M.%s.interface[0].events=%s')
-    :format(i.name,#i.request>0 and i.name..'_events' or 'nil'))
+    table.insert(out,('M.%s.interface.event_count=%d'):format(i.name,#i.event))
+    table.insert(out,('M.%s.interface.events=%s')
+      :format(i.name,#i.event>0 and i.name..'_events' or 'nil'))
   end
   table.insert(out,'return M')
 
