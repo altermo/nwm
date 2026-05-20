@@ -8,6 +8,7 @@ local ffi=require"ffi"
 local wayland=require"nrwm.c.wayland"
 local M={}
 ffi.cdef[=[
+struct river_window_manager_v1;
 struct river_window_manager_v1_listener {
 void (*unavailable)(
 void *data,
@@ -152,6 +153,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.river_window_manager_v1.interface=M.river_window_manager_v1.interface_ptr[0]
 ffi.cdef[=[
+struct river_window_v1;
 struct river_window_v1_listener {
 void (*closed)(
 void *data,
@@ -587,6 +589,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.river_window_v1.interface=M.river_window_v1.interface_ptr[0]
+ffi.cdef[=[
+struct river_decoration_v1;
+]=]
 M.river_decoration_v1={
 error={
 no_commit = 0,
@@ -640,6 +645,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.river_decoration_v1.interface=M.river_decoration_v1.interface_ptr[0]
+ffi.cdef[=[
+struct river_shell_surface_v1;
+]=]
 M.river_shell_surface_v1={
 error={
 node_exists = 0,
@@ -693,6 +701,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.river_shell_surface_v1.interface=M.river_shell_surface_v1.interface_ptr[0]
+ffi.cdef[=[
+struct river_node_v1;
+]=]
 M.river_node_v1={
 set_user_data=function(river_node_v1,user_data)
 wayland.wl_proxy_set_user_data(
@@ -778,6 +789,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.river_node_v1.interface=M.river_node_v1.interface_ptr[0]
 ffi.cdef[=[
+struct river_output_v1;
 struct river_output_v1_listener {
 void (*removed)(
 void *data,
@@ -853,6 +865,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.river_output_v1.interface=M.river_output_v1.interface_ptr[0]
 ffi.cdef[=[
+struct river_seat_v1;
 struct river_seat_v1_listener {
 void (*removed)(
 void *data,
@@ -1040,6 +1053,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.river_seat_v1.interface=M.river_seat_v1.interface_ptr[0]
 ffi.cdef[=[
+struct river_pointer_binding_v1;
 struct river_pointer_binding_v1_listener {
 void (*pressed)(
 void *data,

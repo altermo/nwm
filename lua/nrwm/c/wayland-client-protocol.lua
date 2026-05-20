@@ -8,6 +8,7 @@ local ffi=require"ffi"
 local wayland=require"nrwm.c.wayland"
 local M={}
 ffi.cdef[=[
+struct wl_display;
 struct wl_display_listener {
 void (*error)(
 void *data,
@@ -77,6 +78,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_display.interface=M.wl_display.interface_ptr[0]
 ffi.cdef[=[
+struct wl_registry;
 struct wl_registry_listener {
 void (*global)(
 void *data,
@@ -135,6 +137,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_registry.interface=M.wl_registry.interface_ptr[0]
 ffi.cdef[=[
+struct wl_callback;
 struct wl_callback_listener {
 void (*done)(
 void *data,
@@ -168,6 +171,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_callback.interface=M.wl_callback.interface_ptr[0]
+ffi.cdef[=[
+struct wl_compositor;
+]=]
 M.wl_compositor={
 set_user_data=function(wl_compositor,user_data)
 wayland.wl_proxy_set_user_data(
@@ -220,6 +226,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_compositor.interface=M.wl_compositor.interface_ptr[0]
+ffi.cdef[=[
+struct wl_shm_pool;
+]=]
 M.wl_shm_pool={
 set_user_data=function(wl_shm_pool,user_data)
 wayland.wl_proxy_set_user_data(
@@ -282,6 +291,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_shm_pool.interface=M.wl_shm_pool.interface_ptr[0]
 ffi.cdef[=[
+struct wl_shm;
 struct wl_shm_listener {
 void (*format)(
 void *data,
@@ -489,6 +499,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_shm.interface=M.wl_shm.interface_ptr[0]
 ffi.cdef[=[
+struct wl_buffer;
 struct wl_buffer_listener {
 void (*release)(
 void *data,
@@ -528,6 +539,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_buffer.interface=M.wl_buffer.interface_ptr[0]
 ffi.cdef[=[
+struct wl_data_offer;
 struct wl_data_offer_listener {
 void (*offer)(
 void *data,
@@ -636,6 +648,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_data_offer.interface=M.wl_data_offer.interface_ptr[0]
 ffi.cdef[=[
+struct wl_data_source;
 struct wl_data_source_listener {
 void (*target)(
 void *data,
@@ -727,6 +740,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_data_source.interface=M.wl_data_source.interface_ptr[0]
 ffi.cdef[=[
+struct wl_data_device;
 struct wl_data_device_listener {
 void (*data_offer)(
 void *data,
@@ -831,6 +845,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_data_device.interface=M.wl_data_device.interface_ptr[0]
+ffi.cdef[=[
+struct wl_data_device_manager;
+]=]
 M.wl_data_device_manager={
 dnd_action={
 none = 0,
@@ -891,6 +908,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_data_device_manager.interface=M.wl_data_device_manager.interface_ptr[0]
+ffi.cdef[=[
+struct wl_shell;
+]=]
 M.wl_shell={
 error={
 role = 0,
@@ -930,6 +950,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_shell.interface=M.wl_shell.interface_ptr[0]
 ffi.cdef[=[
+struct wl_shell_surface;
 struct wl_shell_surface_listener {
 void (*ping)(
 void *data,
@@ -1139,6 +1160,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_shell_surface.interface=M.wl_shell_surface.interface_ptr[0]
 ffi.cdef[=[
+struct wl_surface;
 struct wl_surface_listener {
 void (*enter)(
 void *data,
@@ -1352,6 +1374,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_surface.interface=M.wl_surface.interface_ptr[0]
 ffi.cdef[=[
+struct wl_seat;
 struct wl_seat_listener {
 void (*capabilities)(
 void *data,
@@ -1444,6 +1467,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_seat.interface=M.wl_seat.interface_ptr[0]
 ffi.cdef[=[
+struct wl_pointer;
 struct wl_pointer_listener {
 void (*enter)(
 void *data,
@@ -1587,6 +1611,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_pointer.interface=M.wl_pointer.interface_ptr[0]
 ffi.cdef[=[
+struct wl_keyboard;
 struct wl_keyboard_listener {
 void (*keymap)(
 void *data,
@@ -1674,6 +1699,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_keyboard.interface=M.wl_keyboard.interface_ptr[0]
 ffi.cdef[=[
+struct wl_touch;
 struct wl_touch_listener {
 void (*down)(
 void *data,
@@ -1755,6 +1781,7 @@ interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_touch.interface=M.wl_touch.interface_ptr[0]
 ffi.cdef[=[
+struct wl_output;
 struct wl_output_listener {
 void (*geometry)(
 void *data,
@@ -1850,6 +1877,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_output.interface=M.wl_output.interface_ptr[0]
+ffi.cdef[=[
+struct wl_region;
+]=]
 M.wl_region={
 set_user_data=function(wl_region,user_data)
 wayland.wl_proxy_set_user_data(
@@ -1912,6 +1942,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_region.interface=M.wl_region.interface_ptr[0]
+ffi.cdef[=[
+struct wl_subcompositor;
+]=]
 M.wl_subcompositor={
 error={
 bad_surface = 0,
@@ -1959,6 +1992,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_subcompositor.interface=M.wl_subcompositor.interface_ptr[0]
+ffi.cdef[=[
+struct wl_subsurface;
+]=]
 M.wl_subsurface={
 error={
 bad_surface = 0,
@@ -2046,6 +2082,9 @@ end,
 interface_ptr=ffi.new("struct wl_interface[1]")
 }
 M.wl_subsurface.interface=M.wl_subsurface.interface_ptr[0]
+ffi.cdef[=[
+struct wl_fixes;
+]=]
 M.wl_fixes={
 error={
 invalid_ack_remove = 0,
