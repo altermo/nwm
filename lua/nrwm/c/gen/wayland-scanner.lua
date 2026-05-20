@@ -358,6 +358,7 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
     end
     table.insert(out,'}')
   end
+  local to_gc_mark={}
   for iname,arg_types2 in vim.spairs(arg_types) do
     for mname,arg_type in vim.spairs(arg_types2) do
       if arg_type~=true then
@@ -375,11 +376,13 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
           end
         end
         table.insert(out,'})')
+        to_gc_mark[('args_types_%s_%s'):format(iname,mname)]=true
       end
     end
   end
   table.insert(out,('local args_types_nil=ffi.new("const struct wl_interface*[%d]",{')
   :format(longets_null))
+  to_gc_mark['args_types_nil']=true
   for _=1,longets_null do
     table.insert(out,'nil,')
   end
@@ -389,6 +392,7 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       if #i.request>0 then
         table.insert(out,('local %s_requests=ffi.new("struct wl_message[%d]",{')
         :format(i.name,#i.request))
+        to_gc_mark[i.name..'_requests']=true
         for _,r in ipairs(i.request) do
           coroutine.yield(r)
         end
@@ -397,6 +401,7 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       if #i.event>0 then
         table.insert(out,('local %s_events=ffi.new("struct wl_message[%d]",{')
         :format(i.name,#i.event))
+        to_gc_mark[i.name..'_events']=true
         for _,e in ipairs(i.event) do
           coroutine.yield(e)
         end
@@ -404,6 +409,7 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       end
     end) do
       table.insert(out,('{%q,'):format(m.name))
+      to_gc_mark[('%q'):format(m.name)]=true
       local sign=''
       if m.since>1 then
         sign=sign..m.since
@@ -424,6 +430,7 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
           })[a.type]
       end
       table.insert(out,('%q,'):format(sign))
+      to_gc_mark[('%q'):format(sign)]=true
       if arg_types[i.name][m.name]==true then
         table.insert(out,'args_types_nil')
       else
@@ -432,6 +439,7 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
       table.insert(out,'},')
     end
     table.insert(out,('M.%s.interface.name=%q'):format(i.name,i.name))
+    to_gc_mark[('%q'):format(i.name)]=true
     table.insert(out,('M.%s.interface.version=%d'):format(i.name,i.version))
     table.insert(out,('M.%s.interface.method_count=%d'):format(i.name,#i.request))
     table.insert(out,('M.%s.interface.methods=%s')
@@ -439,6 +447,13 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
     table.insert(out,('M.%s.interface.event_count=%d'):format(i.name,#i.event))
     table.insert(out,('M.%s.interface.events=%s')
       :format(i.name,#i.event>0 and i.name..'_events' or 'nil'))
+  end
+  if next(to_gc_mark) then
+    table.insert(out,'do local gc_mark={')
+    for k in vim.spairs(to_gc_mark) do
+      table.insert(out,('%s,'):format(k))
+    end
+    table.insert(out,'} M.__gc_mark=function () return gc_mark end end')
   end
   table.insert(out,'return M')
 
