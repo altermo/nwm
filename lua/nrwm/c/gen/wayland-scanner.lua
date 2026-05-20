@@ -158,8 +158,9 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
   table.insert(out,'local wayland=require"nrwm.c.wayland"')
   table.insert(out,'local M={}')
   for _,i in ipairs(protocol.interface) do
+    table.insert(out,'ffi.cdef[=[')
+    table.insert(out,('struct %s;'):format(i.name))
     if #i.event>0 then
-      table.insert(out,'ffi.cdef[=[')
       table.insert(out,('struct %s_listener {'):format(i.name))
       for _,event in ipairs(i.event) do
         table.insert(out,('void (*%s)('):format(event.name))
@@ -180,8 +181,8 @@ To regenerate this file, run `nvim -l gen/wayland-scanner.lua`
         table.insert(out,');')
       end
       table.insert(out,'};')
-      table.insert(out,']=]')
     end
+    table.insert(out,']=]')
     table.insert(out,('M.%s={'):format(i.name))
     if #i.event>0 then
       table.insert(out,('add_listener=function(%s,listener,data)'):format(i.name))
