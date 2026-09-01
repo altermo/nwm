@@ -196,6 +196,14 @@ To regenerate this file, run `nvim -l gen/lib.lua`
     table.insert(source,('return ffi.load"%s" --[[@as table]]'):format(libname))
     vim.fn.writefile(source,outfile)
 end
+gen_lib('clib.lua',{
+  '/usr/include/sys/ioctl.h',
+  '/usr/include/asm-generic/ioctls.h',
+},'c',{
+  'struct winsize',
+  'TIOCGWINSZ',
+  'ioctl',
+})
 gen_lib('wayland.lua',{
     '/usr/include/wayland-client-core.h'
 },'wayland-client',{
