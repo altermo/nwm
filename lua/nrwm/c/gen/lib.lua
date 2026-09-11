@@ -216,5 +216,13 @@ gen_lib('wayland.lua',{
       'wl_proxy_get_version',
       'wl_proxy_destroy',
       'wl_proxy_marshal_flags',
+      'wl_proxy_add_listener',
       'WL_MARSHAL_FLAG_DESTROY',
+      'wl_display_connect',
+      'wl_display_roundtrip',
+      'wl_display_dispatch_pending',
+      'wl_display_prepare_read',
+      'wl_display_flush',
+      'wl_display_cancel_read',
+      'wl_display_read_events',
 })

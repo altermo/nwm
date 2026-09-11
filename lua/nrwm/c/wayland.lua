@@ -21,6 +21,15 @@ typedef __uint32_t uint32_t;;
 uint32_t wl_proxy_get_version(struct wl_proxy *proxy);;
 void wl_proxy_destroy(struct wl_proxy *proxy);;
 struct wl_proxy * wl_proxy_marshal_flags(struct wl_proxy *proxy, uint32_t opcode, const struct wl_interface *interface, uint32_t version, uint32_t flags, ...);;
+int wl_proxy_add_listener(struct wl_proxy *proxy, void (**implementation)(void), void *data);;
 enum {WL_MARSHAL_FLAG_DESTROY=1};
+struct wl_display;
+struct wl_display * wl_display_connect(const char *name);;
+int wl_display_roundtrip(struct wl_display *display);;
+int wl_display_dispatch_pending(struct wl_display *display);;
+int wl_display_prepare_read(struct wl_display *display);;
+int wl_display_flush(struct wl_display *display);;
+void wl_display_cancel_read(struct wl_display *display);;
+int wl_display_read_events(struct wl_display *display);;
 ]=]
 return ffi.load"wayland-client" --[[@as table]]
