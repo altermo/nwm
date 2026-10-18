@@ -17,6 +17,8 @@ local state={
     outputs={},
     windows={},
     seats={},
+
+    possible_pids={},
 }
 state=nil
 
@@ -41,6 +43,16 @@ local function noop() end
 
 local function win_update(id)
     local window=get(state.windows,id)
+    if window.new then
+        local buf=vim.api.nvim_create_buf(true,true)
+        vim.api.nvim_open_term(buf,{})
+        vim.api.nvim_buf_set_name(buf,('nrwm://%p'):format(id))
+        window.buf=buf
+
+        vim.cmd.vsplit()
+        vim.api.nvim_set_current_buf(buf)
+        window.new=false
+    end
     if not window.buf then
         return
     end
@@ -125,26 +137,16 @@ local window_listener=ffi.new('struct river_window_v1_listener[1]',{{
     unreliable_pid=function(id,_,win_pid)
         local window=get(state.windows,id)
         if not state.top_window then
-            local pid=vim.uv.os_getpid()
-            while pid and pid~=0 do
+            for _,pid in ipairs(state.possible_pids) do
                 if win_pid==pid then
                     state.top_window=window
                     return
                 end
-                pid=vim.api.nvim_get_proc(pid).ppid
             end
         end
 
-        local buf=vim.api.nvim_create_buf(true,true)
-        vim.api.nvim_open_term(buf,{})
-        vim.api.nvim_buf_set_name(buf,('nrwm://%p'):format(id))
-        window.buf=buf
-
-        vim.cmd.vsplit()
-        vim.api.nvim_set_current_buf(buf)
-
+        window.new=true
         window.hide=true
-        win_update(id)
     end,
 }})
 
@@ -295,7 +297,9 @@ local registry_listener=ffi.new('struct wl_registry_listener[1]',{{
 local function wm_step()
     local display=get_display()
     if not display then return true end
-    win_update_all()
+    if not vim.in_fast_event() then
+        win_update_all()
+    end
     if wayland.wl_display_prepare_read(display)~=-1 then
         if wayland.wl_display_flush(display)==-1 then
             wayland.wl_display_cancel_read(display)
@@ -326,24 +330,52 @@ local function wm_start()
 
     rwm.river_window_manager_v1.add_listener(window_manager_v1,wm_listener,nil)
 
+    local possible_pids={}
+    do
+        local pid=vim.uv.os_getpid()
+        while pid and pid~=0 do
+            table.insert(possible_pids,pid)
+            pid=vim.api.nvim_get_proc(pid).ppid
+        end
+    end
+
     state={
         display=display,
         windows={},
         seats={},
         outputs={},
         window_manager_ptr=window_manager_v1,
+        possible_pids=possible_pids,
     }
 end
 
 function M.start()
+
     wm_start()
-    local function t()
+    local timer=assert(vim.uv.new_timer())
+    local stop=false
+    local scheduled=false
+    timer:start(10,10,function()
+        if stop then
+            timer:close()
+        end
+        stop=true
+        if not scheduled then
+            scheduled=true
+            vim.schedule(function()
+                stop=true
+                if wm_step() then
+                    return
+                end
+                stop=false
+                scheduled=false
+            end)
+        end
         if wm_step() then
             return
         end
-        vim.defer_fn(t,1)
-    end
-    t()
+        stop=false
+    end)
 end
 
 return M
