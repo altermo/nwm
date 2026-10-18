@@ -182,7 +182,7 @@ local wm_listener=ffi.new('struct river_window_manager_v1_listener[1]',{{
     manage_start=function()
         for _,window in pairs(state.windows) do
             if window.to_close then
-                river_window_v1.close(window)
+                rwm.river_window_v1.close(window)
             end
         end
 
