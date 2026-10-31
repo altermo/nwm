@@ -102,8 +102,8 @@ local function win_update(id)
 
     local sz=ffi.new'struct winsize[1]'
     clib.ioctl(0,clib.TIOCGWINSZ,sz)
-    local xpx=math.floor(sz[0].ws_xpixel/vim.o.columns)
-    local ypx=math.floor(sz[0].ws_ypixel/vim.o.lines)
+    local xpx=math.floor(sz[0].ws_xpixel/sz[0].ws_col)
+    local ypx=math.floor(sz[0].ws_ypixel/sz[0].ws_row)
     local height=vim.api.nvim_win_get_height(vwin)
     local width=vim.api.nvim_win_get_width(vwin)
     local row,col=unpack(vim.api.nvim_win_get_position(vwin))
