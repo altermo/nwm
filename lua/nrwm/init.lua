@@ -43,6 +43,13 @@ local function noop() end
 
 local function win_update(id)
     local window=get(state.windows,id)
+    if window.removed then
+        if window.buf then
+            pcall(vim.api.nvim_buf_delete,window.buf,{force=true})
+            window.buf=nil
+        end
+        return
+    end
     if window.new then
         local buf=vim.api.nvim_create_buf(true,true)
         vim.api.nvim_open_term(buf,{})
@@ -51,14 +58,14 @@ local function win_update(id)
 
         vim.cmd.vsplit()
         vim.api.nvim_set_current_buf(buf)
-        window.new=false
+        window.new=nil
     end
     if not window.buf then
         return
     end
     local buf=window.buf
     if not vim.api.nvim_buf_is_valid(buf) then
-        window.to_close=true
+        window.request_closing=true
         window.buf=nil
         rwm.river_window_manager_v1.manage_dirty(state.window_manager_ptr)
         return
@@ -128,7 +135,10 @@ local function win_update_all()
 end
 
 local window_listener=ffi.new('struct river_window_v1_listener[1]',{{
-    closed=noop,dimensions_hint=noop,dimensions=noop,app_id=noop,
+    closed=function(id)
+        local window=get(state.windows,id)
+        window.removed=true
+    end,dimensions_hint=noop,dimensions=noop,app_id=noop,
     title=noop,parent=noop,decoration_hint=noop,pointer_move_requested=noop,
     pointer_resize_requested=noop,show_window_menu_requested=noop,
     maximize_requested=noop,unmaximize_requested=noop,fullscreen_requested=noop,
@@ -181,18 +191,16 @@ local wm_listener=ffi.new('struct river_window_manager_v1_listener[1]',{{
     end,
     manage_start=function()
         for _,window in pairs(state.windows) do
-            if window.to_close then
-                rwm.river_window_v1.close(window)
+            if window.buf==nil and window.removed then
+                rwm.river_window_v1.destroy(window.ptr)
+                remove(state.windows,window)
+            elseif window.request_closing then
+                rwm.river_window_v1.close(window.ptr)
+                window.request_closing=nil
             end
         end
-
         for _,output in pairs(state.outputs) do
             if output.removed then
-                TODO()
-            end
-        end
-        for _,window in pairs(state.windows) do
-            if window.removed then
                 TODO()
             end
         end
