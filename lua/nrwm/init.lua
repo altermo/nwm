@@ -225,8 +225,8 @@ local wm_listener=ffi.new('struct river_window_manager_v1_listener[1]',{{
             state.main_output=output
         end
         if state.main_output and state.top_window then
-            state.top_window.x=state.main_output.x
-            state.top_window.y=state.main_output.y
+            state.top_window.x=0
+            state.top_window.y=0
             state.top_window.width=state.main_output.width
             state.top_window.height=state.main_output.height
         end
@@ -251,8 +251,11 @@ local wm_listener=ffi.new('struct river_window_manager_v1_listener[1]',{{
     render_start=function()
         for _,window in pairs(state.windows) do
             if window.x and window.y then
-                --TODO: relativize to main_output
-                rwm.river_node_v1.set_position(window.node,window.x,window.y)
+                local dx,dy=0,0
+                if state.main_output then
+                    dx,dy=state.main_output.x,state.main_output.y
+                end
+                rwm.river_node_v1.set_position(window.node,window.x+dx,window.y+dy)
             end
             if window.width and window.height then
                 rwm.river_window_v1.set_clip_box(window.ptr,0,0,window.width,window.height)
