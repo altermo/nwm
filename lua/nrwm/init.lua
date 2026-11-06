@@ -161,7 +161,10 @@ local window_listener=ffi.new('struct river_window_v1_listener[1]',{{
 }})
 
 local output_listener=ffi.new('struct river_output_v1_listener[1]',{{
-    removed=noop,wl_output=noop,
+    removed=function()
+        local output=get(state.outputs,id)
+        output.removed=true
+    end,wl_output=noop,
     position=function(id,_,x,y)
         local output=get(state.outputs,id)
         output.x=x
@@ -175,7 +178,10 @@ local output_listener=ffi.new('struct river_output_v1_listener[1]',{{
 }})
 
 local seat_listener=ffi.new('struct river_seat_v1_listener[1]',{{
-    removed=noop,wl_seat=noop,pointer_enter=noop,pointer_leave=noop,
+    removed=function(id)
+        local seat=get(state.seats,id)
+        seat.removed=true
+    end,wl_seat=noop,pointer_enter=noop,pointer_leave=noop,
     window_interaction=noop,shell_surface_interaction=noop,op_delta=noop,
     op_release=noop,pointer_position=noop,
 }})
@@ -201,12 +207,14 @@ local wm_listener=ffi.new('struct river_window_manager_v1_listener[1]',{{
         end
         for _,output in pairs(state.outputs) do
             if output.removed then
-                TODO()
+                rwm.river_output_v1.destroy(outputs.ptr)
+                remove(state.outputs,output)
             end
         end
         for _,seat in pairs(state.seats) do
             if seat.removed then
-                TODO()
+                rwm.river_seat_v1.destroy(seat.ptr)
+                remove(state.seats,seat)
             end
         end
 
